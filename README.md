@@ -126,13 +126,26 @@ Although there are many `C`/`C++` compilers out there, their options/flags are s
 
 ## The usual and most direct compilation process (without build automation tools)
 
-For 99.9999% of cases, to get the compilation done, it is enough to run
+For simpler cases, to get the compilation done, it is enough to run
   ```
   ❯ gcc source1.c source2.c main.c -o straight-forward-program
   ❯ ./straight-forward-program
   Hello, World!
 ```
 where `source1.c`, `source2.c`... are opitional C/C++ source codes from which `main.c` depends on.
+
+For more elaborated scenarios, you may want to create object files separately:
+
+```
+g++ -c -g main.cpp main.o
+g++ -c -g interface.cpp interface.o
+g++ -c -g operations.cpp operations.o
+```
+
+and then, link them in a separated step
+```
+g++ -fdiagnostics-color=always -O0 -g interface.o operations.o main.o -o main
+```
 
 Nevertheless, under the hood, the preprocessing, compiling, assembling, and linking occurr silently. Let us break each step down.
 
