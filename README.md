@@ -404,7 +404,7 @@ Using these types provides clarity and consistency, especially when working on p
     </td>
     <td>${\color{violet}The \space lvalue \space referred \space the \space lvalue}$
         ${\color{violet}reference \space ref \space \color{green}is \space set \space to \color{cyan} \space i \space (or \space 5)}$</td>
-    <td>This syntax is used to assing by reference. This process is equivalent to the pointer-based approach <code>*pi = i;</code> or <code>*pi = 5;</code> (that is, dereference). You can assign by reference both rvalue and lvalue.</td>
+    <td>This syntax is used to **assing by reference**. This process is equivalent to the C-style pointer-based approach <code>*pi = i;</code> or <code>*pi = 5;</code> (that is, dereference). You can assign by reference both rvalue and lvalue.</td>
 </tr>
 <tr>
     <td>${\color{blue} \space int\color{yellow}\&\& \space \color{violet}ref \color{green}= \color{cyan}5}$</td>
