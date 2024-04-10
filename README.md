@@ -45,7 +45,7 @@ Although there are many `C`/`C++` compilers out there, their options/flags are s
 </tr>
 <tr>
   <td><code>-O0</code>, <code>-O1</code>, <code>-O2</code>, <code>-O3</code>, <code>-Os</code></td>
-  <td>Optimization level, where <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, and <code>s</code> stand for "no optimization", "basic optimization", "moderate optmization", "high-level optimization", and "code size optimization" (which means prioritizing the reduction of the size of the generated machine code at the expense of some potential runtime performance), respectively. <b>In other to debug the code, choose the no optmized flag, that is,</b> <code>-O0</code>.</td>
+  <td>Optimization level, where <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, and <code>s</code> stand for "no optimization", "basic optimization", "moderate optmization", "high-level optimization", and "code size optimization" (which means prioritizing the reduction of the size of the generated machine code at the expense of some potential runtime performance), respectively. <b>In other to debug the code, <a href="https://stackoverflow.com/questions/8064911/gdb-is-jumping-over-lines/8067626#8067626">choose the no optmized flag</a>, that is,</b> <code>-O0</code>.</td>
 </tr>
 <tr>
   <td><code>-g</code></td>
@@ -128,12 +128,13 @@ Although there are many `C`/`C++` compilers out there, their options/flags are s
 
 For 99.9999% of cases, to get the compilation done, it is enough to run
   ```
-  ❯ gcc main.c -o straight-forward-program
+  ❯ gcc source1.c source2.c main.c -o straight-forward-program
   ❯ ./straight-forward-program
   Hello, World!
 ```
+where `source1.c`, `source2.c`... are opitional C/C++ source codes from which `main.c` depends on.
 
-However, under the hood, the preprocessing, compiling, assembling, and linking have occurred silently. Let us break each step down.
+Nevertheless, under the hood, the preprocessing, compiling, assembling, and linking occurr silently. Let us break each step down.
 
 ---
 
