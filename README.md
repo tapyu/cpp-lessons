@@ -45,7 +45,7 @@ Although there are many `C`/`C++` compilers out there, their options/flags are s
 </tr>
 <tr>
   <td><code>-O0</code>, <code>-O1</code>, <code>-O2</code>, <code>-O3</code>, <code>-Os</code></td>
-  <td>Optimization level, where <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, and <code>s</code> stand for "no optimization", "basic optimization", "moderate optmization", "high-level optimization", and "code size optimization" (which means prioritizing the reduction of the size of the generated machine code at the expense of some potential runtime performance), respectively.</td>
+  <td>Optimization level, where <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, and <code>s</code> stand for "no optimization", "basic optimization", "moderate optmization", "high-level optimization", and "code size optimization" (which means prioritizing the reduction of the size of the generated machine code at the expense of some potential runtime performance), respectively. <b>In other to debug the code, choose the no optmized flag, that is,</b> <code>-O0</code>.</td>
 </tr>
 <tr>
   <td><code>-g</code></td>
