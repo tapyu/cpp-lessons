@@ -140,8 +140,8 @@ Storage duration in `C` and `C++` refers to the lifetime of variables and memory
 
 There are four primary storage durations:
 
-- *Automatic Storage Duration (ASD)*:
-    - Variables with automatic storage duration are allocated memory on the *stack*.
+- *Automatic Storage Duration (ASD)* -> **stack**:
+    - Variables with automatic storage duration are allocated memory on the **stack**.
     - Memory allocation and deallocation are handled automatically by the language: variables with storage duration are created when their scope is entered and destroyed when their scope is exited.
     - Local variables without the `static` keyword have automatic storage duration a limited lifetime determined by their scope.
     - Examples include local variables and function parameters.
@@ -150,8 +150,8 @@ There are four primary storage durations:
             int x; // Automatic storage duration
         }
     ```
-- *Dynamic Storage Duration (DSD)*:
-    - Variables with dynamic storage duration are allocated on the *heap*. The heap is a region of a computer's memory managed by the operating system or a memory manager. It is used for dynamically allocated memory, which means you can request memory at runtime as needed. When you allocate memory on the heap, you are requesting for a memory that persists beyond the scope of the current function or block. This memory remains allocated until you explicitly release it. Therefore, you are responsible for releasing it when you're done using it.
+- *Dynamic Storage Duration (DSD)* -> **heap**:
+    - Variables with dynamic storage duration are allocated on the **heap**. The heap is a region of a computer's memory managed by the operating system or a memory manager. It is used for dynamically allocated memory, which means you can request memory at runtime as needed. When you allocate memory on the heap, you are requesting for a memory that persists beyond the scope of the current function or block. This memory remains allocated until you explicitly release it. Therefore, you are responsible for releasing it when you're done using it.
     - Memory allocation and deallocation are controlled explicitly by the programmer.
     - The programmer is responsible for releasing memory when it is no longer needed to prevent *memory leaks*.
     - In many programming languages, such as `C` and `C++`, allocating memory on the heap involves using functions like `new` (in `C++`) or `malloc()` (in `C`) to request memory, and using `delete` (in `C++`) or `free()` (in `C`) to release it. You have to be careful to avoid *memory leaks* (not releasing memory) or accessing memory after it has been deallocated (which can lead to undefined behavior).
@@ -161,10 +161,10 @@ There are four primary storage durations:
     free(dynamicVar); // Explicit deallocation
     ```
 
-- *Static Storage Duration*
-    - Variables with static storage duration are created at program startup and persist throughout the program's execution.
+- *Static Storage Duration* ->  **static memory** or **data segment**
+    - Variables with static storage duration are typically allocated at program startup and deallocated when the program terminates.
     - They are typically declared using the `static` keyword or are in the global scope (see `./static-dynamic-memory/static_storage_duration.c`).  In `C` and `C++`, variables declared outside of functions (at file scope) have static storage duration by default.
-    - Static variables have a single instance shared across all calls to the function or scope where they are declared.
+    - These variables retain their values between function calls and are accessible from any part of the program where their scope is visible.
     - Variables with static storage duration are typically allocated in a special region of memory called the "data segment" or "global memory." This region is separate from the stack and the heap. The exact location within the data segment can vary depending on the platform and compiler.
     - They retain their values between function calls.
     ```c
