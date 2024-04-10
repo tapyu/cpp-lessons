@@ -58,7 +58,7 @@ In `C` and `C++`, pointers are variables that store memory addresses as their va
         ${\color{violet}pointed \space by \space parr\color{orange}, \space but \space shifted \space}$
         ${\color{orange}in \space n\times X \space bytes,\space}$
         ${\color{green}is \space set \space to \space \color{cyan}5}$</td>
-    <td>Same shit, but in the other way around. We assume that <code>parr</code> is an <code>int</code> pointer.</td>
+    <td>Same thing, but in the other way around. We assume that <code>parr</code> is an <code>int</code> pointer to the array <code>arr</code>. Note that the net result is perfectly equivalent to <code>arr[n] = 5</code>, but the actual operation is not that straightforward.</td>
 </tr>
 <tr>
      <td>${\color{red}p->age \space \color{green}= \space \color{cyan}5}$</td>
