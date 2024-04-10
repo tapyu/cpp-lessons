@@ -117,7 +117,7 @@ Static memory allocation refers to the allocation of memory for variables at com
 
 Static memory allocation is useful when you know in advance the size and lifetime of the variables you need, and they don't need to change dynamically during program execution. It's suitable for situations where you have a fixed number of elements, constants, or global variables.
 
-Dynamic memory allocation, as opposed to static memory allocation, involves allocating and deallocating memory during the program's runtime. This allows you to work with data structures of varying sizes and lifetimes, making dynamic memory allocation a powerful feature. We manipulate dynamically allocated memories through pointers, which are used to access and modify the data in the allocated memory.
+Dynamic memory allocation, as opposed to static memory allocation, involves allocating and deallocating memory during the program's runtime. This allows you to work with data structures of varying sizes and lifetimes, making dynamic memory allocation a powerful feature. **We manipulate dynamically allocated memories through pointers, which are used to access and modify the data in the allocated memory**.
 
 Dynamic memory allocation comes with the responsibility of explicitly releasing memory to prevent memory leaks. In `C`, you use `free()` for deallocation, and in `C++`, you use `delete` for single objects and `delete[]` for arrays. Memory management is a critical aspect when working with dynamic memory.
 
