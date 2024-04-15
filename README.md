@@ -136,6 +136,9 @@ However, Using new and delete directly is error-prone and can lead to memory lea
 
 #### **Storage duration**
 
+![image](https://github.com/tapyu/c-and-cpp-lessons/assets/22801918/6cc93ed9-48d2-4d5c-9796-daf63a7fc123)
+
+
 Storage duration in `C` and `C++` refers to the lifetime of variables and memory blocks. It determines when and how long variables or memory allocations remain valid during program execution. Understanding storage duration is crucial for managing memory and writing robust programs.
 
 There are four primary storage durations:
