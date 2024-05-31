@@ -156,7 +156,8 @@ On Linux, you can obtain more `C`/`C++` libraries via
       ![image](https://github.com/tapyu/c-and-cpp-lessons/assets/22801918/2ff89ec6-4464-4113-a673-203781d0baea)
         That this, the package `libpoppler-cpp-dev` provides `/usr/include/poppler/cpp/poppler-document.h`, which is required by your project. By clicking on this package and obtaining all files provided by it, we see (select `amd64`, which is for x86-64 architecture):
       ![image](https://github.com/tapyu/c-and-cpp-lessons/assets/22801918/6de3b2fd-6709-472f-a59c-b820a4e3c0ce)
-         As we supposed, this package provides the exact (shared) library we are looking for, `/usr/lib/x86_64-linux-gnu/libpoppler-cpp.so` (note the `lib` prefix and the `.so` extension to indicate that `poppler-cpp` is a shared library).
+         As we supposed, this package provides the exact (shared) library we are looking for, `/usr/lib/x86_64-linux-gnu/libpoppler-cpp.so` (note the `lib` prefix and the `.so` extension to indicate that `poppler-cpp` is a shared library). After installing, you can check whether each file can be found on your system.
+      
         Alternatively, you can obtain the same information by running:
         ```
         ❯ apt-file -x search 'cpp/poppler-document.h'
