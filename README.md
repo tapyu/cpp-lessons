@@ -139,14 +139,52 @@ Whenever you see a set of classes (or whatever) that fulfill a more general need
 On Linux, you can obtain more `C`/`C++` libraries via
 1. Package manager: Most Linux distributions provide a package manager (e.g., `apt` for Debian/Ubuntu, `yum`/`dnf` for Red Hat/Fedora, `pacman` for Arch Linux) that allows you to easily install software packages, including libraries.
     - On Ubuntu:
-        - You can search on https://packages.ubuntu.com/ for a header file or a library and find out which Ubuntu package contain it. [For instance][9], by searching for `poppler`, you can find that the Ubuntu package [`libpoppler-cpp-dev`][8] contains `cpp/poppler-document.h`, which is required in the project. Alternatively, you can use the terminal (if `apt-file` is not present, you must `apt-get` it)
+        - You can search on https://packages.ubuntu.com/ for a header file or a library and find out which Ubuntu package contain it. For example, let us consider the [`pdfgrep`][12] project, which requires installing `poppler-cpp` to build it from the source code:
+        ```
+        ❯ ./configure
+        ...
+        No package 'poppler-cpp' found
+        
+        Consider adjusting the PKG_CONFIG_PATH environment variable if you
+        installed software in a non-standard prefix.
+
+        Alternatively, you may set the environment variables poppler_cpp_CFLAGS
+        and poppler_cpp_LIBS to avoid the need to call pkg-config.
+        See the pkg-config man page for more details.
+        ```
+        Note that the [source code][13] expects that `cpp/poppler-document.h`, `cpp/poppler-page.h`, and `cpp/poppler-version.h` be included. We can try to find which package provide them (this package should probably provide `poppler-cpp` as well). In the Ubuntu Packages Search, under the `"Search the contents of packages"` section, we can select `"packages that contain files named like this"` and search, for example, by `cpp/poppler-document.h` as keyword (use the distribution you are interested in). You will find that:
+      ![image](https://github.com/tapyu/c-and-cpp-lessons/assets/22801918/2ff89ec6-4464-4113-a673-203781d0baea)
+        That this, the package `libpoppler-cpp-dev` provides `/usr/include/poppler/cpp/poppler-document.h`, which is required by your project. By clicking on this package and obtaining all files provided by it, we see (select `amd64`, which is for x86-64 architecture):
+      ![image](https://github.com/tapyu/c-and-cpp-lessons/assets/22801918/6de3b2fd-6709-472f-a59c-b820a4e3c0ce)
+         As we supposed, this package provides the exact (shared) library we are looking for, `/usr/lib/x86_64-linux-gnu/libpoppler-cpp.so` (note the `lib` prefix and the `.so` extension to indicate that `poppler-cpp` is a shared library).
+        Alternatively, you can obtain the same information by running:
         ```
         ❯ apt-file -x search 'cpp/poppler-document.h'
         libpoppler-cpp-dev: /usr/include/poppler/cpp/poppler-document.h
         ```
-        to find out which package contains that file.
-        - You can run `dpkg --list` to get all installed packages, in addition to its description and the architecture. `pkg-config --list-all` can also do that, but the package is named as it is in the `.pc` (pkg-config) file, [see here][10].
-        - The command `dpkg -L libpoppler-cpp-dev` shows all files in the `libpoppler-cpp-dev` package.
+        Likewise, we obtain all files provided by this package by running:
+        ```
+        ❯ apt-file list libpoppler-cpp-dev
+        libpoppler-cpp-dev: /usr/include/poppler/cpp/poppler-destination.h
+        libpoppler-cpp-dev: /usr/include/poppler/cpp/poppler-document.h
+        libpoppler-cpp-dev: /usr/include/poppler/cpp/poppler-embedded-file.h
+        libpoppler-cpp-dev: /usr/include/poppler/cpp/poppler-font-private.h
+        libpoppler-cpp-dev: /usr/include/poppler/cpp/poppler-font.h
+        libpoppler-cpp-dev: /usr/include/poppler/cpp/poppler-global.h
+        libpoppler-cpp-dev: /usr/include/poppler/cpp/poppler-image.h
+        libpoppler-cpp-dev: /usr/include/poppler/cpp/poppler-page-renderer.h
+        libpoppler-cpp-dev: /usr/include/poppler/cpp/poppler-page-transition.h
+        libpoppler-cpp-dev: /usr/include/poppler/cpp/poppler-page.h
+        libpoppler-cpp-dev: /usr/include/poppler/cpp/poppler-rectangle.h
+        libpoppler-cpp-dev: /usr/include/poppler/cpp/poppler-toc.h
+        libpoppler-cpp-dev: /usr/include/poppler/cpp/poppler-version.h
+        libpoppler-cpp-dev: /usr/include/poppler/cpp/poppler_cpp_export.h
+        libpoppler-cpp-dev: /usr/lib/x86_64-linux-gnu/libpoppler-cpp.so
+        libpoppler-cpp-dev: /usr/lib/x86_64-linux-gnu/pkgconfig/poppler-cpp.pc
+        libpoppler-cpp-dev: /usr/share/doc/libpoppler-cpp-dev/changelog.Debian.gz
+        libpoppler-cpp-dev: /usr/share/doc/libpoppler-cpp-dev/copyright
+        ```
+        To list all installed packages, in addition to its description and the architecture, run `dpkg --list`. `pkg-config --list-all` can also do that, but the package is named as it is in the `.pc` (pkg-config) file ([see here][10]) (in our case, the `.pc` file is `/usr/lib/x86_64-linux-gnu/pkgconfig/poppler-cpp.pc`).
 1. Some libraries may not be available as pre-packaged binaries in your distribution's repositories. In such cases, you can download the source code for the library and compile it yourself. The process generally involves running `./configure`, `make`, and `make install` commands.
 
 #### [How to find out/discover more C/C++ libraries][11]
@@ -159,8 +197,11 @@ On Linux, you can obtain more `C`/`C++` libraries via
 [5]: https://youtu.be/GExnnTaBELk?t=941
 [6]: https://unix.stackexchange.com/a/22937/480687
 [7]: https://www.youtube.com/watch?v=tOQZlD-0Scc&ab_channel=LowLevelLearning
-[8]: https://packages.ubuntu.com/kinetic/amd64/libpoppler-cpp-dev/filelist
+[8]: https://packages.ubuntu.com/search?keywords=libpoppler-cpp-dev&searchon=names&suite=all&section=all
 [9]: https://stackoverflow.com/questions/77226416/how-to-know-the-linux-package-name-i-need-to-install-in-order-to-get-a-missing-c
 [10]: https://stackoverflow.com/a/16702644/13998346
 [Static binaries are very seldom nowadays]: https://www.reddit.com/r/linux/comments/6pkzf5/static_and_dynamic_binaries/
 [11]: https://www.reddit.com/r/cpp_questions/comments/17mor5v/comment/k7mqam1/?context=3
+[12]: https://gitlab.com/pdfgrep/pdfgrep
+[13]: https://gitlab.com/pdfgrep/pdfgrep/-/blob/master/src/pdfgrep.cc?ref_type=heads#L45-47
+[14]: https://packages.ubuntu.com/
