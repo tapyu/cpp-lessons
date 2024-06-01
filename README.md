@@ -1,7 +1,5 @@
 # Libraries
 
-#### **What is a library?**
-
 A C/C++ library is a collection of precompiled code modules that can be used to perform common tasks or provide reusable functionality within C or C++ programs. 
 
 #### **How does a library look like on my computer?**
@@ -11,45 +9,6 @@ Libraries on your computer are typically stored as binary files. The exact file 
 - *Static Libraries (Libraries - LIB files on Windows, Archive files - A files on Linux)*: These are libraries that are linked with the program at compile-time. They contain precompiled object code. On Windows, they have a `.lib` extension, and on Linux, they are often archive files with a `.a` extension. Static libraries are linked directly into the executable, increasing the size of the resulting binary.
 - *Standard Libraries*: The standard libraries for C and C++ are typically provided as part of the compiler installation. These libraries include the C Standard Library (libc on Unix-like systems), the C++ Standard Library (libstdc++ or libc++ on Unix-like systems), and others. They are typically located in system directories.
 - *Header Files*: In addition to the binary library files, libraries often provide header files (with extensions like `.h`, `.hpp`, or `.hxx`) that contain function declarations, classes, and data structures provided by the library. Header files typically come with the library file to enable users to use the library's functionality without having to dig deep into the source core. Moreover, for proprietary programs, we don't have access to the source code, at all, and therefore the header files might be our unique way out to understand how to use the library.
-
-#### **Main categories for a C/C++ library**
-- *Functionality and Purpose*:
-    - *Standard Libraries*: Bundled with the programming language or platform (e.g., C Standard Library, C++ Standard Library).
-    - *Utility Libraries*: Provide general-purpose functions and utilities (e.g., string manipulation, data structures).
-    - *Domain-Specific Libraries*: Focus on specific application domains (e.g., graphics, scientific computing, networking).
-- *Linking Method*:
-    - *Static Libraries*: Linked at compile-time, resulting in larger executables.
-    - *Shared Libraries*: Loaded at runtime, reducing executable size and enabling code sharing.
-- *Ownership and Source*:
-    - *Third-Party Libraries*: Developed by external sources, not part of the language or platform.
-    - *Standard Libraries*: Officially provided and maintained by the language or platform.
-- *Distribution*:
-    - *Packaged Libraries*: Distributed as binary packages (e.g., DLLs, SO files) or package manager dependencies.
-    - *Source Libraries*: Distributed as source code that must be compiled and linked.
-- *Platform Compatibility*:
-    - *Cross-Platform Libraries*: Designed to work on multiple operating systems and architectures.
-    - *Platform-Specific Libraries*: Designed for a specific platform or architecture.
-- *Licensing*:
-    - *Open Source Libraries*: Released under open-source licenses (e.g., MIT, GPL).
-    - *Proprietary Libraries*: Owned and licensed by a specific organization or company.
-
-#### **What is the header file?**
-
-Header files are human-readable files that serve to communicate the interface of the library to users, enabling them to properly use and interact with the library's features. When using a library, whether static or shared, it is common practice to provide a corresponding header file that contains the necessary declarations for the library's functions, classes, structures, and other entities. This allows users of the library to include the header file in their own code and access the functionality provided by the library. In `C++`, the `#include` directive is used to include header files. Directives are commands or instructions that are processed by the preprocessor before the actual compilation of the code. Directives are typically preceded by the `#` symbol. Header files typically contain function declarations, class definitions, constants, and other declarations that are needed for the compilation and usage of functions and types defined in the external source file (`.cpp` file).
-- User-Defined Header Files:
-    - These files are typically given a `.h` extension, and sometimes a `.hpp` extension in `C++` to indicate that they are header files.
-    - When including user-defined header files, the `#include` directive is typically used with double quotes, which means to search in the current directory (relative path). For example, `#include "myheader.h"` means to access the file `./myheader.h`.
-    - User-defined header files contain declarations and definitions specific to your project or library and are often organized within your project's directory structure.
-    - It is a common convention to give them the same base name (e.g., `mylib.h` and `mylib.cpp`) for clarity and organization, but it is not a strict requirement. 
-- `C++` Standard Library Header Files:
-    - `C++` Standard Library header files often do not have a `.h` extension, and they are included using angle brackets, like `#include <iostream>`.
-    - The omission of the `.h` extension is a convention within the `C++` Standard Library to distinguish these headers from traditional `C` headers, which often use the `.h` extension.
-    - These headers provide standardized interfaces to `C++` language features and standard library components.
-It is important to note that while these conventions are common, they are not strict rules enforced by the language itself. The presence or absence of the extension doesn't affect how the compiler or preprocessor treats the file. The choice of file extension and inclusion method is ultimately defined by the project's convention.
-
-However, it is also important to note that header files are not used exclusively for libraries; they are a fundamental part of `C`/`C++` programming and serve various purposes beyond just defining library interfaces. Header files are also used to:
-- *Declare Function Prototypes/declarations*: Header files commonly declare function prototypes, allowing you to use functions defined in other source files. This is essential for breaking up your code into multiple source files while maintaining proper encapsulation. See `./c-header-files-for-func-prot`
-- *Share Common Definitions*: Header files can contain shared constants, macros, and data structure definitions that multiple source files need. This promotes code reusability and consistency.
 
 #### **What is the difference between a shared and a static library?**
 
@@ -75,6 +34,26 @@ Dynamic linking involves linking to shared libraries (or dynamic link libraries,
 | No external dependencies. | External dependencies on shared libraries. |
 | Potentially faster startup time. | Increased startup time. |
 | Potentially easier distribution. | Easier to update shared libraries without recompiling every binary. |
+
+# Header files
+
+#### **What is the header file?**
+
+Header files are human-readable files that serve to communicate the interface of the library to users, enabling them to properly use and interact with the library's features. When using a library, whether static or shared, it is common practice to provide a corresponding header file that contains the necessary declarations for the library's functions, classes, structures, and other entities. This allows users of the library to include the header file in their own code and access the functionality provided by the library. In `C++`, the `#include` directive is used to include header files. Directives are commands or instructions that are processed by the preprocessor before the actual compilation of the code. Directives are typically preceded by the `#` symbol. Header files typically contain function declarations, class definitions, constants, and other declarations that are needed for the compilation and usage of functions and types defined in the external source file (`.cpp` file).
+- User-Defined Header Files:
+    - These files are typically given a `.h` extension, and sometimes a `.hpp` extension in `C++` to indicate that they are header files.
+    - When including user-defined header files, the `#include` directive is typically used with double quotes, which means to search in the current directory (relative path). For example, `#include "myheader.h"` means to access the file `./myheader.h`.
+    - User-defined header files contain declarations and definitions specific to your project or library and are often organized within your project's directory structure.
+    - It is a common convention to give them the same base name (e.g., `mylib.h` and `mylib.cpp`) for clarity and organization, but it is not a strict requirement. 
+- `C++` Standard Library Header Files:
+    - `C++` Standard Library header files often do not have a `.h` extension, and they are included using angle brackets, like `#include <iostream>`.
+    - The omission of the `.h` extension is a convention within the `C++` Standard Library to distinguish these headers from traditional `C` headers, which often use the `.h` extension.
+    - These headers provide standardized interfaces to `C++` language features and standard library components.
+It is important to note that while these conventions are common, they are not strict rules enforced by the language itself. The presence or absence of the extension doesn't affect how the compiler or preprocessor treats the file. The choice of file extension and inclusion method is ultimately defined by the project's convention.
+
+However, it is also important to note that header files are not used exclusively for libraries; they are a fundamental part of `C`/`C++` programming and serve various purposes beyond just defining library interfaces. Header files are also used to:
+- *Declare Function Prototypes/declarations*: Header files commonly declare function prototypes, allowing you to use functions defined in other source files. This is essential for breaking up your code into multiple source files while maintaining proper encapsulation. See `./c-header-files-for-func-prot`
+- *Share Common Definitions*: Header files can contain shared constants, macros, and data structure definitions that multiple source files need. This promotes code reusability and consistency.
 
 #### **Header file paths**
 
@@ -102,7 +81,9 @@ You can also check the header file dependency tree that is being used in a souce
     g++ -MM -H main.cpp
 ```
 
-#### **Linking between a header file and its library**
+---
+
+# **Linking between a header file and its library**
 
 Although the name of the header file may give a clue as to which library is being used, in general, **it's not possible to directly determine the library location (path+lib name) that is linked to the header file**. If an open-source project is using 3th-party libraries, it must specify which ones are being used beforehand. Then, you must install these libraries (see "How to install C/C++ libraries"). The installed library must be explicitly or implicitly linked if it isn't the C standard library (in this case, it is usually linked automatically). The linking process can be further divided into two types: static linking and dynamic (or shared) linking. Static library linking are resolved at compile time while shared library linking are resolved at runtime. The linker can solve it in several ways:
 
@@ -129,6 +110,9 @@ ldd /path/to/your/executable
 
 For instance, run `ldd c-link-shared-lib/geom` to list the all the shared libraries dependency and see where the `libm` library is located in you system. This path comes from the `/etc/ld.so.conf.d/x86_64-linux-gnu.conf` config file. That is, the linker can associate this library from the standard system library paths. See this [amazing video][7] about linking libraries manually.
 
+---
+
+# FAQ
 
 #### **When to use a library over a source `.c`/`.cpp` code and its header file**
 
