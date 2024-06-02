@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-int main()
+int main(int argc, char** argv)
 {
     std::string source = "My source string";
     std::string destination = "My destination string";

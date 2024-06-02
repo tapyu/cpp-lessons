@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int main() {
+int main(int argc, char** argv) {
     char source[] = "My source string";
     char destination[50] = "My destination string"; // up-to-50-sized string
 
