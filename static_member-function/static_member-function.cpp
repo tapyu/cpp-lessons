@@ -32,7 +32,7 @@ void MyClass::greeting()
 }
 
 
-int main()
+int main(int argc, char** argv)
 {
     MyClass::greeting();
     MyClass my_object(5);
