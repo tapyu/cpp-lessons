@@ -20,7 +20,7 @@ double get_double(char *prompt, double min, double max) // prompt is a pointer t
     return input;
 }
 
-int main()
+int main(int argc, char** argv)
 {
     double x = get_double("Enter the x value: ", -100, 100);
     double y = get_double("Enter the y value: ", -100, 100);
