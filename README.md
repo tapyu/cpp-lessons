@@ -175,7 +175,7 @@ There are four primary storage durations:
 
     int globalVar = 42; // Static storage duration, using `static` is redundant here
 
-    int main() {
+    int main(int argc, char** argv) {
         static int localVar = 24; // Static storage duration within a function
 
         printf("Global variable: %d\n", globalVar);
@@ -462,7 +462,7 @@ int get_value() {
     return 10;
 }
 
-int main() {
+int main(int argc, char** argv) {
     int i = get_value();
 }
 ```

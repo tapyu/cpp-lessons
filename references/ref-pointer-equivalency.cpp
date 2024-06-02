@@ -12,7 +12,7 @@ void right_add_to_int_pointer(int *p) {
     *p += 5;
 }
 
-int main() {
+int main(int argc, char** argv) {
     int i = 0;
     int &ri = i;
     int *pi = &i;

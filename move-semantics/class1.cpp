@@ -31,7 +31,7 @@ public:
     }
 };
 
-int main() {
+int main(int argc, char** argv) {
     // Create a temporary MyString object (rvalue)
     MyString temp("Hello, World!");
 

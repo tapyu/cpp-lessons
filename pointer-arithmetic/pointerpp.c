@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main() {
+int main(int argc, char** argv) {
     int i = 0;
     int *p = &i + 1; // the `1` here means: move the memory address `X` bytes forward, where `X` is the number of bytes used to storage an integer. It happens because p is an integer pointer.
 

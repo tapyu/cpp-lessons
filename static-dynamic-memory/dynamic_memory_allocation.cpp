@@ -1,6 +1,6 @@
 #include <iostream>
 
-int main() {
+int main(int argc, char** argv) {
     // Dynamic memory allocation for an integer variable
     int *x = new int; // you want to allocate for an integer variable with an initial value, use `int *x = new int(5)` instead
     

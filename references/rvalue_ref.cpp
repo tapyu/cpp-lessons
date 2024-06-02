@@ -1,6 +1,6 @@
 #include <iostream>
 
-int main() {
+int main(int argc, char** argv) {
     int i = 0; // lvalue to rvalue assignment
     
     int& lref = i;               // lvalue reference to lvalue

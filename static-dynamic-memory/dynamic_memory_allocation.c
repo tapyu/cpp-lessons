@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main() {
+int main(int argc, char** argv) {
     // Dynamic memory allocation for an integer variable
     int *x = (int*)malloc(sizeof(int));
     

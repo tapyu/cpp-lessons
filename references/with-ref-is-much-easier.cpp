@@ -12,7 +12,7 @@ void add_to_int_wrong(int r) {
     r+=5;
 }
 
-int main() {
+int main(int argc, char** argv) {
     int i = 0;
     int &ri = i; // reference ri
     int *pi = &i; // pointer pi

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main() {
+int main(int argc, char** argv) {
     int i[] = {888, 888, 888, 888};
     int *pi = i; // pi points to the internal pointer of the variable `i`, that is, the address of its first array element, 10.
     int d = 5;

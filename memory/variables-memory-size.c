@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main() {
+int main(int argc, char** argv) {
     // char variable
     char c = 'a';
     printf("Value of char: %c\n", c);

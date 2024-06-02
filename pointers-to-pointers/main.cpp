@@ -1,6 +1,6 @@
 #include <iostream>
 
-int main() {
+int main(int argc, char** argv) {
     int x = 42;
     int *ptr1 = &x;         // Pointer to int
     int **ptr2 = &ptr1;     // Pointer to pointer to int (double pointer)

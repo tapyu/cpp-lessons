@@ -8,7 +8,7 @@ void print_name(const std::string& name) { // function overload
     std::cout << "It prints from the lvalue input argument! " << name << std::endl;
 }
 
-int main() {
+int main(int argc, char** argv) {
     std::string name = "Mike";
     std::string second_name = " Smith";
     std::string full_name = name + second_name;

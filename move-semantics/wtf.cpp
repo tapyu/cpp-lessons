@@ -82,7 +82,7 @@ class Entity
         MyString m_name;
 };
 
-int main()
+int main(int argc, char** argv)
 {
     MyString test;              // it uses the empty constructor function
     MyString test2(666);        // it uses the int len constructor function

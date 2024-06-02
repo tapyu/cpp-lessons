@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main() {
+int main(int argc, char** argv) {
     char my_string[] = "Hello";
     char *ptr = my_string; // array decay: pass the address of the first `char` element in the `my_string` char array
 

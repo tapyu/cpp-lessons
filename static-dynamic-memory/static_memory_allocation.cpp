@@ -1,6 +1,6 @@
 #include <iostream>
 
-int main() {
+int main(int argc, char** argv) {
     // Static memory allocation for an integer variable
     int x = 10;
 

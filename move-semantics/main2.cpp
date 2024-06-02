@@ -1,6 +1,6 @@
 #include <iostream>
 
-int main() {
+int main(int argc, char** argv) {
     int x = 10;
     int&& rvalueRef = std::move(x); // Using std::move to create an rvalue reference
 

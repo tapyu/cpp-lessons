@@ -70,7 +70,7 @@ class Entity
         MyString m_name;
 };
 
-int main()
+int main(int argc, char** argv)
 {
     Entity entity(MyString("Cherno")); // without `Entity(MyString&& name)`, the rvalue `MyString("Cherno")` is created in this line command and would be passed by reference to `Entity(const MyString& name)`. `: m_name(name)` would call the `MyString(const MyString& other)` constructor and a new variable would've be created. That is undesirable as we would have an unecessary duplicated data. With move semantics, we can move the rvalue `MyString("Cherno")` instead of copying it!
     entity.print_name();
