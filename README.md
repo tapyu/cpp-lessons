@@ -98,7 +98,7 @@ In summary, while both terms can be used, "member function" is more specific and
 
 #### `enum`
 
-An enum is followed by an enumerator list. Each name in the list is an identifier for an integer constant. By default, the first name in the enum is assigned the integer value 0, the second name is assigned 1, and so on. For example (see `enum/main.c` for the complete example):
+An enum is followed by an enumerator list. Each name in the list is an identifier for an integer constant. By default, the first name in the enum is assigned the integer value 0, the second name is assigned 1, and so on. For example (see `enum/enum.c` for the complete example):
 ```c
 enum Day {
     SUNDAY,    // 0
