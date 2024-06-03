@@ -245,7 +245,7 @@ Ensuring that allocated memory is used correctly and avoiding issues like buffer
     <td>At least 2 bytes (16 bits)</td>
     <td><code>%i</code>,<code>%d</code> (or <code>%o</code> or <code>%x</code> if you are using octal or hexadecimal representation, respectively)</td>
     <td></td>
-    <td>Basic signed integer type. Capable of containing at least the <code>[−32,767, +32,767]</code> range. For literals, use <code>0</code> or <code>0x</code> prefix if you are using octal or hexadecimal representation. When used with <code>printf</code>, <code>%i</code> behaves exactly the same as <code>%d</code> and interprets the argument as a signed decimal integer. However, when used with <code>scanf</code>, <code>%i</code> is different from <code>%d</code> in that it can interpret input as different bases (The convesion to decimal and vice-versa is direct).</td>
+    <td>Basic signed integer type. Capable of containing at least the <code>[−32,767, +32,767]</code> range. For literals, use <code>0</code> or <code>0x</code> prefix if you are using octal or hexadecimal representation. When used with <code>printf</code> (see <code>%d_vs_%i/printf.c</code>), <code>%i</code> behaves exactly the same as <code>%d</code> and casts/converts the hex and octal numbers to decimal (the cast to decimal is direct). However, when used with <code>scanf</code> (see <code>%d_vs_%i/scanf.c</code>), <code>%i</code> is different from <code>%d</code> and the cast doesn't work properly.</td>
 </tr>
 <tr>
     <td><code>unsigned</code>, <code>unsigned int</code></td>
