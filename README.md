@@ -110,9 +110,18 @@ enum Day {
     SATURDAY   // 6
 };
 ```
-
-You can also explicitly assign specific values to the names.
-
+You can also explicitly assign specific values to the names. For example:
+```c
+enum Day {
+    SUNDAY = 1,   // 1
+    MONDAY,       // 2
+    TUESDAY = 5,  // 5
+    WEDNESDAY,    // 6
+    THURSDAY = 10,// 10
+    FRIDAY,       // 11
+    SATURDAY      // 12
+};
+```
 
 - `enum` values can be used without explicit casting in most contexts.
 - `enum class` (also called scoped enum) require explicit casting when used in contexts where an integral value is expected
