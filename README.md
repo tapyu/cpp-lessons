@@ -18,19 +18,29 @@ Variable argument list functions are inherently un-typesafe and should be avoide
 
 ---
 
-### **Object-like macro vs. constant variables (`C` and `C++`(?))**
+### **Object-like macro (`#define`) vs. constant variables (`const`) vs. enumerate (`enum`) (`C` and `C++`(?))**
 
-[A][2] constant defined with the `const` qualifier, e.g.,
+#### `const`
+
+A constant defined with the `const` qualifier, e.g.,
 ```c
 const int maxAttempts = 3
 ```
-is best thought of as an unmodifiable variable. It has all the properties of a variable: it has a type, it has a size, it has linkage, you can take its address. (The compiler might optimize away some of these properties if it can get away with it: for instance, constants whose address is never used may not get emitted into the executable image. But this is only by the grace of the as-if rule.) The only thing you can't do to a `const` datum is change its value. A constant defined with `enum` is a little different. It has a type and a size, but it doesn't have linkage, you can't take its address, and its type is unique. Both of these are processed during translation phase 7, so they can't be anything but an lvalue or rvalue. (I'm sorry about the jargon in the preceding sentence, but I would have to write several paragraphs otherwise.)
+is [best thought of as an unmodifiable variable][2]. It has all the properties of a variable: **it has a type, it has a size, it has linkage, you can take its address**. (The compiler might optimize away some of these properties if it can get away with it: for instance, constants whose address is never used may not get emitted into the executable image. But this is only by the grace of the as-if rule.) The only thing you can't do to a `const` datum is change its value.
+
+#### `enum`
+
+A constant defined with `enum` is a little different. It has a type and a size, but it doesn't have linkage, you can't take its address, and its type is unique. Both of these are processed during translation phase 7, so they can't be anything but an lvalue or rvalue. (I'm sorry about the jargon in the preceding sentence, but I would have to write several paragraphs otherwise.)
+
+#### `#define`
 
 A macro, e.g.,
 ```c
 #define PI 3.14159265359
 ```
 has far fewer constraints: it can expand to any sequence of tokens, as long as the overall program remains a well-formed program. It doesn't have any of the properties of a variable. Applying `sizeof` or `&` to a macro may or may not do something useful, depending on what the macro expands to. Macros are sometimes defined to expand to numeric literals, and such macros are sometimes thought of as constants, but they're not: "the compiler proper" (that is, translation phase 7) sees them as numeric literals.
+
+#### conclusions
 
 **It is generally considered good practice, nowadays, not to use a macro when a constant will do**. Macros don't obey the same scoping rules as all other identifiers, which can be confusing, and if you use a constant you give more information to translation phase 7 and thus also to the debugger. However, macros permit you to do things that cannot be done any other way, and if you need to do one of those things, you should not hesitate to use them. (Macros that are pulling their weight, in this sense, generally do not just expand to numeric literals, though I am not going to say never.)
 
@@ -85,6 +95,24 @@ In summary, while both terms can be used, "member function" is more specific and
 ---
 
 ### `enum` (`C`/`C++`) vs. `enum class` (`C++`)
+
+#### `enum`
+
+An enum is followed by an enumerator list. Each name in the list is an identifier for an integer constant. By default, the first name in the enum is assigned the integer value 0, the second name is assigned 1, and so on. For example (see `enum/main.c` for the complete example):
+```c
+enum Day {
+    SUNDAY,    // 0
+    MONDAY,    // 1
+    TUESDAY,   // 2
+    WEDNESDAY, // 3
+    THURSDAY,  // 4
+    FRIDAY,    // 5
+    SATURDAY   // 6
+};
+```
+
+You can also explicitly assign specific values to the names.
+
 
 - `enum` values can be used without explicit casting in most contexts.
 - `enum class` (also called scoped enum) require explicit casting when used in contexts where an integral value is expected
