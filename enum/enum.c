@@ -21,37 +21,32 @@ int main() {
     // Use the enum variable in a switch statement
     switch (today) {
         case SUNDAY:
-            printf("Today is Sunday.\n"
-                   "The stored value to enum is %i", today);
+            printf("Today is Sunday.\n");
             break;
         case MONDAY:
-            printf("Today is Monday.\n"
-                   "The stored value to enum is %i", today);
+            printf("Today is Monday.\n");
             break;
         case TUESDAY:
-            printf("Today is Tuesday.\n"
-                   "The stored value to enum is %i", today);
+            printf("Today is Tuesday.\n");
             break;
         case WEDNESDAY:
-            printf("Today is Wednesday.\n"
-                   "The stored value to enum is %i", today);
+            printf("Today is Wednesday.\n");
             break;
         case THURSDAY:
-            printf("Today is Thursday.\n"
-                   "The stored value to enum is %i", today);
+            printf("Today is Thursday.\n");
             break;
         case FRIDAY:
-            printf("Today is Friday.\n"
-                   "The stored value to enum is %i", today);
+            printf("Today is Friday.\n");
             break;
         case SATURDAY:
-            printf("Today is Saturday.\n"
-                   "The stored value to enum is %i", today);
+            printf("Today is Saturday.\n");
             break;
         default:
             printf("Invalid day.\n");
             break;
     }
+
+    printf("The stored value to enum is %i", today);
 
     return 0;
 }
