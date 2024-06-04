@@ -47,10 +47,10 @@ has far fewer constraints: it can expand to any sequence of tokens, as long as t
 ---
 
 ### **`%f` vs. `%lf` (`C`)**
-1. [For][3] `printf()` -> Arguments of type `float` are promoted to `double` so both `%f` and `%lf` are used for double.
-1. For `scanf()` -> `%f` for float and `%lf` for double.
+1. [For][3] `printf()` -> Arguments of type `float` are promoted to `double` so both `%f` and `%lf` work for double.
+1. For `scanf()` -> you must use `%f` for float and `%lf` for double.
 
-**Conclusion**: `%f` -> `float`, `%lf` -> `double` (which makes sense since `double` is a double precision floating-point, hence a "long float").
+**Conclusion**: It is not necessary or standard to use `%lf` with `printf`. The correct practice is to use `%lf` with `scanf` for reading double values and use `%f` with `scanf` for reading float values. For printf, use `%f` (or its variants, i.e., `%e`, `%E`, `%g`, or `%G`) for printing both float and double values. This approach aligns with the standard C conventions and ensures compatibility and correctness in your code.
 
 ---
 
