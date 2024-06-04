@@ -135,54 +135,53 @@ In C++, both enum and enum class are used to define enumerations, but they have 
 
 1. `enum`
     1. **Scope**: Enumerators are in the same scope as the enumeration.
-    ```c
-    enum Color { // enumeration Color
-        RED,    // 0 (enumerator RED)
-        GREEN,  // 1
-        BLUE    // 2
-    };
-    Color c = RED; // No need to qualify RED with Color::
-    ```
+        ```c
+        enum Color { // enumeration Color
+            RED,    // 0 (enumerator RED)
+            GREEN,  // 1
+            BLUE    // 2
+        };
+        Color c = RED; // No need to qualify RED with Color::
+        ```
     1. **Implicit Conversions**: Enumerators implicitly convert to their underlying integer type.
-    ```c
-    int x = RED; // Allowed
-    ```
+        ```c
+        int x = RED; // Allowed
+        ```
     1. **Type Safety**: Less type-safe because enumerators are not strongly typed.
-    ```c
-    enum Color {
-        RED, GREEN, BLUE
-    };
-    enum Size {
-        SMALL, MEDIUM, LARGE
-    };
-    Color c = SMALL; // Allowed, but not intended (potential bug)
-    ```
+        ```c
+        enum Color {
+            RED, GREEN, BLUE
+        };
+        enum Size {
+            SMALL, MEDIUM, LARGE
+        };
+        Color c = SMALL; // Allowed, but not intended (potential bug)
+        ```
 1. `enum class`
     1. **Scope**: Enumerators are scoped within the enumeration. You need to use the scope operator (::) to access them
-    ```cpp
-    enum class Color {
-        RED,    // 0
-        GREEN,  // 1
-        BLUE    // 2
-    };
-
-    Color c = Color::RED; // Need to qualify with Color::
-    ```
+        ```cpp
+        enum class Color {
+            RED,    // 0
+            GREEN,  // 1
+            BLUE    // 2
+        };
+        Color c = Color::RED; // Need to qualify with Color::
+        ```
     1. **Implicit Conversions**: Enumerators do not implicitly convert to their underlying integer type.
-    ```cpp
-    int x = Color::RED; // Error: no implicit conversion
-    int x = static_cast<int>(Color::RED); // Allowed with explicit cast
-    ```
+        ```cpp
+        int x = Color::RED; // Error: no implicit conversion
+        int x = static_cast<int>(Color::RED); // Allowed with explicit cast
+        ```
     1. **Type Safety**: More type-safe because enumerators are strongly typed and scoped within the enumeration.
-    ```cpp
-    enum class Color {
-        RED, GREEN, BLUE
-    };
-    enum class Size {
-        SMALL, MEDIUM, LARGE
-    };
-    Color c = Size::SMALL; // Error: incompatible types
-    ```
+        ```cpp
+        enum class Color {
+            RED, GREEN, BLUE
+        };
+        enum class Size {
+            SMALL, MEDIUM, LARGE
+        };
+        Color c = Size::SMALL; // Error: incompatible types
+        ```
 **Conclusion**:
 - `enum`: Less type-safe, enumerators are in the same scope as the enumeration, and implicit conversions to integers are allowed.
 - `enum class`: More type-safe, enumerators are scoped within the enumeration, and implicit conversions to integers are not allowed.
