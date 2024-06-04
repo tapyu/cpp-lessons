@@ -69,6 +69,12 @@ has far fewer constraints: it can expand to any sequence of tokens, as long as t
 
 ---
 
+### `%i` vs `%d`
+
+See [comments][6] in the  `printf()` syntax.
+
+---
+
 ### The terms `method` vs. `member function` (`C++`)
 
 Both terms, "method" and "member function," can be used to describe a function `myFunction()` from the class `MyClass`, but there is a subtle difference in their usage based on the programming language and the paradigm being used.
@@ -162,3 +168,4 @@ int main() {
 [3]: https://stackoverflow.com/questions/25860850/what-is-the-difference-between-f-and-lf-in-c
 [4]: https://stackoverflow.com/questions/11893996/why-does-the-order-of-l-option-in-gcc-matter/11894098#11894098
 [5]: https://stackoverflow.com/questions/18335861/why-is-enum-class-preferred-over-plain-enum
+[6]: https://github.com/tapyu/c-and-cpp-lessons/tree/5-pointer-reference-memory?tab=readme-ov-file#variables
