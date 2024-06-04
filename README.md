@@ -215,6 +215,12 @@ int main() {
 }
 ```
 
+---
+
+### `union` vs. `struct`
+
+**[With a union][7], you're only supposed to use one of the elements**, because they're all stored at the same address. This makes it useful when you want to store something that could be one of several types. A struct, on the other hand, has a separate memory location for each of its elements and they all can be used at once.
+
 
 [1]: https://stackoverflow.com/questions/693788/is-it-better-to-use-c-void-arguments-void-foovoid-or-not-void-foo
 [2]: https://stackoverflow.com/questions/6393776/what-is-the-difference-between-a-macro-and-a-const-in-c
@@ -222,3 +228,4 @@ int main() {
 [4]: https://stackoverflow.com/questions/11893996/why-does-the-order-of-l-option-in-gcc-matter/11894098#11894098
 [5]: https://stackoverflow.com/questions/18335861/why-is-enum-class-preferred-over-plain-enum
 [6]: https://github.com/tapyu/c-and-cpp-lessons/tree/5-pointer-reference-memory?tab=readme-ov-file#variables
+[7]: https://stackoverflow.com/a/346541/23333162
