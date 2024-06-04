@@ -301,14 +301,14 @@ Ensuring that allocated memory is used correctly and avoiding issues like buffer
     <td>At least 4 bytes (32 bits).</td>
     <td><code>%f</code>, <code>%F</code>, <code>%g</code>, <code>%G</code>, <code>%e</code>, <code>%E</code>, <code>%a</code>, <code>%A</code></td>
     <td><code>f</code>, <code>F</code></td>
-    <td>Real floating-point type, usually referred to as a "single-precision floating-point type". It is a <b>good practice</b> to add the <code>f</code> suffix to avoid an implicit conversion from <code>double</code> to <code>float</code> when assigning a floating-point literal to a variable of type <code>float</code>. For example, in <code>float f1 = 3.14;</code>, the literal <code>3.14</code> is treated as a double, which is then implicitly converted to <code>float</code> when assigned to <code>f1</code>. This could potentially lose precision and might have a performance cost in some cases. On the other hand, in <code>float f2 = 3.14f;</code>, the literal <code>3.14f</code> is explicitly a float, so no conversion is necessary when assigning it to <code>f2.</code>.</td>
+    <td>Single-precision floating-point type. It is a <b>good practice</b> to add the <code>f</code> suffix to avoid an implicit conversion from <code>double</code> to <code>float</code> when assigning a floating-point literal to a variable of type <code>float</code>. For example, in <code>float f1 = 3.14;</code>, the literal <code>3.14</code> is treated as a double, which is then implicitly converted to <code>float</code> when assigned to <code>f1</code>. This could potentially lose precision and might have a performance cost in some cases. On the other hand, in <code>float f2 = 3.14f;</code>, the literal <code>3.14f</code> is explicitly a float, so no conversion is necessary when assigning it to <code>f2.</code>. In addition to <code>%f</code>, we can also use its variants to format the output.</td>
 </tr>
 <tr>
     <td><code>double</code></td>
     <td>At least 8 bytes (64 bits).</td>
     <td><code>%lf</code>, <code>%lF</code>, <code>%lg</code>, <code>%lG</code>, <code>%le</code>, <code>%lE</code>, <code>%la</code>, <code>%lA</code></td>
     <td></td>
-    <td>Real floating-point type, usually referred to as a "double-precision floating-point type", or simply "double".</td>
+    <td>Double-precision floating-point type, or simply "double".</td>
 </tr>
 <tr>
     <td><code>long double</code></td>
