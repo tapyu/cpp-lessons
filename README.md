@@ -214,7 +214,7 @@ Ensuring that allocated memory is used correctly and avoiding issues like buffer
 </tr>
 <tr>
     <th>Variable type</th>
-    <th>Bytes (it may vary depending on the architecture)</th>
+    <th>Bytes (it may vary)</th>
     <th><code>%</code> syntax</th>
     <th>Suffix for literals</th>
     <th>Comments</th>
