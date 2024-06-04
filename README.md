@@ -186,6 +186,7 @@ In C++, both enum and enum class are used to define enumerations, but they have 
 - `enum`: Less type-safe, enumerators are in the same scope as the enumeration, and implicit conversions to integers are allowed.
 - `enum class`: More type-safe, enumerators are scoped within the enumeration, and implicit conversions to integers are not allowed.
 - **For modern `C++` code, `enum class` should be preferred** because they cause fewer surprises that could potentially lead to bugs.
+- See `./enum/` for more details.
 
 ---
 
