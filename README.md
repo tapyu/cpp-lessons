@@ -138,7 +138,7 @@ With this function, you can declare a function pointer variable as follows:
 ```c
 int (*fnc_ptr)(int, int) = selectOperation('+');
 ```
-The function pointer variable `fnc_ptr` is declared and assinged to the return of `selectOperation('+')`, which is also a function pointer variable. See `fnc_ptr/func/` for more details.
+The function pointer variable `fnc_ptr` is declared and assinged to the return of `selectOperation('+')`, which is also a function pointer variable. See `func_ptr/func/` for more details.
 
 ---
 
