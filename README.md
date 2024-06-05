@@ -224,7 +224,7 @@ int main() {
 
 ### `typedef`
 
-In C, typedef is a keyword used to create new type names (aliases) for existing types. This can make complex declarations more readable and easier to manage. It is especially useful when dealing with complex data structures, function pointers, etc.
+In C/C++, `typedef` is a keyword used to create new type names (aliases) for existing types. This can make complex declarations more readable and easier to manage. It is especially useful when dealing with complex data structures, function pointers, etc.
 
 A simple example with function pointers is
 ```c
