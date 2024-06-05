@@ -109,7 +109,7 @@ int (*func_pntr)(int, int);
 ```
 `(int, int)` is the input arguments that the function pointer variable `func_pntr` points to. You usually don't need to add variable names to the arguments (e.g., `int (*func_pntr)(int a, int b)`) as the variable names are handled only by the pointed function (e.g., `int add(int a, int b)`).
 
-You can also create a function pointer array variable (see `func_ptr/array/`):
+You can also create a function pointer variable array (see `func_ptr/array/`):
 ```c
 void (*operations[4])(int, int) = {add, subtract, multiply, divide}; // a 4-sized function pointer array, which points to the functions `add()`, subtract()`, `divide()`, and `multiply()`
 ```
