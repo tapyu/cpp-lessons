@@ -132,7 +132,7 @@ int (*selectOperation(char op))(int, int) {
     }
 }
 ```
-Where `selectOperation` is the function name, `(char op)` is its input argument, and `(int, int)` is the input arguments of the pointed function (in this case, `add`, `subtract`, `multiply`, or `divide()`). The function `selectOperation()` returns a function pointer. Note that, although it is not wrong, you don't need to prefix the functions with `&` (e.g., `&divide`), The function name itself acts as a pointer to the function.
+Where `selectOperation` is the function name, `(char op)` is its input argument, and `(int, int)` is the input arguments of the pointed function (in this case, `add`, `subtract`, `multiply`, or `divide`). The function `selectOperation()` returns a function pointer. Note that, although it is not wrong, you don't need to prefix the functions with `&` (e.g., `&divide`), The function name itself acts as a pointer to the function.
 
 With this function, you can declare a function pointer variable as follows:
 ```c
