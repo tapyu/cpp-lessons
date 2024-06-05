@@ -218,11 +218,11 @@ int main() {
 
 ---
 
-### `union` vs. `struct`
+### `union` vs. `struct` (`C` and `C++`)
 
 **[With a union][7], you're only supposed to use one of the elements**, because they're all stored at the same address. This makes it useful when you want to store something that could be one of several types. A struct, on the other hand, has a separate memory location for each of its elements and they all can be used at once (see `./union_vs_struct/`).
 
-### `typedef`
+### `typedef` (`C` and `C++`)
 
 In C/C++, `typedef` is a keyword used to create new type names (aliases) for existing types. This can make complex declarations more readable and easier to manage. It is especially useful when dealing with complex data structures, function pointers, etc.
 
