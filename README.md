@@ -228,9 +228,9 @@ In C/C++, `typedef` is a keyword used to create new type names (aliases) for exi
 
 A simple example with function pointers is
 ```c
-typedef void (*OperationFunc)(int, int);
-OperationFunc operation1;
-OperationFunc operation2;
+typedef void (*my_fnc_ptr)(int, int);
+my_fnc_ptr operation1;
+my_fnc_ptr operation2;
 ```
 
 - Without `typedef`, you would have to declare the function pointer explicitly each time: `void (*operation1)(int, int);`.
