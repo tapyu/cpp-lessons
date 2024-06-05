@@ -52,6 +52,14 @@ Although there are many `C`/`C++` compilers out there, their options/flags are s
   <td>Include debugging information in the generated executable. It adds debugging symbols to the binary, which can be extremely helpful for debugging and analyzing your program when it encounters issues or crashes. <b> You can only debug a compiled executable if you add debugging informantion in it by using this flag at compile time</b>.</td>
 <tr>
 <tr>
+  <td><code>-fdiagnostics-<ins>option</ins>=<ins>value</ins></code></td>
+  <td><code>-fdiagnostics-<ins>option</ins></code> comprises a family of options that control the format and appearance of diagnostic messages. The main ones are
+  <ul>
+    <li><code>-fdiagnostics-color=<ins>WHEN</ins></code>: controls the use of colors in diagnostics. <code><ins>WHEN</ins></code> can be <code>never</code>, <code>always</code>, or <code>auto</code>.</li>
+  </ul>
+  </td>
+<tr>
+<tr>
   <td><code>-Wall</code></td>
   <td>Enables most commonly used warning messages.</td>
 </tr>
