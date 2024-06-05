@@ -95,7 +95,7 @@ int i = ptr[2]; // dereference via indexing: `i` is set to `70`, the memory addr
 
 Although this notation conveys the idea of an ordinary array indexing (i.e., `arr[2]`) and although it yields the same result of `arr[2]`, what we are doing here is: 1- Pointer arithmetic (but without modifying `parr`) 2- Dereference. In fact, the syntax `parr[2]` is equivalent to `*(parr + 2)` (first we do pointer arithmetic wihtout changing `parr`, then we dereference the resulting memory address). See `./pointer-arithmetic/dereference-via-indexing.c`.
 
-#### **What is pointer function?**
+#### **What is a function pointer?**
 
 Function pointers in `C`/`C++` allow you to store the address of a function and invoke it later through that pointer. They provide a way to
 - pass functions as arguments to other functions;
