@@ -222,6 +222,28 @@ int main() {
 
 **[With a union][7], you're only supposed to use one of the elements**, because they're all stored at the same address. This makes it useful when you want to store something that could be one of several types. A struct, on the other hand, has a separate memory location for each of its elements and they all can be used at once (see `./union_vs_struct/`).
 
+### `typedef`
+
+In C, typedef is a keyword used to create new type names (aliases) for existing types. This can make complex declarations more readable and easier to manage. It is especially useful when dealing with complex data structures, function pointers, etc.
+
+A simple example with function pointers is
+```c
+typedef void (*OperationFunc)(int, int);
+OperationFunc operation1;
+OperationFunc operation2;
+```
+
+- Without `typedef`, you would have to declare the function pointer explicitly each time: `void (*operation1)(int, int);`.
+- With `typedef`, we create an alias named `OperationFunc` to `typedef void (*OperationFunc)(int, int);`.
+
+Advantages of Using typedef:
+- Readability: It makes the code easier to read and understand, especially when dealing with complex types like function pointers or structures.
+- Maintainability: If the underlying type changes, you only need to update the typedef declaration.
+- Simplicity: Simplifies the syntax for declaring variables of the aliased type.
+
+Other Common Uses of typedef:
+- Structures: Create aliases for struct types to avoid repeatedly using the struct keyword.
+- Arrays: Simplify array declarations.
 
 [1]: https://stackoverflow.com/questions/693788/is-it-better-to-use-c-void-arguments-void-foovoid-or-not-void-foo
 [2]: https://stackoverflow.com/questions/6393776/what-is-the-difference-between-a-macro-and-a-const-in-c
