@@ -105,13 +105,20 @@ Function pointers in `C`/`C++` allow you to store the address of a function and 
 
 The basic syntax of a function pointer is (see `func_ptr/basic/`):
 ```c
-int (*func_pntr)(int, int); // add input arguments as many as necessary
+int (*func_pntr)(int, int);
 ```
+`(int, int)` is the input arguments that the function pointer points to. You usually don't need to add variable names to it (e.g., `int (*func_pntr)(int a, int b)`) as the variable names are handled only by the pointed function (e.g., `int add(int a, int b)`).
 
 You can also create a function pointer array (see `func_ptr/array/`):
 ```c
 void (*operations[4])(int, int) = {add, subtract, multiply, divide}; // a 4-sized function pointer array, which points to the functions `add()`, subtract()`, `divide()`, and `multiply()`
 ```
+
+If, in addition to the input argurments of the pointed function, the function pointer also contains input arguments, you can use the following syntax:
+```c
+int (*selectOperation(char op))(int, int)
+```
+Here, `(int, int)` is the input arguments of the pointed function while `(char op)` is the input argument of the function pointer (see `func_ptr/with_args/`).
 
 ---
 
