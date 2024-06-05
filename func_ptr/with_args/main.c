@@ -6,10 +6,7 @@ int main() {
     char op = '+';
 
     // Function pointer variable
-    int (*fnc_ptr)(int, int);
-
-    // Select operation based on operator
-    fnc_ptr = selectOperation(op);
+    int (*fnc_ptr)(int, int) = selectOperation(op);
 
     // Check if operation is valid
     if (fnc_ptr != NULL) {
