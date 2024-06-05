@@ -236,12 +236,12 @@ OperationFunc operation2;
 - Without `typedef`, you would have to declare the function pointer explicitly each time: `void (*operation1)(int, int);`.
 - With `typedef`, we create an alias named `OperationFunc` to `typedef void (*OperationFunc)(int, int);`.
 
-Advantages of Using typedef:
+Advantages of Using `typedef`:
 - Readability: It makes the code easier to read and understand, especially when dealing with complex types like function pointers or structures.
 - Maintainability: If the underlying type changes, you only need to update the typedef declaration.
 - Simplicity: Simplifies the syntax for declaring variables of the aliased type.
 
-Other Common Uses of typedef:
+Other Common Uses of `typedef`:
 - Structures: Create aliases for struct types to avoid repeatedly using the struct keyword.
 - Arrays: Simplify array declarations.
 
