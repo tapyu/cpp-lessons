@@ -103,22 +103,40 @@ Function pointers in `C`/`C++` allow you to store the address of a function and 
 - return them from functions;
 - dynamically select and call functions at runtime;
 
-The basic syntax of a function pointer is (see `func_ptr/basic/`):
+The basic syntax of a function pointer variable is (see `func_ptr/basic/`):
 ```c
 int (*func_pntr)(int, int);
 ```
-`(int, int)` is the input arguments that the function pointer points to. You usually don't need to add variable names to it (e.g., `int (*func_pntr)(int a, int b)`) as the variable names are handled only by the pointed function (e.g., `int add(int a, int b)`).
+`(int, int)` is the input arguments that the function pointer variable points to. You usually don't need to add variable names to it (e.g., `int (*func_pntr)(int a, int b)`) as the variable names are handled only by the pointed function (e.g., `int add(int a, int b)`).
 
-You can also create a function pointer array (see `func_ptr/array/`):
+You can also create a function pointer array variable (see `func_ptr/array/`):
 ```c
 void (*operations[4])(int, int) = {add, subtract, multiply, divide}; // a 4-sized function pointer array, which points to the functions `add()`, subtract()`, `divide()`, and `multiply()`
 ```
 
-If, in addition to the input argurments of the pointed function, the function pointer also contains input arguments, you can use the following syntax:
+In more complex scenarios, you might want to create a function that returns a function pointer. In such cases, you need to use the following syntax:
 ```c
-int (*selectOperation(char op))(int, int)
+int (*selectOperation(char op))(int, int) {
+    switch (op) {
+        case '+':
+            return add;
+        case '-':
+            return subtract;
+        case '*':
+            return multiply;
+        case '/':
+            return divide;
+        default:
+            printf("Invalid operation!\n");
+            return NULL;
+    }
+}
 ```
-Here, `(int, int)` is the input arguments of the pointed function while `(char op)` is the input argument of the function pointer (see `func_ptr/with_args/`).
+Here, `(int, int)` is the input arguments of the pointed function, `selectOperation` is the function name, and `(char op)` is its input argument. The function `selectOperation()` returns a function pointer. With this function, you can declare a function pointer variable as follows:
+```c
+int (*fnc_ptr)(int, int) = selectOperation('+');
+```
+The function pointer variable `fnc_ptr` is declared and assinged to the return of `selectOperation('+')`, which is also a function pointer variable.
 
 ---
 
