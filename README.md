@@ -273,7 +273,17 @@ Advantages of Using `typedef`:
 - Simplicity: Simplifies the syntax for declaring variables of the aliased type.
 
 Other Common Uses of `typedef`:
-- Arrays: Simplify array declarations.
+- Arrays.
+- Unions.
+
+### Variadic function (`C` and `C++`)
+
+Variadic functions in C are functions that can accept a variable number of arguments. To define and use a variadic function, you need to include the `<stdarg.h> `.
+
+- `va_list`: A type to hold the information needed to retrieve the additional arguments.
+- `va_start(va_list, last_fixed_arg)`: Initializes va_list for subsequent use by va_arg() and va_end(). The `last_fixed_arg` is the name of the last fixed argument before the ellipsis (...).
+- `va_arg(va_list, type)`: Retrieves the next argument in the list of arguments. The type must be specified.
+- `va_end(va_list)`: Cleans up the variable argument list.
 
 [1]: https://stackoverflow.com/questions/693788/is-it-better-to-use-c-void-arguments-void-foovoid-or-not-void-foo
 [2]: https://stackoverflow.com/questions/6393776/what-is-the-difference-between-a-macro-and-a-const-in-c
