@@ -251,7 +251,7 @@ For structures, a simple example is:
 typedef struct {
     int x;
     int y;
-} point; // `point` is a variable name of this structure, which is used as type name to declare other variable from this type
+} point; // `point` is a variable name of this anonymous structure and is used as type name to declare other variable from this type
 
 point p1 = {10, 20}; //instantiate a variable from the type `point`
 ```
