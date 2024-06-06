@@ -97,7 +97,7 @@ In summary, while both terms can be used, "member function" is more specific and
 
 ### `const` keyword (`C` and `C++`)
 
-- *For pointers*: when you use a `const` pointer (e.g., `const char *ptr`), you cannot modify the characters through the pointer `ptr`. However, it does not make the pointer itself constant; you can change the pointer to point to a different memory location. Also, if `int i = 5;` and `const int *pi = &i;`, although you cannot modify `i` through `pi`, you can modify `i` directly, e.g., `i = 0;`. If we want, we can also change the memory address `pi` points to, e.g., `pi = &j;`, where `int j = 3;`. See `./const-keyword/main.c`.
+- *For pointers*: when you use a `const` pointer (e.g., `const char *ptr`), you cannot modify the characters through the pointer `ptr`. However, it does not make the pointer itself constant; you can change the pointer to point to a different memory location through pointer arithmetic (e.g., `ptr++;`). Also, if `int i = 5;` and `const int *pi = &i;`, although you cannot modify `i` through `pi`, you can modify `i` directly, e.g., `i = 0;`. If we want, we can also change the memory address `pi` points to, e.g., `pi = &j;`, where `int j = 3;`. See `./const-keyword/main.c`.
 - *For any other variable type:* When the const keyword is used with a variable that is not a pointer, it creates a constant (read-only) variable.
 
 ---
@@ -276,14 +276,81 @@ Other Common Uses of `typedef`:
 - Arrays.
 - Unions.
 
-### Variadic function (`C` and `C++`)
+### Variadic functions (`...`) (`C` and `C++`)
 
 Variadic functions in C are functions that can accept a variable number of arguments. To define and use a variadic function, you need to include the `<stdarg.h> `.
 
-- `va_list`: A type to hold the information needed to retrieve the additional arguments.
-- `va_start(va_list, last_fixed_arg)`: Initializes va_list for subsequent use by va_arg() and va_end(). The `last_fixed_arg` is the name of the last fixed argument before the ellipsis (...).
-- `va_arg(va_list, type)`: Retrieves the next argument in the list of arguments. The type must be specified.
-- `va_end(va_list)`: Cleans up the variable argument list.
+A basic syntax is where the variable arguments have all the same type. The following code show an example for `int`'s:
+```c
+#include <stdio.h>
+#include <stdarg.h>
+
+int sum(const int count, ...) {
+    va_list args;          // declare args
+    va_start(args, count); // initialize args
+
+    int total = 0;
+    for (int i = 0; i < count; i++) {
+        printf("Hello variable number %d: %d\n", i, va_arg(args, int));
+    }
+
+    va_start(args, count); // initialize args again to go through the array again
+    for (int i = 0; i < count; i++) {
+        printf("Hello again variable number %d: %d\n", i, va_arg(args, int));
+    }
+
+    va_end(args);
+    return total;
+}
+
+int main() {
+    printf("Sum of 2, 3, 4: %d\n", sum(3, 2, 3, 4));
+    printf("Sum of 5, 10, 15, 20: %d\n", sum(4, 5, 10, 15, 20));
+
+    return 0;
+}
+```
+- In `va_start(args, count);`, **you must to pass the last fixed input variable to `va_start()`** (in this case, it is `count`). Therefore, you must have at least one fixed variable. `va_start()` uses the last fixed argument to determine the starting point for retrieving the variadic arguments. In other words, the second argument is used to calculate the address of the first argument in the variable argument list. Without this information, va_start cannot correctly locate where the variable arguments begin.
+- `va_arg` is a macro used in variadic functions to retrieve the next argument in the argument list. **The second parameter to `va_arg` specifies the type of the argument that you want to retrieve**. If you don't specify it correctly, the code doesn't work properly (see `variadic_func/wrong_va_arg`).
+
+```c
+#include <stdio.h>
+#include <stdarg.h>
+
+// Variadic function without a fixed argument before the ellipsis
+void print_all_args(const char *format, ...) {
+    va_list args;            // declares args
+    va_start(args, format);  // defines args
+
+    const char *p = format; // just to avoid to change `format`
+    while (*p != '\0') {
+        if (*p == 'd') {
+            int i = va_arg(args, int);
+            printf("%d ", i);
+        } else if (*p == 'c') {
+            int c = va_arg(args, int); // char is promoted to int when passed through ‘...’
+            printf("%c ", c); // `%c` makes `c` be printed as the char it is
+        } else if (*p == 'f') {
+            double d = va_arg(args, double);
+            printf("%f ", d);
+        }
+        p++;
+    }
+
+    va_end(args);
+    printf("\n");
+}
+
+int main() {
+    // First argument acts as the format string
+    print_all_args("dcf", 42, 'a', 3.14);
+    // print_all_args("fdc", 2.71, 100, 'z');
+
+    return 0;
+}
+```
+
+Variadic functions do not strictly require a fixed argument before the ellipsis (`...`). However, it is a common practice to include at least one fixed argument before the ellipsis to facilitate the initialization.
 
 [1]: https://stackoverflow.com/questions/693788/is-it-better-to-use-c-void-arguments-void-foovoid-or-not-void-foo
 [2]: https://stackoverflow.com/questions/6393776/what-is-the-difference-between-a-macro-and-a-const-in-c

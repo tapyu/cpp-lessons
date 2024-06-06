@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-int sum(int count, ...) {
+int sum(const int count, ...) {
     va_list args;
     va_start(args, count);
 
     int total = 0;
     for (int i = 0; i < count; i++) {
-        total += va_arg(args, int);
+        printf("Hello variable number %d: %lf\n", i, va_arg(args, double));
     }
 
     va_end(args);
