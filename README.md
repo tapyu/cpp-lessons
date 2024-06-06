@@ -224,17 +224,45 @@ int main() {
 
 ### `typedef` (`C` and `C++`)
 
-In C/C++, `typedef` is a keyword used to create new type names (aliases) for existing types. This can make complex declarations more readable and easier to manage. It is especially useful when dealing with complex data structures, function pointers, etc.
+In C/C++, `typedef` is a keyword used to create new type names (aliases) for existing types. **It uses the declabed variable name as the type name**. A dumb example would be
+```c
+#include <stdio.h>
+typedef int x; // which is a variable name, which is used as type name to declare other variable from this type
+int main() {
+    x y = 5; // a variable from the type definition `x`
+    printf("the value of y is: %d\n", y); // the value of y is: 5
+    return 0;
+}
+```
+
+`typedef` can make complex declarations more readable and easier to deal with. It is especially useful when dealing with complex data structures, function pointers, etc.
 
 A simple example with function pointers is
 ```c
-typedef void (*my_fnc_ptr)(int, int);
+typedef void (*my_fnc_ptr)(int, int); // my_fnc_ptr is the variable name, which is used as type name to declare other variable from this type
 my_fnc_ptr operation1;
 my_fnc_ptr operation2;
 ```
-
 - Without `typedef`, you would have to declare the function pointer explicitly each time: `void (*operation1)(int, int);`.
 - With `typedef`, we create an alias named `OperationFunc` to `typedef void (*OperationFunc)(int, int);`.
+
+For structures, a simple example is:
+```c
+typedef struct {
+    int x;
+    int y;
+} point; // `point` is a variable name of this structure
+
+point p1 = {10, 20};
+```
+Without `typedef`, we would need to write:
+```c
+struct Point { // `Point` not an instance of this structure. Rather, it is the structure name.
+    int x;
+    int y;
+};
+struct Point p1 = {10, 20}; // much more verbose
+```
 
 Advantages of Using `typedef`:
 - Readability: It makes the code easier to read and understand, especially when dealing with complex types like function pointers or structures.
