@@ -224,7 +224,7 @@ int main() {
 
 ### `typedef` (`C` and `C++`)
 
-In C/C++, `typedef` is a keyword used to create new type names (aliases) for existing types. **It uses the declabed variable name as the type name**. A dumb example would be
+In C/C++, `typedef` is a keyword used to create new type names (aliases) for existing types. **It uses the declared variable name as the type name**. A dumb example would be
 ```c
 #include <stdio.h>
 typedef int x; // `x` is the variable name, which is used as type name to declare other variable from this type
