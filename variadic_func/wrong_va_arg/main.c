@@ -7,7 +7,7 @@ int sum(const int count, ...) {
 
     int total = 0;
     for (int i = 0; i < count; i++) {
-        printf("Hello variable number %d: %lf\n", i, va_arg(args, double));
+        printf("Hello variable number %d: %f\n", i, va_arg(args, double)); // `double` should be `int`
     }
 
     va_end(args);

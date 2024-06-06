@@ -285,7 +285,7 @@ A basic syntax is where the variable arguments have all the same type. The follo
 #include <stdio.h>
 #include <stdarg.h>
 
-int sum(const int count, ...) {
+int sum(const int count, ...) { // `...` indicates in the end that `sum` is a variadic function
     va_list args;          // declare args
     va_start(args, count); // initialize args
 
@@ -313,6 +313,7 @@ int main() {
 - In `va_start(args, count);`, **you must to pass the last fixed input variable to `va_start()`** (in this case, it is `count`). Therefore, you must have at least one fixed variable. `va_start()` uses the last fixed argument to determine the starting point for retrieving the variadic arguments. In other words, the second argument is used to calculate the address of the first argument in the variable argument list. Without this information, va_start cannot correctly locate where the variable arguments begin.
 - `va_arg` is a macro used in variadic functions to retrieve the next argument in the argument list. **The second parameter to `va_arg` specifies the type of the argument that you want to retrieve**. If you don't specify it correctly, the code doesn't work properly (see `variadic_func/wrong_va_arg`).
 
+For more complex scenarios, you might want to pass a variable number of arguments of different types (`char`, `int`, etc.). In these scenarions, you might use the following approach:
 ```c
 #include <stdio.h>
 #include <stdarg.h>
@@ -322,7 +323,7 @@ void print_all_args(const char *format, ...) {
     va_list args;            // declares args
     va_start(args, format);  // defines args
 
-    const char *p = format; // just to avoid to change `format`
+    const char *p = format; // just to avoid changing `format` (a good practice)
     while (*p != '\0') {
         if (*p == 'd') {
             int i = va_arg(args, int);
@@ -333,6 +334,12 @@ void print_all_args(const char *format, ...) {
         } else if (*p == 'f') {
             double d = va_arg(args, double);
             printf("%f ", d);
+        } else if (*p == 'A') {
+            int* arr = va_arg(args, int*);
+            int size = va_arg(args, int);
+            for (int i = 0; i < size; i++) {
+                printf("%d ", arr[i]);
+            }
         }
         p++;
     }
@@ -342,15 +349,21 @@ void print_all_args(const char *format, ...) {
 }
 
 int main() {
+    int arr[] = {1, 2, 3, 4};
+
     // First argument acts as the format string
-    print_all_args("dcf", 42, 'a', 3.14);
-    // print_all_args("fdc", 2.71, 100, 'z');
+    print_all_args("dcAdf", 42, 'a', arr, sizeof(arr) / sizeof(arr[0]), 3.14);
+    print_all_args("fdc", 2.71, 100, 'z');
 
     return 0;
 }
 ```
 
-Variadic functions do not strictly require a fixed argument before the ellipsis (`...`). However, it is a common practice to include at least one fixed argument before the ellipsis to facilitate the initialization.
+where `'A'` is used as an special character to denote an `int` array, i.e., `int[]`. Note that, to determine the size of an array from within a function, you typically need to pass the size explicitly, as you cannot determine the size of an array from a pointer alone. Therefore, the array size is being passed explicitly as an argument immediately after the array itself. This way, the function can correctly obtain the size of the array and use it to print the array elements.
+
+When passing through variadic function (using `...`):
+- `char` and `short` are promoted to `int`.
+- `float` is promoted to `double`.
 
 [1]: https://stackoverflow.com/questions/693788/is-it-better-to-use-c-void-arguments-void-foovoid-or-not-void-foo
 [2]: https://stackoverflow.com/questions/6393776/what-is-the-difference-between-a-macro-and-a-const-in-c
