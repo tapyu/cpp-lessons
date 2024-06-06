@@ -278,7 +278,7 @@ Other Common Uses of `typedef`:
 
 ### Variadic functions (`...`) (`C` and `C++`)
 
-Variadic functions in C are functions that can accept a variable number of arguments. To define and use a variadic function, you need to include the `<stdarg.h> `.
+Variadic functions in C are functions that can accept a variable number of arguments. To define and use a variadic function, you need to include the `<stdarg.h> `, and use `...` as the last input argument, after the fixed arguments. **It is not possible to create a variadic function that has only variable and no fixed arguments**. The C standard requires at least one fixed argument. However, in C++, you can use a feature called "parameter packs" with templates to achieve a similar effect, but in C, you need at least one fixed argument.
 
 A basic syntax is where the variable arguments have all the same type. The following code show an example for `int`'s:
 ```c
