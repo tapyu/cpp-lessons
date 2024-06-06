@@ -330,7 +330,7 @@ Ensuring that allocated memory is used correctly and avoiding issues like buffer
 <tr>
     <td><code>long long</code>, <code>long long int</code>, <code>signed long long</code>, <code>signed long long int</code></td>
     <td>At least 8 bytes (64 bits).</td>
-    <td><code>%lli</code>, <code>%lld</code</td>
+    <td><code>%lli</code>,<br><code>%lld</code</td>
     <td><code>ll</code> or <code>LL</code></td>
     <td>Long long signed integer type. Capable of containing at least the <code>[−9,223,372,036,854,775,807, +9,223,372,036,854,775,807]</code> range. Specified since the C99 (ISO/IEC 9899:1999) version of the standard.</td>
 </tr>
