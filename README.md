@@ -227,7 +227,7 @@ int main() {
 In C/C++, `typedef` is a keyword used to create new type names (aliases) for existing types. **It uses the declabed variable name as the type name**. A dumb example would be
 ```c
 #include <stdio.h>
-typedef int x; // which is a variable name, which is used as type name to declare other variable from this type
+typedef int x; // `x` is the variable name, which is used as type name to declare other variable from this type
 int main() {
     x y = 5; // a variable from the type definition `x`
     printf("the value of y is: %d\n", y); // the value of y is: 5
@@ -239,7 +239,7 @@ int main() {
 
 A simple example with function pointers is
 ```c
-typedef void (*my_fnc_ptr)(int, int); // my_fnc_ptr is the variable name, which is used as type name to declare other variable from this type
+typedef void (*my_fnc_ptr)(int, int); // `my_fnc_ptr` is the variable name, which is used as type name to declare other variable from this type
 my_fnc_ptr operation1;
 my_fnc_ptr operation2;
 ```
@@ -251,9 +251,9 @@ For structures, a simple example is:
 typedef struct {
     int x;
     int y;
-} point; // `point` is a variable name of this structure
+} point; // `point` is a variable name of this structure, which is used as type name to declare other variable from this type
 
-point p1 = {10, 20};
+point p1 = {10, 20}; //instantiate a variable from the type `point`
 ```
 Without `typedef`, we would need to write:
 ```c
