@@ -107,7 +107,7 @@ The basic syntax of a function pointer variable is (see `func_ptr/basic/`):
 ```c
 int (*func_pntr)(int, int);
 ```
-`(int, int)` is the input arguments that the function pointer variable `func_pntr` points to. You usually don't need to add variable names to the arguments (e.g., `int (*func_pntr)(int a, int b)`) as the variable names are handled only by the pointed function (e.g., `int add(int a, int b)`).
+where `(int, int)` and the leading `int` are respectively the input arguments and the return data type that the function pointer variable `func_pntr` points to. You usually don't need to name the input arguments (e.g., `int (*func_pntr)(int a, int b)`) as the variable names are handled only by the pointed function (e.g., `int add(int a, int b)`).
 
 You can also create a function pointer variable array (see `func_ptr/array/`):
 ```c
@@ -132,7 +132,7 @@ int (*selectOperation(char op))(int, int) {
     }
 }
 ```
-Where `selectOperation` is the function name, `(char op)` is its input argument, and `(int, int)` is the input arguments of the pointed function (in this case, `add`, `subtract`, `multiply`, or `divide`). The function `selectOperation()` returns a function pointer. Note that, although it is not wrong, you don't need to prefix the functions with `&` (e.g., `&divide`), The function name itself acts as a pointer to the function.
+Where `selectOperation` is the function name, `(char op)` is its input argument, and `(int, int)` is the input arguments of the pointed function (in this case, `add`, `subtract`, `multiply`, or `divide`). The function `selectOperation()` returns a function pointer which points to a function whose input is `(int, int)` and output is `int`. Note that, although it is not wrong, you don't need to prefix the functions with `&` (e.g., `&divide`) to return the memory address. The function name itself acts as a pointer to the function.
 
 With this function, you can declare a function pointer variable as follows:
 ```c
@@ -353,7 +353,7 @@ Ensuring that allocated memory is used correctly and avoiding issues like buffer
     <td>At least 8 bytes (64 bits).</td>
     <td><code>%lf</code>, <code>%lF</code>, <code>%lg</code>, <code>%lG</code>, <code>%le</code>, <code>%lE</code>, <code>%la</code>, <code>%lA</code></td>
     <td></td>
-    <td>Double-precision floating-point type, or simply "double". This makes sense since <code>double</code> is a double-precision floating point, hence a "long float". However, <a href="https://github.com/tapyu/c-and-cpp-lessons/tree/faq?tab=readme-ov-file#f-vs-lf-c">There is no need to use <code>%lf</code> with <code>printf</code> because all float arguments are promoted to <code>double</code> when passed to <code>printf</code></a>. Therefore, <b>it is a good practice to use <code>%f</code> for printing both <code>float</code> and <code>double</code> values with printf</b>. With <code>scanf</code>, this distinction is necessary because it needs to know the exact type to store the input correctly. Thefore, for <code>scanf</code>, <code>%f</code> is used to read a <code>float</code>, and <code>%lf</code> is used to read a <code>double</code>.</td>
+    <td>Double-precision floating-point type, or simply "double". This makes sense since <code>double</code> is a double-precision floating point, hence a "long float". However, <a href="https://github.com/tapyu/c-and-cpp-lessons/tree/faq?tab=readme-ov-file#f-vs-lf-c">There is no need to use <code>%lf</code> with <code>printf</code> because all float arguments are promoted to <code>double</code> when passed to <code>printf</code></a>. Therefore, <b>it is a good practice to use <code>%f</code> for printing both <code>float</code> and <code>double</code> values with <code>printf</code></b>. With <code>scanf</code>, this distinction is necessary because it needs to know the exact type to store the input correctly. Thefore, for <code>scanf</code>, <code>%f</code> is used to read a <code>float</code>, and <code>%lf</code> is used to read a <code>double</code>.</td>
 </tr>
 <tr>
     <td><code>long double</code></td>
