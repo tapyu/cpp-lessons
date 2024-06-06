@@ -50,6 +50,8 @@ has far fewer constraints: it can expand to any sequence of tokens, as long as t
 1. [For][3] `printf()` -> Arguments of type `float` are promoted to `double` so both `%f` and `%lf` work for double.
 1. For `scanf()` -> you must use `%f` for float and `%lf` for double.
 
+See [here][8] for more info.
+
 **Conclusion**: It is not necessary or standard to use `%lf` with `printf`. The correct practice is to use `%lf` with `scanf` for reading double values and use `%f` with `scanf` for reading float values. For printf, use `%f` (or its variants, i.e., `%e`, `%E`, `%g`, or `%G`) for printing both float and double values. This approach aligns with the standard C conventions and ensures compatibility and correctness in your code.
 
 ---
@@ -280,3 +282,4 @@ Other Common Uses of `typedef`:
 [5]: https://stackoverflow.com/questions/18335861/why-is-enum-class-preferred-over-plain-enum
 [6]: https://github.com/tapyu/c-and-cpp-lessons/tree/5-pointer-reference-memory?tab=readme-ov-file#variables
 [7]: https://stackoverflow.com/a/346541/23333162
+[8]: https://www.reddit.com/r/C_Programming/comments/1d96ssr/wouldnt_it_be_better_to_always_use_lf_for_double/
