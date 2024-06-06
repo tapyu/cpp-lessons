@@ -353,7 +353,7 @@ Ensuring that allocated memory is used correctly and avoiding issues like buffer
     <td>At least 8 bytes (64 bits).</td>
     <td><code>%lf</code>, <code>%lF</code>, <code>%lg</code>, <code>%lG</code>, <code>%le</code>, <code>%lE</code>, <code>%la</code>, <code>%lA</code></td>
     <td></td>
-    <td>Double-precision floating-point type, or simply "double". This makes sense since <code>double</code> is a double-precision floating point, hence a "long float". However, <a href="https://github.com/tapyu/c-and-cpp-lessons/tree/faq?tab=readme-ov-file#f-vs-lf-c">There is no need to use <code>%lf</code> with <code>printf</code> because all float arguments are promoted to <code>double</code> when passed to <code>printf</code></a>. Therefore, <b>it is a good practice to use <code>%f</code> for printing both <code>float</code> and <code>double</code> values with <code>printf</code></b>. With <code>scanf</code>, this distinction is necessary because it needs to know the exact type to store the input correctly. Thefore, for <code>scanf</code>, <code>%f</code> is used to read a <code>float</code>, and <code>%lf</code> is used to read a <code>double</code>.</td>
+    <td>Double-precision floating-point type, or simply "double". This makes sense since <code>double</code> is a double-precision floating point, hence a "long float".</td>
 </tr>
 <tr>
     <td><code>long double</code></td>
