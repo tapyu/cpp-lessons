@@ -366,6 +366,38 @@ When passing through variadic function (using `...`):
 - `char` and `short` are promoted to `int`.
 - `float` is promoted to `double`.
 
+### Compoud literals
+
+In C, a compound literal is a feature that allows you to create unnamed objects (arrays, structures, or unions) in a single line, **without the need for a variable name**. It's particularly useful when you need a temporary object for a specific purpose without cluttering your code with unnecessary variable declarations.
+
+The basic syntax for a compound literal is:
+
+```c
+(type){ initializer_list }
+```
+- `type`: type of the compound literal.
+- `initializer_list`: comma-separated list of initializers enclosed in curly braces (e.g., `{1, 2, 3, 4, 5}`).
+
+A basic example is
+
+```c
+#include <stdio.h>
+
+struct Point {
+    int x;
+    int y;
+};
+
+void printPoint(struct Point p) {
+    printf("Point: (%d, %d)\n", p.x, p.y);
+}
+
+int main() {
+    printPoint((struct Point){.x = 10, .y = 20}); // we are passing an unamed variable to printPoint
+    return 0;
+}
+```
+
 [1]: https://stackoverflow.com/questions/693788/is-it-better-to-use-c-void-arguments-void-foovoid-or-not-void-foo
 [2]: https://stackoverflow.com/questions/6393776/what-is-the-difference-between-a-macro-and-a-const-in-c
 [3]: https://stackoverflow.com/questions/25860850/what-is-the-difference-between-f-and-lf-in-c
