@@ -260,7 +260,7 @@ Ensuring that allocated memory is used correctly and avoiding issues like buffer
 <tr>
     <th>Variable type</th>
     <th>Bytes (it may vary)</th>
-    <th><code>%</code> syntax</th>
+    <th><code>%</code> format specifier</th>
     <th>Suffix for literals</th>
     <th>Comments</th>
 </tr>
@@ -415,6 +415,12 @@ For unsigned integers:
 - `uint64_t`: 64-bit unsigned integer
 
 Using these types provides clarity and consistency, especially when working on projects where cross-platform compatibility is essential or when dealing with binary data formats that require precise bit widths.
+
+### A note on `%` format specifier
+
+It is common that some functions promote variables before handling them internally. In such case, if **it is common that simpler format specifiers are adopted instead of the original ones**:
+
+- `printf()` -> decimal (`%d`) is promoted to integer (`%i`). **It is a common practice to adopt `%d` to all integer values**, no matter it is decimal, hexadecimal, or octal.
 
 
 ---
