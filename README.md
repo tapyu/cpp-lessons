@@ -359,7 +359,7 @@ int main() {
 }
 ```
 
-where `'A'` is used as an special character to denote an `int` array, i.e., `int[]`. Note that, to determine the size of an array from within a function, you typically need to pass the size explicitly, as you cannot determine the size of an array from a pointer alone. Therefore, the array size is being passed explicitly as an argument immediately after the array itself. This way, the function can correctly obtain the size of the array and use it to print the array elements.
+where `'A'` is used as an special character to denote an `int` array. Note that, to determine the size of an array from within a function, you typically need to pass the size explicitly, as you cannot determine the size of an array from a pointer alone. Therefore, the array size is being passed explicitly as an argument immediately after the array itself. This way, the function can correctly obtain the size of the array and use it to print the array elements.
 
 When passing through variadic function (using `...`):
 - `char` and `short` are promoted to `int`.
