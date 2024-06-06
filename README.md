@@ -270,7 +270,6 @@ Advantages of Using `typedef`:
 - Simplicity: Simplifies the syntax for declaring variables of the aliased type.
 
 Other Common Uses of `typedef`:
-- Structures: Create aliases for struct types to avoid repeatedly using the struct keyword.
 - Arrays: Simplify array declarations.
 
 [1]: https://stackoverflow.com/questions/693788/is-it-better-to-use-c-void-arguments-void-foovoid-or-not-void-foo
