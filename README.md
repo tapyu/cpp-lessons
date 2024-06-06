@@ -288,9 +288,9 @@ Ensuring that allocated memory is used correctly and avoiding issues like buffer
 <tr>
     <td><code>int</code>, <code>signed</code>, <code>signed int</code></td>
     <td>At least 2 bytes (16 bits)</td>
-    <td><code>%i</code>,<code>%d</code> (or <code>%o</code> or <code>%x</code> if you are using octal or hexadecimal representation, respectively)</td>
+    <td><code>%d</code> for decimal, <code>%o</code> for octal, <code>%x</code> for hexadecimal, and <code>%i</code> for integer (dec, hex, or oct).</td>
     <td></td>
-    <td>Basic signed integer type. Capable of containing at least the <code>[−32,767, +32,767]</code> range. For literals, use <code>0</code> or <code>0x</code> prefix if you are using octal or hexadecimal representation. When used with <code>printf</code> (see <code>%d_vs_%i/printf.c</code>), <code>%i</code> behaves exactly the same as <code>%d</code> and casts/converts the hex and octal numbers to decimal (the cast to decimal is direct). However, when used with <code>scanf</code> (see <code>%d_vs_%i/scanf.c</code>), <code>%d</code> is different from <code>%i</code> and won't cast properly unless you write decimal values. As a rule of thumb, use <code>%d</code> if you want work only with decimal numbers, that is, without octal or hex numbers. <code>%d</code> is preferred over <code>%i</code> for this case because it is straightforward and unambiguous. On the other hand, you should use <code>%i</code> when octal and/or hex numbers are involved. In such cases, only <code>%i</code> can make a nondecimal number (e.g., <code>052</code>) be correctly casted.</td>
+    <td>Basic signed integer type. Capable of containing at least the <code>[−32,767, +32,767]</code> range. While literals prefixed with <code>0</code> or <code>0x</code> are interpreted as octal or hexadecimal, respectively, literals without prefix are interpreted as decimal. On the one hand, <code>%i</code> handles any integer value input (decimal, hex, or oct) and outputs it in decimal. On the other hand, <code>%d</code>, <code>%x</code>, and <code>%o</code> outputs decimal, hexadecimal, and octal values, respectively, but cannot handle a a different numeral system. For instance, <code>int num; scanf("%x", &num);</code> doesn't handle <code>052</code> or <code>52</code> as input correctly: in both cases, they are wrongly interpreted as <code>0x52</code>. An error also happens for <code>int num; scanf("%o", &num);</code> when you input, say, <code>0x22</code> or <code>22</code>. Generally, <code>%d</code>, <code>%x</code>, and <code>%o</code> are preferred over <code>%i</code> for output as it makes clear which numeral system you are dealing with. For input, <code>%i</code> is preferred since there usually is an uncertainty over the numeral system of input value.</td>
 </tr>
 <tr>
     <td><code>unsigned</code>, <code>unsigned int</code></td>
@@ -420,7 +420,7 @@ Using these types provides clarity and consistency, especially when working on p
 
 It is common that some functions promote variables before handling them internally. In such case, if **it is common that simpler format specifiers are adopted instead of the original ones**:
 
-- `printf()` -> decimal (`%d`) is promoted to integer (`%i`). **It is a common practice to adopt `%d` to all integer values**, no matter it is decimal, hexadecimal, or octal.
+- `printf()` -> decimal (`%d`) is promoted to integer (`%i`). **It is a common practice to adopt `%d` to all integer values**, no matter it is decimal, hexadecimal, or octal. The same goes for `short int` (`%hd`).
 
 
 ---
