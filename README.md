@@ -312,6 +312,7 @@ int main() {
 ```
 - In `va_start(args, count);`, **you must to pass the last fixed input variable to `va_start()`** (in this case, it is `count`). Therefore, you must have at least one fixed variable. `va_start()` uses the last fixed argument to determine the starting point for retrieving the variadic arguments. In other words, the second argument is used to calculate the address of the first argument in the variable argument list. Without this information, va_start cannot correctly locate where the variable arguments begin.
 - `va_arg` is a macro used in variadic functions to retrieve the next argument in the argument list. **The second parameter to `va_arg` specifies the type of the argument that you want to retrieve**. If you don't specify it correctly, the code doesn't work properly (see `variadic_func/wrong_va_arg`).
+- Always use `va_end` after you've finished accessing the variable arguments using `va_start` and `va_arg`. Typically, you should place it at the end of your variadic function, just before returning or exiting the function. It  performs cleanup by ensuring that any resources associated with accessing variable arguments are properly released.
 
 For more complex scenarios, you might want to pass a variable number of arguments of different types (`char`, `int`, etc.). In these scenarions, you might use the following approach:
 ```c
