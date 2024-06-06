@@ -261,7 +261,8 @@ struct Point { // `Point` not an instance of this structure. Rather, it is the s
     int x;
     int y;
 };
-struct Point p1 = {10, 20}; // much more verbose
+struct Point p1 = {.x = 10, .y = 20}; // much more
+struct Point p2 = {5, 10};            // verbose
 ```
 
 Advantages of Using `typedef`:
