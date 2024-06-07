@@ -413,7 +413,7 @@ int main() {
 }
 ```
 
-### `_Generic` for overloading (`C` with C11 standard)
+### `_Generic` for function overloading (`C` with C11 standard)
 
 The `_Generic` keyword in C is a feature introduced in the C11 standard that allows you to implement generic programming. It provides a way to select expressions based on their types at compile time, which can be used to create type-generic macros or functions. **While C does not support function overloading natively (as C++ does), _Generic can be used to simulate function overloading**.
 
