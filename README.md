@@ -398,9 +398,9 @@ int main() {
 }
 ```
 
-### `_Generic` keyword for overloading (`C`)
+### `_Generic` keyword for overloading (`C` with C11 standard)
 
-The `_Generic` keyword in C is a feature introduced in the C11 standard that allows you to implement generic programming. It provides a way to select expressions based on their types at compile time, which can be used to create type-generic macros or functions. **While C does not support function overloading natively (as C++ does), _Generic can be used to achieve similar functionality**.
+The `_Generic` keyword in C is a feature introduced in the C11 standard that allows you to implement generic programming. It provides a way to select expressions based on their types at compile time, which can be used to create type-generic macros or functions. **While C does not support function overloading natively (as C++ does), _Generic can be used to simulate function overloading**.
 
 The `_Generic` keyword is used to create a generic selection expression that evaluates different expressions based on the type of a controlling expression.
 
@@ -411,7 +411,7 @@ The syntax is as follows:
     double: func1, \
     const char *: func2)(x, label)
 ```
-where `func0`, `func1`, and `func2` are selected depending if `x` is `int`, `double`, or `char*`, respectively. The `_Generic` selection expression **must be a single expression**, that is, it can't handle tuples (like `(x, y)`).jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+where `func0`, `func1`, and `func2` are selected depending if `x` is `int`, `double`, or `char*`, respectively, and `label` is a second argument that doesn't vary. The `_Generic` selection expression **must be a single expression**, that is, it can't handle tuples (like `(x, y)`).
 
 [1]: https://stackoverflow.com/questions/693788/is-it-better-to-use-c-void-arguments-void-foovoid-or-not-void-foo
 [2]: https://stackoverflow.com/questions/6393776/what-is-the-difference-between-a-macro-and-a-const-in-c
