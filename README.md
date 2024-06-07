@@ -131,6 +131,21 @@ enum Day {
 };
 ```
 
+Note that `enum` variables are accesssible even if you initialize anything:
+```c
+#include <stdio.h>
+enum {
+    TYPE_INT,     // 0
+    TYPE_DOUBLE,  // 1
+    TYPE_STRING   // 2
+};
+int main() {
+    printf("Hi TYPE_INT: %d,TYPE_DOUBLE: %d,TYPE_STRING: %d\n", TYPE_INT, TYPE_DOUBLE, TYPE_STRING);
+    //      Hi TYPE_INT: 0,TYPE_DOUBLE: 1,TYPE_STRING: 2
+    return 0;
+}
+```
+
 #### `enum class`
 
 In C++, both enum and enum class are used to define enumerations, but they have some important differences in terms of scope, type safety, and implicit conversions.
