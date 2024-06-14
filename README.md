@@ -148,7 +148,7 @@ int main() {
 
 #### `enum class`
 
-In C++, both enum and enum class are used to define enumerations, but they have some important differences in terms of scope, type safety, and implicit conversions.
+In C++, both `enum` and `enum class` are used to define enumerations, but they have some important differences in terms of scope, type safety, and implicit conversions.
 
 1. `enum`
     1. **Scope**: Enumerators are in the same scope as the enumeration.
