@@ -39,27 +39,29 @@ Dynamic linking involves linking to shared libraries (or dynamic link libraries,
 
 #### **What is the header file?**
 
-Header files are human-readable files that serve to communicate the interface of the library to users, enabling them to properly use and interact with the library's features. When using a library, whether static or shared, it is common practice to provide a corresponding header file that contains the necessary declarations for the library's functions, classes, structures, and other entities. Users who use the library include the header file in their own code and access the functionality provided by it. In `C/C++`, the `#include` directive is used to include header files. Directives are commands or instructions that are processed by the preprocessor before the actual compilation of the code. Directives are typically preceded by the `#` symbol, e.g., `#include`, `#define`, `#undef`, `#if`, `#endif`, etc. Header files typically contain function declarations, class definitions, constants, and other declarations that are needed for the compilation and usage of functions and types defined in the external source file (`.cpp` file).
-- User-Defined Header Files:
-    - These files are typically given a `.h` extension, and sometimes a `.hpp` extension in `C++` to indicate that they are header files.
-    - When including user-defined header files, the `#include` directive is typically used with double quotes, which means to search in the current directory (relative path). For example, `#include "myheader.h"` means to access the file `./myheader.h`.
-    - User-defined header files contain declarations and definitions specific to your project or library and are often organized within your project's directory structure.
-    - It is a common convention to give them the same base name (e.g., `mylib.h` and `mylib.cpp`) for clarity and organization, but it is not a strict requirement. 
-- `C++` Standard Library Header Files:
-    - `C++` Standard Library header files often do not have a `.h` extension, and they are included using angle brackets, like `#include <iostream>`.
-    - The omission of the `.h` extension is a convention within the `C++` Standard Library to distinguish these headers from traditional `C` headers, which often use the `.h` extension.
-    - These headers provide standardized interfaces to `C++` language features and standard library components.
-It is important to note that while these conventions are common, they are not strict rules enforced by the language itself. The presence or absence of the extension doesn't affect how the compiler or preprocessor treats the file. The choice of file extension and inclusion method is ultimately defined by the project's convention.
+Header files are human-readable files that serve for declaring interfaces to source codes or libraries. They typically contain function declarations, class definitions, constants, and other declarations intended for external use.
 
-However, it is also important to note that header files are not used exclusively for libraries; they are a fundamental part of `C`/`C++` programming and serve various purposes beyond just defining library interfaces. Header files are also used to:
-- *Declare Function Prototypes/declarations*: Header files commonly declare function prototypes, allowing you to use functions defined in other source files. This is essential for breaking up your code into multiple source files while maintaining proper encapsulation. See `./c-header-files-for-func-prot`
-- *Share Common Definitions*: Header files can contain shared constants, macros, and data structure definitions that multiple source files need. This promotes code reusability and consistency.
+- Header files are typically given a `.h` extension, and sometimes a `.hpp` extension in `C++` to indicate that they are header files.
+- The `#include` directive¹ is used to include header files.
+- Standard Library header files, which are associated to Standard Libraries, are used in angle brackets, e.g., `#include <stdio.h>`.
+- `C++` Standard Library header files often do not have a `.h` or `.hpp` extension, e.g., `#include <iostream>`.
+- User-defined header files are typically used with double quotes, which means to search in the current directory (relative path). For example, `#include "myheader.h"` means to access the file `./myheader.h`.
+- It is a common convention to give them the same base name (e.g., `mylib.h` and `mylib.cpp`) for clarity and organization, but it is not a strict requirement. 
+
+¹: Directives are typically preceded by the `#` symbol, e.g., `#include`, `#define`, `#undef`, `#if`, `#endif`, etc., and are processed by the preprocessor before the actual compilation of the code.
+
+##### Header files for libraries
+
+When using a library, whether static or shared, it is common practice to provide a corresponding header file that contains the necessary declarations for the library's functions, classes, structures, and other entities. This enables the user to properly use and interact with the library's features. Users who include the library's header file in their code can access the functionality it provides.
+
+##### Header files for source code.
+The goal of creating a header file for a source code (`.c`/`.cpp`) is to provide declarations for functions, classes, variables, constants, and other entities that can be used by other `.c`/`.cpp` files. This allows us to split the source code into multiple files, thus enabling modularity, code reuse, and easier management of large projects. The `extern` keyword is often used in header files to indicate that a variable is defined in another source file. See `./header_between_source_code/` for more examples.
 
 #### **Header file paths**
 
 When you include a header file using the `#include` directive in your C++ project, the system or the compiler follows a predefined search path to locate the header file. Here's how it typically works:
 1. *Standard Header File search paths*: The compiler first looks in its system directories for standard header file search paths. These directories are:
-    - On *Linix* and *MacOS*: You can check these paths by [running][1], for `C++`:
+    - On *Linux* and *MacOS*: You can check these paths by [running][1], for `C++`:
     ```shell
     eval $(gcc -print-prog-name=cc1plus) -v
     ```
