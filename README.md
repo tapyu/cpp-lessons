@@ -46,7 +46,8 @@ Header files are human-readable files that serve for declaring interfaces to sou
 - Standard Library header files, which are associated to Standard Libraries, are used in angle brackets, e.g., `#include <stdio.h>`.
 - `C++` Standard Library header files often do not have a `.h` or `.hpp` extension, e.g., `#include <iostream>`.
 - User-defined header files are typically used with double quotes, which means to search in the current directory (relative path). For example, `#include "myheader.h"` means to access the file `./myheader.h`.
-- It is a common convention to give them the same base name (e.g., `mylib.h` and `mylib.cpp`) for clarity and organization, but it is not a strict requirement. 
+- It is a common convention to give them the same base name (e.g., `mylib.h` and `mylib.cpp`) for clarity and organization, but it is not a strict requirement.
+- Usually the header file is included in its own source file, that is, `mylib.cpp` contains `#include "mylib.h"`.
 
 ¹: Directives are typically preceded by the `#` symbol, e.g., `#include`, `#define`, `#undef`, `#if`, `#endif`, etc., and are processed by the preprocessor before the actual compilation of the code.
 
