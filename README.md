@@ -260,6 +260,46 @@ Benefits of Lambda Functions:
 - Local Scope: Lambda functions capture variables from the surrounding scope, making it easier to use and manipulate data within a specific context.
 - Avoiding Function Overhead: Useful for writing functions without the overhead of traditional function declarations.
 
+##### Special captures
+
+- By Value (`[=]`): Captures all variables used in the lambda by value.
+    ```cpp
+    #include <iostream>
+    
+    int main() {
+        int x = 10;
+        int y = 20;
+        auto lambda = [=]() { // Capturing all by value
+            std::cout << "x + y inside lambda: " << (x + y) << std::endl;
+        };
+    
+        x = 30;
+        y = 40;
+        lambda(); // Prints: x + y inside lambda: 30
+    
+        return 0;
+    }
+    ```
+- By Reference (`[&]`): Captures all variables used in the lambda by reference.
+    ```cpp
+    #include <iostream>
+    
+    int main() {
+        int x = 10;
+        int y = 20;
+        auto lambda = [&]() { // Capturing all by reference
+            std::cout << "x + y inside lambda: " << (x + y) << std::endl;
+        };
+    
+        x = 30;
+        y = 40;
+        lambda(); // Prints: x + y inside lambda: 70
+    
+        return 0;
+    }
+    ```
+
+
 ### `typedef` (`C` and `C++`)
 
 In C/C++, `typedef` is a keyword used to create new type names (aliases) for existing types. **It uses the declared variable name as the type name**. A dumb example would be
