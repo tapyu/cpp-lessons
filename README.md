@@ -175,7 +175,49 @@ In `C++`, you can dynamically allocated integer variable with the `new` keyword 
 1. `(5)` (optional): set the stored value of dynamically allocated memory to `5`;
 1. `int *dynam_int =`: assigns this `int*` pointer to `*dynam_int`;
 
-However, Using new and delete directly is error-prone and can lead to memory leaks and other issues if not handled carefully. The modern C++ best practice is to prefer smart pointers (`std::unique_ptr` and `std::shared_ptr`). They automatically manage the memory and reduce the risk of memory leaks, dangling pointers, and other common pitfalls associated with manual memory management. Therefore, it's advisable to use smart pointers whenever possible and resort to manual memory management only when you have a compelling reason to do so and understand the associated risks.
+#### **Unique and shared pointer**
+
+Using `new` and `delete` directly is error-prone and can lead to memory leaks and other issues if not handled carefully. The modern C++ (after in C++11) best practice is to prefer smart pointers. They automatically manage the memory and reduce the risk of memory leaks, dangling pointers, and other common pitfalls associated with manual memory management. Therefore, **it's advisable to use smart pointers whenever possible** and resort to manual memory management only when you have a compelling reason to do so and understand the associated risks.
+
+Two common types of smart pointers are `std::shared_ptr` and `std::unique_ptr`.
+
+##### **`std::unique_ptr`**
+
+A `std::unique_ptr` is a smart pointer that owns and manages another object through a pointer **and disposes of that object when the `std::unique_ptr` goes out of scope**. **The ownership is unique, meaning only one `std::unique_ptr` can own the same object at a time**. It cannot be copied, but it can be moved to transfer ownership.
+
+Key Features:
+- Exclusive Ownership: Only one std::unique_ptr can own the object at a time.
+- Move Semantics: Can be moved to another std::unique_ptr using std::move.
+- Automatic Destruction: Automatically deletes the managed object when it goes out of scope.
+
+```cpp
+#include <iostream>
+#include <memory>
+
+class MyClass {
+public:
+    MyClass() { std::cout << "MyClass Constructor\n"; }
+    ~MyClass() { std::cout << "MyClass Destructor\n"; }
+    void sayHello() const { std::cout << "Hello from MyClass\n"; }
+};
+
+int main() {
+    std::unique_ptr<MyClass> ptr1 = std::make_unique<MyClass>();
+    ptr1->sayHello();
+
+    // Transfer ownership to ptr2
+    std::unique_ptr<MyClass> ptr2 = std::move(ptr1);
+
+    if (!ptr1) {
+        std::cout << "ptr1 is now empty\n";
+    }
+
+    ptr2->sayHello();
+
+    // ptr2 goes out of scope and the MyClass instance is deleted
+    return 0;
+}
+```
 
 #### **Storage duration**
 
