@@ -255,6 +255,10 @@ The basic syntax of a lambda function in `C++` is as follows:
 - Return type (`->`): the function return.
 - Parameters (`()`): Similar to regular function parameters.
 
+Benefits of Lambda Functions:
+- Conciseness: Allows you to define small, focused functions directly where they are needed, improving code readability.
+- Local Scope: Lambda functions capture variables from the surrounding scope, making it easier to use and manipulate data within a specific context.
+- Avoiding Function Overhead: Useful for writing functions without the overhead of traditional function declarations.
 
 ### `typedef` (`C` and `C++`)
 
