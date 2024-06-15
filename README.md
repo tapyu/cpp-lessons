@@ -32,7 +32,37 @@ The extern keyword is not required in the header file because it's common practi
 
 The static keyword can be used in a function declaration in several different contexts, and its meaning can vary depending on where it is used:
 1. *Static Member Functions*: When you declare a member function as `static` inside a class, it means that the function belongs to the class itself rather than to any specific instance of the class. You can call a static member function using the class name, without creating an object of the class. See `./static_member-function/`.
-1. *Static Variables inside function*: Inside a function, you can declare variables as `static`. The scope of that `static` variable exists only within that function, as any ordinary variable. However, since it is a `static` variable, it is initialized only once and it retains its value between the calls of the function it was defined. See main example.
+1. *Static Variables inside function*: Inside a function, you can declare variables as `static`. The scope of that `static` variable exists only within that function, as any ordinary variable. However, since it is a `static` variable, it is initialized only once and it retains its value between the calls of the function it was defined.
+    ```cpp
+    #include <stdio.h>
+     
+    void f (void)
+    {
+        static int count = 0;   // static variable   
+        int i = 0;              // automatic variable
+        printf("%d %d\n", i++, count++);
+    }
+     
+    int main(void)
+    {
+        for (int ndx=0; ndx<10; ++ndx)
+            f();
+        return 0;
+    }
+    ```
+    output:
+    ```
+    0 0
+    0 1
+    0 2
+    0 3
+    0 4
+    0 5
+    0 6
+    0 7
+    0 8
+    0 9
+    ```
 1. *Satic functions/variables in the source file*: If a function/variable is defined in the source file (but outside any function/class body) and with the `static` keyword, then that function/variable has *internal linkage*, that is, it will only be accessible within the [translation unit][5] where it is defined.
 ```c
 // helper.cpp
