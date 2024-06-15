@@ -146,7 +146,7 @@ The function pointer variable `fnc_ptr` is declared and assinged to the return o
 
 #### Memory address
 
-Memory in a computer system is organized into discrete units called memory locations or units. **Each memory stores [8 bits][9] (1 byte) and has a unique memory address that access it**. A memory address is a sequence of bits which is denoted in hexadecimal, e.g., `0x7ffee3c38b8c` (the prefix `0x` indicates that it is a hexadecimal number). The number of bits that the system can use to refer to a memory address is determined by its architecture, and it is usually 32 or 64 bits.
+Memory in a computer system is organized into discrete units called memory locations or units. **Each memory stores [8 bits][9] (1 byte) and has a unique memory address that access it**. A memory address is a sequence of bits which is denoted in hexadecimal, e.g., `0x7ffee3c38b8c` (the prefix `0x` indicates that it is a hexadecimal number). The number of bits that the system can use for each memory address is determined by its architecture, and it is usually 32 or 64 bits.
 
 > NOTE: In a 64-bit memory architecture, each address contains 16 hex digits. However, the `C`/`C++` compiler [suppress](https://stackoverflow.com/a/7190827/13343959) the leading `0`'s when printing it out. Therefore, the full memory address is actually `0x00007ffe100ee504`.
 
