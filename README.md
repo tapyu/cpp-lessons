@@ -218,6 +218,43 @@ int main() {
     return 0;
 }
 ```
+##### **`std::shared_ptr`**
+A `std::shared_ptr` is a smart pointer that maintains shared ownership of an object through a pointer. **Multiple `std::shared_ptr` instances can own the same object**. **The object is destroyed when the last `std::shared_ptr` owning it is destroyed or reset**.
+
+Key Features:
+- Shared Ownership: Multiple std::shared_ptr instances can own the same object.
+- Reference Counting: Internally uses a reference count to track the number of std::shared_ptr instances owning the object.
+- Automatic Destruction: Automatically deletes the managed object when the last std::shared_ptr owning it is destroyed.
+
+```cpp
+#include <iostream>
+#include <memory>
+
+class MyClass {
+public:
+    MyClass() { std::cout << "MyClass Constructor\n"; }
+    ~MyClass() { std::cout << "MyClass Destructor\n"; }
+    void sayHello() const { std::cout << "Hello from MyClass\n"; }
+};
+
+int main() {
+    std::shared_ptr<MyClass> ptr1 = std::make_shared<MyClass>();
+    ptr1->sayHello();
+
+    {
+        std::shared_ptr<MyClass> ptr2 = ptr1; // Shared ownership
+        std::cout << "Reference count: " << ptr1.use_count() << "\n";
+        ptr2->sayHello();
+    } // ptr2 goes out of scope but the object is not deleted
+
+    std::cout << "Reference count after ptr2 is out of scope: " << ptr1.use_count() << "\n";
+
+    ptr1->sayHello(); // The object is still accessible
+
+    // ptr1 goes out of scope and the MyClass instance is deleted
+    return 0;
+}
+```
 
 #### **Storage duration**
 
