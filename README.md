@@ -250,7 +250,7 @@ The basic syntax of a lambda function in `C++` is as follows:
     // Return statement (if return-type is not void)
 };
 ```
-- Capture List (`capture-list`): Allows lambda functions to access variables from the surrounding scope. It can be empty (`[]`) or capture specific variables by value (`[x, y]`) or by reference (`[&a, &b]`).
+- Capture List (`capture-list`): Allows lambda functions to access variables from the surrounding scope. It can be empty (`[]`) or capture specific variables by value (`[x, y]`) or by reference (`[&a, &b]`) (see [`lambda_function/by_ref.cpp`](./lambda_function/by_ref.cpp) for more details).
 - `return-type`: the function return.
 - Parameters (`parameters`): Similar to regular function parameters.
 
