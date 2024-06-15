@@ -245,14 +245,15 @@ In C++, a lambda function (often referred to as a lambda expression) is an anony
 
 The basic syntax of a lambda function in `C++` is as follows:
 ```cpp
-[capture-list](parameters) -> return-type {
-    // Function body
-    // Return statement (if return-type is not void)
-};
+    auto add = [](int a, int b) -> int {
+        return a + b;
+    };
+    // Using the lambda function
+    int result = add(10, 20);
 ```
-- Capture List (`capture-list`): Allows lambda functions to access variables from the surrounding scope. It can be empty (`[]`) or capture specific variables by value (`[x, y]`) or by reference (`[&a, &b]`) (see [`lambda_function/by_ref.cpp`](./lambda_function/by_ref.cpp) for more details).
-- `return-type`: the function return.
-- Parameters (`parameters`): Similar to regular function parameters.
+- Capture List (`[]`): Allows lambda functions to access variables from the surrounding scope. It can be empty (`[]`) or capture specific variables by value (`[x, y]`) or by reference (`[&a, &b]`) (see [`lambda_function/by_ref.cpp`](./lambda_function/by_ref.cpp) for more details).
+- Return type (`->`): the function return.
+- Parameters (`()`): Similar to regular function parameters.
 
 
 ### `typedef` (`C` and `C++`)
