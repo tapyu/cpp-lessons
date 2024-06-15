@@ -239,6 +239,22 @@ int main() {
 
 **[With a union][7], you're only supposed to use one of the elements**, because they're all stored at the same address. This makes it useful when you want to store something that could be one of several types. A struct, on the other hand, has a separate memory location for each of its elements and they all can be used at once (see `./union_vs_struct/`).
 
+### Lambda function (`C++` after C++11)
+
+In C++, a lambda function (often referred to as a lambda expression) is an anonymous function that you can define inline within the code where it's needed. Lambda functions were introduced in C++11 and have since become a powerful feature for writing concise and readable code, especially in situations where a small, temporary function is needed without the overhead of a formal function declaration.
+
+The basic syntax of a lambda function in `C++` is as follows:
+```cpp
+[capture-list](parameters) -> return-type {
+    // Function body
+    // Return statement (if return-type is not void)
+};
+```
+- Capture List (`capture-list`): Allows lambda functions to access variables from the surrounding scope. It can be empty (`[]`) or capture specific variables by value (`[x, y]`) or by reference (`[&a, &b]`).
+- `return-type`: the function return.
+- Parameters (`parameters`): Similar to regular function parameters.
+
+
 ### `typedef` (`C` and `C++`)
 
 In C/C++, `typedef` is a keyword used to create new type names (aliases) for existing types. **It uses the declared variable name as the type name**. A dumb example would be
@@ -381,7 +397,7 @@ When passing through variadic function (using `...`):
 - `char` and `short` are promoted to `int`.
 - `float` is promoted to `double`.
 
-### Compoud literals
+### Compoud literals (`C`)
 
 In C, a compound literal is a feature that allows you to create unnamed objects (arrays, structures, or unions) in a single line, **without the need for a variable name**. It's particularly useful when you need a temporary object for a specific purpose without cluttering your code with unnecessary variable declarations.
 
