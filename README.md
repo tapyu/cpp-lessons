@@ -506,7 +506,7 @@ public:
     }
 };
 ```
-If you don't want the `add()` function to be interpreted as inline, you should avoid defining it within the class definition. Instead, declare the function in the class definition and define it outside the class in a separate source file.
+If you don't want that `add()` function be interpreted as inline, you should avoid defining it within the class definition. Instead, declare the function in the class definition and define it outside the class in a separate source file.
 ```cpp
 // MyClass.h
 #ifndef MYCLASS_H
