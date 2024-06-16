@@ -42,5 +42,54 @@ private:
 - Derived Class (`PatternList`): Inherits from Regengine using public inheritance.
 - Override (`override`): Indicates that `exec` is overriding a virtual function from the base class `Regengine`. This ensures that the derived class provides its own implementation of the virtual function.
 
+## Constructor and Destructor
+
+Classes in C++ can have constructors and destructors:
+
+Constructor (`PosixRegex(const std::string &pattern, bool case_insensitive)`) and Destructor (`~PosixRegex()`)
+- Constructor: Initializes objects of the class. It has the same name as the class and does not return any value.
+- Destructor: Cleans up resources when an object goes out of scope or is explicitly deleted. It is invoked automatically when an object is destroyed.
+
+For instance, if we have
+```cpp
+class PCRERegex : public Regengine
+{
+public:
+	PCRERegex(const std::string &pattern, bool case_insensitive);
+	~PCRERegex();
+	bool exec(const std::string &str, size_t offset, struct match &m) const override;
+private:
+	pcre2_code *regex;
+};
+```
+in the header file, in the source code, we can implement the constructor like
+```
+PCRERegex::PCRERegex(const string &pattern, bool case_insensitive)
+{
+	int pcre_err;
+	PCRE2_SIZE pcre_err_ofs;
+	const uint32_t pcre_options = PCRE2_UTF | (case_insensitive ? PCRE2_CASELESS : 0);
+
+	this->regex = pcre2_compile(reinterpret_cast<PCRE2_SPTR>(pattern.data()), pattern.size(),
+				    pcre_options, &pcre_err, &pcre_err_ofs, nullptr);
+
+	if (this->regex == nullptr) {
+		PCRE2_UCHAR message[512]; // Actual size unknowable, longer messages get truncated
+		pcre2_get_error_message(pcre_err, message, sizeof message / sizeof *message);
+		err() << pattern << endl;
+		err() << setw(pcre_err_ofs+1) << "^" << endl;
+		err() << "Error compiling PCRE pattern: " << message << endl;
+		exit(EXIT_ERROR);
+	}
+}
+```
+and the Destructor like
+```cpp
+PCRERegex::~PCRERegex()
+{
+	pcre2_code_free(this->regex);
+}
+```
+
 [1]: https://gitlab.com/pdfgrep/pdfgrep/-/blob/master/src/regengine.cc?ref_type=heads
 [2]: https://gitlab.com/pdfgrep/pdfgrep/-/blob/master/src/regengine.h?ref_type=heads
