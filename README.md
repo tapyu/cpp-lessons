@@ -40,7 +40,22 @@ private:
 ```
 
 - Derived Class (`PatternList`): Inherits from Regengine using public inheritance.
-- Override (`override`): Indicates that `exec` is overriding a virtual function from the base class `Regengine`. This ensures that the derived class provides its own implementation of the virtual function.
+- Override (`override`): In C++, **the override keyword is used to explicitly indicate that a member function in a derived class is intended to override a virtual function from a base class**. In the source code, `exec()` can be rewritten as follows:
+	```cpp
+	bool PatternList::exec(const string &str, size_t offset, struct match &m) const
+	{
+		struct match m_copy = m;
+	
+		for (auto &r : patterns) {
+			if (r->exec(str, offset, m_copy)) {
+				m.start = m_copy.start;
+				m.end = m_copy.end;
+				return true;
+			}
+		}
+		return false;
+	}
+	```
 
 ## Constructor and Destructor
 
