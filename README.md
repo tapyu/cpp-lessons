@@ -14,7 +14,7 @@ public:
 - Class Name (`Regengine`): Names the class and serves as a blueprint or template for creating objects.
 - Access Specifiers (`public`): Determines the visibility and accessibility of class members. public members are accessible from outside the class and by derived classes.
 
-> PS: when you see {} in a member function definition within a class declaration in a header file, it means that the function is being defined there and not just declared.
+> PS: when you see {} in a member function definition within a class declaration in a header file, it means that the function is being defined there and not just declared. The inline keyword is often omitted because functions defined inside a class are implicitly inline.
 
 ## Member functions
 
