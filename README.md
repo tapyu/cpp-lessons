@@ -56,6 +56,7 @@ private:
 		return false;
 	}
 	```
+	If you omit `override` in the derived class declaration, the function will still override the base class function if the signatures match. However, **using `override` explicitly is considered good practice because it prevents bugs** that can arise from accidentally mismatched function signatures or changes in the base class that are not properly reflected in derived classes.
 
 ## Constructor and Destructor
 
