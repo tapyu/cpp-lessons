@@ -63,7 +63,7 @@ private:
 };
 ```
 in the header file, in the source code, we can implement the constructor like
-```
+```cpp
 PCRERegex::PCRERegex(const string &pattern, bool case_insensitive)
 {
 	int pcre_err;
