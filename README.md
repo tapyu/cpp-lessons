@@ -489,6 +489,46 @@ The syntax is as follows:
 ```
 where `func0`, `func1`, and `func2` are selected depending if `x` is `int`, `double`, or `char*`, respectively, and `label` is a second argument that doesn't vary. The `_Generic` selection expression **must be a single expression**, that is, it can't handle tuples (like `(x, y)`). See `_generic/`.
 
+### `inline` (`C++`)
+
+The `inline` keyword in C++ is used to suggest to the compiler that it should attempt to expand the function inline rather than calling it through the usual function call mechanism. This can reduce the overhead of function calls, especially for small, frequently called functions. When a function is declared as inline, the compiler attempts to insert the complete body of the function in every place where the function is called, rather than generating a call to the function. This can reduce the overhead of function calls.
+```cpp
+inline int add(int a, int b) {
+    return a + b;
+}
+```
+When you define a member function inside a class definition, it is implicitly considered inline by the compiler.
+```cpp
+class MyClass {
+public:
+    int add(int a, int b) { // This function is implicitly inline
+        return a + b;
+    }
+};
+```
+If you don't want the `add()` function to be interpreted as inline, you should avoid defining it within the class definition. Instead, declare the function in the class definition and define it outside the class in a separate source file.
+```cpp
+// MyClass.h
+#ifndef MYCLASS_H
+#define MYCLASS_H
+
+class MyClass {
+public:
+    int add(int a, int b); // Declaration only, no inline
+};
+
+#endif // MYCLASS_H
+```
+
+```cpp
+// MyClass.cpp
+#include "MyClass.h"
+
+int MyClass::add(int a, int b) { // Definition, not inline
+    return a + b;
+}
+```
+
 [1]: https://stackoverflow.com/questions/693788/is-it-better-to-use-c-void-arguments-void-foovoid-or-not-void-foo
 [2]: https://stackoverflow.com/questions/6393776/what-is-the-difference-between-a-macro-and-a-const-in-c
 [3]: https://stackoverflow.com/questions/25860850/what-is-the-difference-between-f-and-lf-in-c
