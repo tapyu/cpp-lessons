@@ -1,4 +1,4 @@
-In `C++`, a class is a user-defined data type that encapsulates data (attributes) and functions (methods) that operate on the data. Classes are defined using the class keyword followed by the class name and a body enclosed in curly braces `{ }`.
+In `C++`, a class is a user-defined data type that encapsulates data (attributes) and functions (methods) that operate on the data. Classes are defined using the `class` keyword followed by the class name and a body enclosed in curly braces `{ }`.
 
 Let us consider the following declarations in a [header file][2] (in the [source code][1], you find the actual implementation of each member function).
 
