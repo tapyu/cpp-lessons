@@ -42,23 +42,24 @@ private:
 ```
 
 - Derived Class (`PatternList`): Inherits from Regengine using public inheritance.
-- Override (`override`): In C++, the `override` keyword is used to explicitly indicate that a member function in a derived class is intended to override a `virtual` function from a base class. **So `vitual` and `override` are used together**. In the source code, `exec()` can be rewritten as follows:
-	```cpp
-	bool PatternList::exec(const string &str, size_t offset, struct match &m) const
-	{
-		struct match m_copy = m;
-	
-		for (auto &r : patterns) {
-			if (r->exec(str, offset, m_copy)) {
-				m.start = m_copy.start;
-				m.end = m_copy.end;
-				return true;
-			}
+- Override (`override`): In C++, the `override` keyword is used to explicitly indicate that a member function in a derived class is intended to override a `virtual` function from a base class. **So `vitual` and `override` are used together**: `virtual` is used in `Regengine` to denote denote it must be overridden in derived classes, whereas `override` is used in `PatternList`, a class derived from `Regengine`.
+
+In the source code, `exec()` can be rewritten as follows:
+```cpp
+bool PatternList::exec(const string &str, size_t offset, struct match &m) const
+{
+	struct match m_copy = m;
+	for (auto &r : patterns) {
+		if (r->exec(str, offset, m_copy)) {
+			m.start = m_copy.start;
+			m.end = m_copy.end;
+			return true;
 		}
-		return false;
 	}
-	```
-	If you omit `override` in the derived class declaration, the function will still override the base class function if the signatures match. However, **using `override` explicitly is considered good practice because it prevents bugs** that can arise from accidentally mismatched function signatures or changes in the base class that are not properly reflected in derived classes.
+	return false;
+}
+```
+If you omit `override` in the derived class declaration, the function will still override the base class function if the signatures match. However, **using `override` explicitly is considered good practice because it prevents bugs** that can arise from accidentally mismatched function signatures or changes in the base class that are not properly reflected in derived classes.
 
 ## Constructor and Destructor
 
