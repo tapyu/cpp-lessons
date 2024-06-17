@@ -42,7 +42,7 @@ private:
 ```
 
 - Derived Class (`PatternList`): Inherits from Regengine using public inheritance.
-- Override (`override`): In C++, **the override keyword is used to explicitly indicate that a member function in a derived class is intended to override a virtual function from a base class**. In the source code, `exec()` can be rewritten as follows:
+- Override (`override`): In C++, the `override` keyword is used to explicitly indicate that a member function in a derived class is intended to override a `virtual` function from a base class. **So `vitual` and `override` are used together**. In the source code, `exec()` can be rewritten as follows:
 	```cpp
 	bool PatternList::exec(const string &str, size_t offset, struct match &m) const
 	{
