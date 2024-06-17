@@ -18,7 +18,7 @@ public:
 
 ## Member functions
 
-Member Function Declaration (`exec`): Functions defined within the class are called member functions. They can have various access specifiers (`public`, `private`, `protected`) and may include parameters.
+Member Function Declaration (`exec`): Functions defined within the class are called member functions or methods. They can have various access specifiers (`public`, `private`, `protected`) and may include parameters.
 
 ## Virtual and Pure Virtual Functions
 
