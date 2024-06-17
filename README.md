@@ -24,7 +24,7 @@ Member Function Declaration (`exec`): Functions defined within the class are cal
 
 Virtual functions allow overriding by derived classes. They enable polymorphism, where different classes can provide different implementations of the same function signature.
 
-Pure Virtual Functions (`virtual bool exec(...) const = 0`): Pure virtual functions are declared with = 0 and have no implementation in the base class. They must be overridden by any derived class, making the base class abstract.
+Pure Virtual Functions (`virtual bool exec(...) const = 0`): Pure virtual functions are declared with `= 0` and have no implementation in the base class. They must be overridden by any derived class, *making the base class abstract*.
 
 ## Inheritance
 
