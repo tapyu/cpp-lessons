@@ -32,7 +32,9 @@ The extern keyword is not required in the header file because it's common practi
 
 The static keyword can be used in a function declaration in several different contexts, and its meaning can vary depending on where it is used:
 1. *Static Member Functions*: When you declare a member function as `static` inside a class, **it means that the function belongs to the class itself rather than to any specific instance of the class**. You can call a static member function using the class name, without creating an object of the class. See `./static_member-function/`.
-1. *Static Variables*: **`static` variables have internal linkage**, meaning the variable is only visible within the translation unit where it is defined. If it is defined within a function, the scope of that `static` variable exists only within that function, as any ordinary variable. However, since it is a `static` variable, it is initialized only once and it retains its value between the calls of the function it was defined.
+1. *Static Variables*: **`static` variables have internal linkage**, meaning the variable is only visible within the translation unit where it is defined. They should not be accessed from other source files. This is useful for encapsulating the variable within the file, preventing name conflicts and unintended access.
+
+On the other hand, if it is defined within a function, the scope of that `static` variable exists only within that function, as any ordinary variable. Nevertherless, since it is `static`, it is initialized only once and it retains its value between the calls of the function it was defined.
     ```c
     #include <stdio.h>
         
