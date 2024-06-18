@@ -330,9 +330,62 @@ PCRERegex::~PCRERegex()
 }
 ```
 
-## `this` keyword
+---
 
-In `C++`, every non-static member function has access to a special pointer called this. The this pointer points to the object that invoked the member function. For example, if you have an object obj of class MyClass and you call `obj.myFunction()`, within `myFunction`, the this pointer points to obj.
+# Templates
+
+In C++, a template is a powerful tool that allows you to define a generic type or function that can work with any data type without sacrificing type safety. Templates are primarily used to create generic classes and functions, enabling you to write code that operates on different data types without duplicating the code for each type.
+
+## Basics of Templates
+Templates are defined using the template keyword followed by a list of template parameters enclosed in angle brackets <>. There are two main types of templates:
+
+1. Class Templates: These define a family of classes that are parameterized by one or more types.
+
+```cpp
+// Example of a class template
+template<typename T>
+class MyContainer {
+private:
+    T element;
+public:
+    MyContainer(T arg) : element(arg) { }
+    T getValue() { return element; }
+};
+```
+- In this example, `MyContainer` is a class template with a single type parameter `T`.
+- `T` can be any valid C++ data type (int, float, custom class, etc.).
+
+1. Function Templates: These define a family of functions that are parameterized by one or more types or values.
+
+```cpp
+// Example of a function template
+template<typename T>
+T add(T a, T b) {
+    return a + b;
+}
+```
+- In this example, `add` is a function template that takes two parameters of type `T` and returns their sum.
+- The type `T` is determined at the time of function invocation based on the arguments passed.
+
+## Benefits of Templates
+- Code Reusability: Templates allow you to write generic code that can be used with different data types without rewriting the code.
+- Type Safety: Unlike macros or void pointers (void*), templates provide type safety because the compiler ensures that only compatible types are used with the template.
+- Performance: Templates are resolved at compile-time, which often results in efficient code generation as compared to runtime polymorphism.
+
+## Template Instantiation
+Template instantiation occurs when the compiler generates code for a specific instantiation of a template class or function based on the template arguments provided. For example:
+
+```cpp
+int main() {
+    MyContainer<int> intContainer(42); // Instantiates MyContainer for type int
+    std::cout << intContainer.getValue() << std::endl; // Outputs 42
+
+    std::cout << add(1, 2) << std::endl; // Instantiates add<int>(1, 2), outputs 3
+
+    return 0;
+}
+```
+- In the above example, MyContainer<int> and add<int> are specific instantiations of the template classes and functions for the int type.
 
 [1]: https://gitlab.com/pdfgrep/pdfgrep/-/blob/master/src/regengine.cc?ref_type=heads
 [2]: https://gitlab.com/pdfgrep/pdfgrep/-/blob/master/src/regengine.h?ref_type=heads
