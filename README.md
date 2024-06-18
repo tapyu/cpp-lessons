@@ -115,7 +115,7 @@ The static keyword can be used in a function declaration in several different co
     
     // Declaration of an external variable
     extern int external_variable;
-    // extern int static_variable; // you have an external linkage of a `static` variable since it is only visible within the translation unit where it is defined
+    // extern int static_variable; // you cannot have an external linkage of a `static` variable since it is only visible within the translation unit where it is defined
     #endif // EXAMPLE_H
     ```
     ```c
