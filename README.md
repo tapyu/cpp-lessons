@@ -87,7 +87,7 @@ Note that **the `extern` keyword is not mandatory when declaring functions, clas
 - SPOT — Single Point of Truth: For any given variable, only one header file declares it (although you are allowed to declare it multiple times without problems).
 - A source file never contains `extern` declarations of variables — source files always include the unique header that declares them.
 - For any given variable, exactly one source file defines the variable, preferably initializing it too.
-- The source file that defines the variable also includes the header to ensure that the definition and the declaration are consistent.
+- The source file that defines the variable also includes the header to ensure that the definition and the declaration are consistent. For example, if `a.h` declares `extern int i;`, it is a good practice to define it in `a.c` (e.g., `int i = 100;`).
 - Functions, classes, structures, and enum declaration don't necessarily need the `extern` keyword as it is implicitly treated as one. You can put the `extern` keyword in their declaration without any problem for the sake of clarity. Although it is also correct, it is less common. Therefore the `extern` keyword is commonly used for global variables only.
 - Avoid global variables whenever possible — use functions instead.
 
@@ -99,7 +99,7 @@ The static keyword can be used in a function declaration in several different co
 1. *Static Member Functions*: When you declare a member function as `static` inside a class, **it means that the function belongs to the class itself rather than to any specific instance of the class**. You can call a static member function using the class name, without creating an object of the class. See `./static_member-function/`.
 1. *Static Variables*: **`static` variables have internal linkage**, meaning the variable is only visible within the translation unit where it is defined. They should not be accessed from other source files. This is useful for encapsulating the variable within the file, preventing name conflicts and unintended access.
 
-On the other hand, if it is defined within a function, the scope of that `static` variable exists only within that function, as any ordinary variable. Nevertherless, since it is `static`, it is initialized only once and it retains its value between the calls of the function it was defined.
+    On the other hand, if it is defined within a function, the scope of that `static` variable exists only within that function, as any ordinary variable. Nevertherless, since it is `static`, it is initialized only once and it retains its value between the calls of the function it was defined.
     ```c
     #include <stdio.h>
         
