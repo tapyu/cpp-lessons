@@ -18,7 +18,7 @@ void greeting(); // function declaration of void greeting(). `extern` is not man
 
 You can define `sharedVariable` in `shared.c`, `main.c`, or any other source file that includes `shared.h`. At linking time, the object files (i.e., `.o`) are linked by the compiler, which searches among them for the definition of `sharedVariable`. You must define `sharedVariable` only once, otherwise an error is prompted.
 
-This feature brings code modularity, ensuring that variables and functions can be shared across different translation units¹. For example, let us define the code:
+This feature brings code modularity, ensuring that variables and functions can be shared across different translation units¹. For example, let us consider the following code:
 
 ```c
 // shared.c
