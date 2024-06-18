@@ -161,6 +161,7 @@ cd.show();    // Calls Derived::show()
 Pure virtual functions are declared with `= 0` and have no implementation in the base class. They must be overridden by any derived class, *making the base class abstract*. When a class contains at least one pure virtual function, **it becomes an abstract class**, and you cannot instantiate objects of that class directly.  So suppose we add
 
 ```cpp
+// example.h
 class Base {
 public:
     // Declaration of a non-virtual member function `greeting()`
@@ -221,8 +222,16 @@ private:
 ```
 
 - `new_greeting()`: A pure virtual function (abstract function) marked with `= 0`, making Base an abstract class. It must be overridden by any non-abstract derived class. The function is also marked as const, indicating it does not modify the state of the object.
+- When a class contains at least one pure virtual function, **it becomes an abstract class**, and you cannot instantiate objects of that class directly.
 
-When a class contains at least one pure virtual function, **it becomes an abstract class**, and you cannot instantiate objects of that class directly.
+```cpp
+// example.cpp
+void Derived::new_greeting() const {
+    std::cout << "Hello new greeting" << std::endl;
+}
+```
+
+**Every derived class that inherits from the `Base` must provide an implementation for the pure virtual function**. This implementation is mandatory to make the derived class concrete and not abstract.
 
 ## Inheritance
 
