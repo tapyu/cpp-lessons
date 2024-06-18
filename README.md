@@ -40,6 +40,9 @@ private:
 
 ```cpp
 // example.cpp
+#include <iostream>
+#include <string>
+
 #include "example.h"
 
 // Definition of Base::show()
