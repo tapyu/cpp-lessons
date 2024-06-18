@@ -93,7 +93,7 @@ Note that **the `extern` keyword is not mandatory when declaring functions, clas
 - Functions, classes, structures, and enum declaration don't necessarily need the `extern` keyword as it is implicitly treated as one. You can put the `extern` keyword in their declaration without any problem for the sake of clarity. Although it is also correct, it is less common. Therefore the `extern` keyword is commonly used for global variables only.
 - Avoid global variables whenever possible — use functions instead.
 
-¹: Each source file that includes a header file, along with the included header files, constitutes a separate translation unit. A translation unit in C/C++ is the result of processing a source file and all the header files it includes, after the preprocessing stage.
+¹: Each source file that includes a header file, along with the included header files, constitutes a separate translation unit. A translation unit in C/C++ is the result of the preprocessing stage, where the source file and all the header files it includes generate the translation unit (a `.i` file).
 
 ---
 
