@@ -8,9 +8,6 @@ For instance:
 #ifndef EXAMPLE_H
 #define EXAMPLE_H
 
-#include <iostream>
-#include <string>
-
 class Base {
 public:
     // Declaration of a non-virtual member function `greeting()`
