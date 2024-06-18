@@ -182,7 +182,7 @@ The static keyword can be used in a function declaration in several different co
     
     void globalFunction() {
         std::cout << "Calling staticFunction from globalFunction: ";
-        staticFunction(); // Can be called within helper.cpp
+        staticFunction(); // it can only be called within `helper.cpp`
     }
     ```
     ```cpp
