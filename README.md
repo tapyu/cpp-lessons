@@ -104,7 +104,7 @@ The static keyword can be used in a function declaration in several different co
     #include <stdio.h>
     int main() {
         printf("hello external: %d", external_variable);
-        // printf("hello external: %d", static_variable); // you cannot access to this `static` variable as it is linked to `example.c` translation unit.
+        // printf("hello external: %d", static_variable); // you cannot access to this `static` variable as it is linked to the `example.c` translation unit.
         return 0;
     }
     ```
