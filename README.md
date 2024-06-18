@@ -77,6 +77,7 @@ int main() {
 ```
 
 - Access Specifiers (`public`): Determines the visibility and accessibility of class members. public members are accessible from outside the class and by derived classes. You can have various access specifiers (`public`, `private`, `protected`).
+- Since `Base` has no pure virtual function, **it is a concrete class**.
 
 ## Member functions and `const` member functions
 
@@ -89,11 +90,75 @@ int main() {
 		- `Base*` means this points to a non-constant object of type `Base`, so you can modify the object’s members through this.
 		- The last `const` again means that the pointer itself cannot be changed to point somewhere else.
 
-## Virtual and Pure Virtual Functions
+## Virtual
 
-Virtual functions allow overriding by derived classes. They enable polymorphism, where different classes can provide different implementations of the same function signature.
+Virtual functions allow overriding by derived classes. They enable polymorphism, where different classes can provide different implementations of the same function signature. In the previous example, even though the `virtual` functions like `show()` and `display()` are intended to be overridden by derived classes, you can still define their behavior in `Base` and call these functions on Base objects.
 
-Pure Virtual Functions (`virtual bool exec(...) const = 0`): Pure virtual functions are declared with `= 0` and have no implementation in the base class. They must be overridden by any derived class, *making the base class abstract*.
+Suppose you add the following to `example.h`:
+```cpp
+// example.h
+class Derived : public Base {
+public:
+    // Override of the virtual member function `show()` from the Base class
+	// The overriden function provides polymorphism for it
+    // This function is constant and does not modify the state of the object.
+    void show() const override;
+
+    // Override of the virtual member function `display()` from the Base class
+	// The overriden function provides polymorphism for it
+    // This function can modify the state of the object.
+    void display() override;
+
+private:
+    // Private data member
+    // This member is not accessible directly outside the class and is only
+    // used internally within the Derived class.
+    int state = 0;
+};
+```
+and to `example.cpp`:
+```cpp
+// Definition of Derived::show()
+void Derived::show() const {
+    std::cout << "Derived class show() const" << std::endl;
+}
+
+// Definition of Derived::display()
+void Derived::display() {
+    state++;  // Modify the state variable to demonstrate state change
+    std::cout << "Derived class display() - state: " << state << std::endl;
+}
+```
+and to `main.cpp`:
+```cpp
+Derived d;
+d.display();   // Calls Derived::display()
+d.show();      // Calls Derived::show()
+d.display();   // Calls Derived::display()
+```
+
+The output is
+```
+❯ ./main
+Derived class display() - state: 1
+Derived class show() const
+Derived class display() - state: 2
+```
+
+## `const` objects
+
+When an object is declared as `const` in C++, it means that its value cannot be modified after initialization. This applies to variables, class member variables, function parameters, and references. Attempting to assign a new value to a `const` object or modify it in any way results in a compilation error. const objects are primarily used to ensure that certain values remain unchanged throughout the program, promoting code safety by preventing inadvertent modifications and enabling compiler optimizations based on the immutability of these values. When an object is declared as const, you can only call member functions that are themselves marked as const.
+
+```
+// main.cpp
+const Derived cd;
+cd.show();    // Calls Derived::show()
+// cd.display(); // Error: cd is const, and display() is not a const member function
+```
+
+## Pure Virtual Functions
+
+Pure virtual functions are declared with `= 0` and have no implementation in the base class. They must be overridden by any derived class, *making the base class abstract*. When a class contains at least one pure virtual function, **it becomes an abstract class**, and you cannot instantiate objects of that class directly.  So suppose
 
 ## Inheritance
 
