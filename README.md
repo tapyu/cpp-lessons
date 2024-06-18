@@ -31,7 +31,7 @@ The extern keyword is not required in the header file because it's common practi
 ### **Usage of the `static` keyword (`C` and `C++`)**
 
 The static keyword can be used in a function declaration in several different contexts, and its meaning can vary depending on where it is used:
-1. *Static Member Functions*: When you declare a member function as `static` inside a class, it means that the function belongs to the class itself rather than to any specific instance of the class. You can call a static member function using the class name, without creating an object of the class. See `./static_member-function/`.
+1. *Static Member Functions*: When you declare a member function as `static` inside a class, **it means that the function belongs to the class itself rather than to any specific instance of the class**. You can call a static member function using the class name, without creating an object of the class. See `./static_member-function/`.
 1. *Static Variables inside function*: Inside a function, you can declare variables as `static`. The scope of that `static` variable exists only within that function, as any ordinary variable. However, since it is a `static` variable, it is initialized only once and it retains its value between the calls of the function it was defined.
     ```cpp
     #include <stdio.h>
