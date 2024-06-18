@@ -98,9 +98,36 @@ Note that **the `extern` keyword is not mandatory when declaring functions, clas
 The static keyword can be used in a function declaration in several different contexts, and its meaning can vary depending on where it is used:
 1. *Static Member Functions*: When you declare a member function as `static` inside a class, **it means that the function belongs to the class itself rather than to any specific instance of the class**. You can call a static member function using the class name, without creating an object of the class. See `./static_member-function/`.
 1. *Static Variables*: **`static` variables have internal linkage**, meaning the variable is only visible within the translation unit where it is defined. They should not be accessed from other source files. This is useful for encapsulating the variable within the file, preventing name conflicts and unintended access.
-
-    On the other hand, if it is defined within a function, the scope of that `static` variable exists only within that function, as any ordinary variable. Nevertherless, since it is `static`, it is initialized only once and it retains its value between the calls of the function it was defined.
     ```c
+    // main.c
+    #include "example.h"
+    #include <stdio.h>
+    int main() {
+        printf("hello external: %d", external_variable);
+        // printf("hello external: %d", static_variable); // you cannot access to this `static` variable as it is linked to `example.c` translation unit.
+        return 0;
+    }
+    ```
+    ```c
+    // example.h
+    #ifndef EXAMPLE_H
+    #define EXAMPLE_H
+    
+    // Declaration of an external variable
+    extern int external_variable;
+    // extern int static_variable; // you have an external linkage of a `static` variable since it is only visible within the translation unit where it is defined
+    #endif // EXAMPLE_H
+    ```
+    ```c
+    // example.c
+    #include "example.h"
+    #include <stdio.h>
+    static int static_variable = 100;
+    int external_variable = 42;
+    ```
+    You should notice that, if it is defined within a function, the scope of that `static` variable exists only within that function, as any ordinary variable. Nevertherless, since it is `static`, it is initialized only once in that translation unit and it retains its value between the calls of the function it was defined.
+    ```c
+    // main.c
     #include <stdio.h>
         
     void f (void)
@@ -143,7 +170,7 @@ The static keyword can be used in a function declaration in several different co
     non-static int: 0
     static int: 9
     ```
-1. *Satic functions*: **`static` functions have internal linkage**, that is, it will only be accessible within the [translation unit][5] where it is defined.
+1. *Satic functions*: likewise, **`static` functions also have internal linkage**, that is, it will only be accessible within the [translation unit][5] where it is defined.
     ```c
     // helper.cpp
     #include <iostream>
