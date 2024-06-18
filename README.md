@@ -1,26 +1,91 @@
-#### When should I use the `extern` keyword?
+## `extern` keyword (`C`/`C++`)
 
-The extern keyword in `C` and `C++` is used to declare a global variable or function that is used in multiple source files and thus must be linked toghether. The `extern` keyword basically says that a function/variable that is referenced in a source file `file1.c` is [defined][1] somewhere else, say, in a source file `file2.c`.
+The extern keyword is used in the context of **declaring** variables that are **defined** in another source file. Its purpose is to tell the compiler that the definition of the variable will be provided elsewhere, typically in another source file. It is usually used in header files to only **declare** variables that will be **defined** elsewhere. For instance:
 
-Here, It is important to understand the difference between defining a variable and declaring a variable:
+```c
+// shared.h
+#ifndef SHARED_H
+#define SHARED_H
 
-- A variable is declared when the compiler is informed that a variable exists (and this is its type); it does not allocate the storage for the variable at that point. You may declare a variable multiple times (though once is sufficient).
-- A variable is defined when the compiler allocates the storage for the variable. You may only define it once within a given scope. A variable definition is also a declaration, but not all variable declarations are definitions.
+extern int sharedVariable; // declaration of sharedVariable (you may declare multiple times)
+void greeting(); // function declaration of void greeting() (`extern` is not mandatory for functions without body. We call it prototype)
 
-#### How to define a global variable?
+#endif
 
-The clean, reliable way to declare and define global variables is to use a header file to contain an `extern` declaration of the variable. The header is included by the one source file that defines the variable and by all the source files that reference the variable.
+```
 
-For each program, one (and only one) source file defines the variable. Similarly, one header file should declare the variable. The header file is crucial; it enables cross-checking between independent TUs (the `.i` file generating after the preprocessing step. Each source file typically corresponds to a single translation unit) and ensures consistency.
+In this case, we have saying that `extern int sharedVariable;` is just the declaration of `sharedVariable`, and the actual definition of `sharedVariable` is somewhere else, meaning that the actual allocation and initialization of `sharedVariable` is not in `shared.h`. You can define `sharedVariable` in `shared.c`, `main.c`, or any other source file. This brings code modularity, ensuring that variables and functions can be shared across different compilation units (source files).
 
-The extern keyword is not required in the header file because it's common practice for header files to contain declarations, and declarations are implicitly treated as `extern`. I use the keyword `extern` in front of function declarations in headers for consistency — to match the `extern` in front of variable declarations in headers. Many people prefer not to use `extern` in front of function declarations; the compiler doesn't care
+Let us define the code:
 
+```c
+// shared.c
+#include "shared.h"
+#include <stdio.h>
+
+int sharedVariable = 42; // definition (and initialization), IT MUST OCCUR ONLY ONCE
+
+void greeting() {
+    printf("The sharedVariable is: %d\n", sharedVariable);
+}
+```
+
+```c
+// main.c
+#include <stdio.h>
+#include "shared.h"
+
+int main() {
+    printf("Value of sharedVariable: %d\n", sharedVariable);
+    greeting();
+    return 0;
+}
+```
+
+If `shared.h` is included in multiple source files (`shared.c` and `main.c` in this case) without `extern`, each source file will have its own definition of `sharedVariable`. This leads to a conflict during linking because the linker sees multiple definitions of the same variable. **You can only define a variable once, but you can declare it multiple times**. Since header file serves as an interface that declares variables and functions, **`extern` is usually used in header files**.
+
+In the previous example, we defined in `shared.c`, but you can indeed move its definition to somewhere else, e.g.,
+```c
+// main.c
+#include <stdio.h>
+#include "shared.h"
+
+int sharedVariable; // Definition. We are not initializing it (i.e., `= 42;`), though
+
+int main() {
+    printf("Value of sharedVariable: %d\n", sharedVariable);
+    greeting();
+    return 0;
+}
+```
+```c
+// shared.c
+#include "shared.h"
+#include <stdio.h>
+
+void greeting() {
+    printf("The sharedVariable is: %d\n", sharedVariable);
+}
+```
+Note that **the `extern` keyword is not mandatory when declaring functions, classes, structures, and enum**. It is enough to write their prototype (i.e., the header without the body) is enough to declare them. However, for variables, the `extern` keyword is mandatory.
+
+
+#### declaration
+- A variable is declared when the compiler is informed that a variable exists (and this is its type)
+- it does not allocate the storage for the variable at that point.
+- You may declare a variable multiple times (though once is sufficient).
+- Declaration is what the compiler needs to accept references to that identifier.
+
+#### definition
+- A variable is defined when the compiler allocates the storage for the variable.
+- You may only define it once.
+- A variable definition is also a declaration, but not all variable declarations are definitions.
 
 #### [Guidelines][2]
 
 - A header file only contains `extern` declarations of variables — never `static` or unqualified variable definitions (e.g., `int myVariable = 42;`).
-- For any given variable, only one header file declares it (SPOT — Single Point of Truth).
-- A source file never contains `extern` declarations of variables — source files always include the unique header that declares them (for instance, if `a.c` defines the global variable `int i = 3;`, then you must declare `extern int i;` in `a.h`, and `a.c` must have the `#inclue a.h` directive).
+- SPOT — Single Point of Truth: For any given variable, only one header file declares it (although you are allowed to declare it multiple times without problems).
+- A source file never contains `extern` declarations of variables — source files always include the unique header that declares them.
 - For any given variable, exactly one source file defines the variable, preferably initializing it too.
 - The source file that defines the variable also includes the header to ensure that the definition and the declaration are consistent.
 - Functions, classes, structures, and enum declaration don't necessarily need the `extern` keyword as it is implicitly treated as one. You can put the `extern` keyword in their declaration without any problem for the sake of clarity. Although it is also correct, it is less common. Therefore the `extern` keyword is commonly used for global variables only.
@@ -28,7 +93,7 @@ The extern keyword is not required in the header file because it's common practi
 
 ---
 
-### **Usage of the `static` keyword (`C` and `C++`)**
+### **`static` keyword (`C`/`C++`)**
 
 The static keyword can be used in a function declaration in several different contexts, and its meaning can vary depending on where it is used:
 1. *Static Member Functions*: When you declare a member function as `static` inside a class, **it means that the function belongs to the class itself rather than to any specific instance of the class**. You can call a static member function using the class name, without creating an object of the class. See `./static_member-function/`.
@@ -116,7 +181,6 @@ On the other hand, if it is defined within a function, the scope of that `static
     In this case, we say that `staticFunction()` has **internal linkage** because of the static keyword, meaning it is visible to all functions within `helper.cpp` only. We say that such variables/functions have a **file scope**. Note that `staticFunction()` is not put into `helper.h` as it is not meant to be accessed outside `helper.cpp`. On the other hand, **functions declared without the `static` keyword have external linkage by default**, that is, they can be accessed from other translation units. Thus, it will become a *global scope* function/variabe since other file sources can access and modify it. Follow these instructions as a rule of thumb:
     - Functions without the `static` keyword have external linkage by default and should have their declarations placed in header files, allowing other source files to see and use them.
     - `static` functions should typically not be declared in header files. Declaring them in header files would be misleading, as they cannot be accessed from other translation units.
-    You must put them into its header file so that they can be accessed. Variables **must** have the `extern` keyword, while this is optional and usually omitted for functions, structures, enum, and classes. See main example.
 
 [1]: https://stackoverflow.com/questions/1410563/what-is-the-difference-between-a-definition-and-a-declaration/1411005#1411005
 [2]: https://stackoverflow.com/questions/1433204/how-do-i-use-extern-to-share-variables-between-source-files/1433387#1433387
