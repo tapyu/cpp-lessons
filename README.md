@@ -32,73 +32,89 @@ The extern keyword is not required in the header file because it's common practi
 
 The static keyword can be used in a function declaration in several different contexts, and its meaning can vary depending on where it is used:
 1. *Static Member Functions*: When you declare a member function as `static` inside a class, **it means that the function belongs to the class itself rather than to any specific instance of the class**. You can call a static member function using the class name, without creating an object of the class. See `./static_member-function/`.
-1. *Static Variables inside function*: Inside a function, you can declare variables as `static`. The scope of that `static` variable exists only within that function, as any ordinary variable. However, since it is a `static` variable, it is initialized only once and it retains its value between the calls of the function it was defined.
-    ```cpp
+1. *Static Variables*: **`static` variables have internal linkage**, meaning the variable is only visible within the translation unit where it is defined. If it is defined within a function, the scope of that `static` variable exists only within that function, as any ordinary variable. However, since it is a `static` variable, it is initialized only once and it retains its value between the calls of the function it was defined.
+    ```c
     #include <stdio.h>
-     
+        
     void f (void)
     {
         static int count = 0;   // static variable   
         int i = 0;              // automatic variable
-        printf("%d %d\n", i++, count++);
+        printf("non-static int: %d\nstatic int: %d\n", i++, count++);
     }
-     
+    
     int main(void)
     {
         for (int ndx=0; ndx<10; ++ndx)
             f();
+        
+        // printf("Hi static: %d", count); // you cannot access it from outside `f`
+            
         return 0;
     }
     ```
     output:
     ```
-    0 0
-    0 1
-    0 2
-    0 3
-    0 4
-    0 5
-    0 6
-    0 7
-    0 8
-    0 9
+    non-static int: 0
+    static int: 0
+    non-static int: 0
+    static int: 1
+    non-static int: 0
+    static int: 2
+    non-static int: 0
+    static int: 3
+    non-static int: 0
+    static int: 4
+    non-static int: 0
+    static int: 5
+    non-static int: 0
+    static int: 6
+    non-static int: 0
+    static int: 7
+    non-static int: 0
+    static int: 8
+    non-static int: 0
+    static int: 9
     ```
-1. *Satic functions/variables in the source file*: **If a function/variable is defined in the source file (but outside any function/class body) and with the `static` keyword, then that function/variable has internal linkage**, that is, it will only be accessible within the [translation unit][5] where it is defined.
-```c
-// helper.cpp
-#include <iostream>
-#include "helper.h"
-
-static void staticFunction() {
-    std::cout << "This is a static function inside helper.cpp" << std::endl;
-}
-
-void globalFunction() {
-    std::cout << "Calling staticFunction from globalFunction: ";
-    staticFunction(); // Can be called within helper.cpp
-}
-```
-```cpp
-// helper.h
-#ifndef HELPER_H
-#define HELPER_H
-
-void globalFunction(); // Declaration of a global function
-
-#endif // HELPER_H
-```
-```cpp
-// main.cpp
-#include <iostream>
-#include "helper.h"
-
-int main() {
-    globalFunction(); // Calls globalFunction, which calls staticFunction
-    // staticFunction(); // This line would cause a compile-time error because staticFunction is not visible in main.cpp
-    return 0;
-}
-```
-In this case, we say that `staticFunction()` has **internal linkage** because of the static keyword, meaning it is visible to all functions within `helper.cpp` only. We say that such variables/functions have a **file scope**. Note that `staticFunction()` is not put into `helper.h` as it is not meant to be accessed outside `helper.cpp`. On the other hand, functions declared without the `static` keyword have **external linkage** by default, that is, they can be accessed from other translation units. Thus, it will become a *global scope* function/variabe since other file sources can access and modify it. In these cases, you **must** put them into its header file so that they can be accessed. Variables **must** have the `extern` keyword, while this is optional and usually omitted for functions, structures, enum, and classes. See main example.
+1. *Satic functions*: **`static` functions have internal linkage**, that is, it will only be accessible within the [translation unit][5] where it is defined.
+    ```c
+    // helper.cpp
+    #include <iostream>
+    #include "helper.h"
+    
+    static void staticFunction() {
+        std::cout << "This is a static function inside helper.cpp" << std::endl;
+    }
+    
+    void globalFunction() {
+        std::cout << "Calling staticFunction from globalFunction: ";
+        staticFunction(); // Can be called within helper.cpp
+    }
+    ```
+    ```cpp
+    // helper.h
+    #ifndef HELPER_H
+    #define HELPER_H
+    
+    void globalFunction(); // Declaration of a global function
+    
+    #endif // HELPER_H
+    ```
+    ```cpp
+    // main.cpp
+    #include <iostream>
+    #include "helper.h"
+    
+    int main() {
+        globalFunction(); // Calls globalFunction, which calls staticFunction
+        // staticFunction(); // This line would cause a compile-time error because staticFunction is not visible in main.cpp
+        return 0;
+    }
+    ```
+    In this case, we say that `staticFunction()` has **internal linkage** because of the static keyword, meaning it is visible to all functions within `helper.cpp` only. We say that such variables/functions have a **file scope**. Note that `staticFunction()` is not put into `helper.h` as it is not meant to be accessed outside `helper.cpp`. On the other hand, **functions declared without the `static` keyword have external linkage by default**, that is, they can be accessed from other translation units. Thus, it will become a *global scope* function/variabe since other file sources can access and modify it. Follow these instructions as a rule of thumb:
+    - Functions without the `static` keyword have external linkage by default and should have their declarations placed in header files, allowing other source files to see and use them.
+    - `static` functions should typically not be declared in header files. Declaring them in header files would be misleading, as they cannot be accessed from other translation units.
+    You must put them into its header file so that they can be accessed. Variables **must** have the `extern` keyword, while this is optional and usually omitted for functions, structures, enum, and classes. See main example.
 
 [1]: https://stackoverflow.com/questions/1410563/what-is-the-difference-between-a-definition-and-a-declaration/1411005#1411005
 [2]: https://stackoverflow.com/questions/1433204/how-do-i-use-extern-to-share-variables-between-source-files/1433387#1433387
