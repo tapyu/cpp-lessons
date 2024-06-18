@@ -18,7 +18,7 @@ void greeting(); // function declaration of void greeting(). `extern` is not man
 
 You can define `sharedVariable` in `shared.c`, `main.c`, or any other source file that includes `shared.h`. At linking time, the object files (i.e., `.o`) are linked by the compiler, which searches among them for the definition of `sharedVariable`. You must define `sharedVariable` only once, otherwise an error is prompted.
 
-This feature brings code modularity, ensuring that variables and functions can be shared across different compilation units (source files). For example, let us define the code:
+This feature brings code modularity, ensuring that variables and functions can be shared across different translation units¹. For example, let us define the code:
 
 ```c
 // shared.c
@@ -93,13 +93,15 @@ Note that **the `extern` keyword is not mandatory when declaring functions, clas
 - Functions, classes, structures, and enum declaration don't necessarily need the `extern` keyword as it is implicitly treated as one. You can put the `extern` keyword in their declaration without any problem for the sake of clarity. Although it is also correct, it is less common. Therefore the `extern` keyword is commonly used for global variables only.
 - Avoid global variables whenever possible — use functions instead.
 
+¹: Each source file that includes a header file, along with the included header files, constitutes a separate translation unit. A translation unit in C/C++ is the result of processing a source file and all the header files it includes, after the preprocessing stage.
+
 ---
 
 ### **`static` keyword (`C`/`C++`)**
 
 The static keyword can be used in a function declaration in several different contexts, and its meaning can vary depending on where it is used:
 1. *Static Member Functions*: When you declare a member function as `static` inside a class, **it means that the function belongs to the class itself rather than to any specific instance of the class**. You can call a static member function using the class name, without creating an object of the class. See `./static_member-function/`.
-1. *Static Variables*: **`static` variables have internal linkage**, meaning the variable is only visible within the translation unit¹ where it is defined. They should not be accessed from other source files. This is useful for encapsulating the variable within the file, preventing name conflicts and unintended access.
+1. *Static Variables*: **`static` variables have internal linkage**, meaning the variable is only visible within the translation unit where it is defined. They should not be accessed from other source files. This is useful for encapsulating the variable within the file, preventing name conflicts and unintended access.
     ```c
     // main.c
     #include "example.h"
@@ -210,9 +212,6 @@ The static keyword can be used in a function declaration in several different co
     In this case, we say that `staticFunction()` has **internal linkage** because of the static keyword, meaning it is visible to all functions within `helper.cpp` only. We say that such variables/functions have a **file scope**. Note that `staticFunction()` is not put into `helper.h` as it is not meant to be accessed outside `helper.cpp`. On the other hand, **functions declared without the `static` keyword have external linkage by default**, that is, they can be accessed from other translation units. Thus, it will become a *global scope* function/variabe since other file sources can access and modify it. Follow these instructions as a rule of thumb:
     - Functions without the `static` keyword have external linkage by default and should have their declarations placed in header files, allowing other source files to see and use them.
     - `static` functions should typically not be declared in header files. Declaring them in header files would be misleading, as they cannot be accessed from other translation units.
-
-
-¹: Each source file that includes a header file, along with the included header files, constitutes a separate translation unit. A translation unit in C/C++ is the result of processing a source file and all the header files it includes, after the preprocessing stage.
 
 [1]: https://stackoverflow.com/questions/1410563/what-is-the-difference-between-a-definition-and-a-declaration/1411005#1411005
 [2]: https://stackoverflow.com/questions/1433204/how-do-i-use-extern-to-share-variables-between-source-files/1433387#1433387
