@@ -90,6 +90,8 @@ int main() {
 		- `Base*` means this points to a non-constant object of type `Base`, so you can modify the object’s members through this.
 		- The last `const` again means that the pointer itself cannot be changed to point somewhere else.
 
+## [`static` member function][3]
+
 ## Virtual
 
 Virtual functions allow overriding by derived classes. They enable **polymorphism**, where different classes can provide different implementations of the same function signature. In the previous example, even though the `virtual` functions like `show()` and `display()` are intended to be overridden by derived classes, you can still define their behavior in `Base` and call these functions on Base objects.
@@ -389,3 +391,4 @@ int main() {
 
 [1]: https://gitlab.com/pdfgrep/pdfgrep/-/blob/master/src/regengine.cc?ref_type=heads
 [2]: https://gitlab.com/pdfgrep/pdfgrep/-/blob/master/src/regengine.h?ref_type=heads
+[3]: https://github.com/tapyu/c-and-cpp-lessons/tree/3-scope?tab=readme-ov-file#usage-of-the-static-keyword-c-and-c
