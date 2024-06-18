@@ -149,7 +149,7 @@ Derived class display() - state: 2
 
 When an object is declared as `const` in C++, it means that its value cannot be modified after initialization. This applies to variables, class member variables, function parameters, and references. Attempting to assign a new value to a `const` object or modify it in any way results in a compilation error. const objects are primarily used to ensure that certain values remain unchanged throughout the program, promoting code safety by preventing inadvertent modifications and enabling compiler optimizations based on the immutability of these values. When an object is declared as const, you can only call member functions that are themselves marked as const.
 
-```
+``` cpp
 // main.cpp
 const Derived cd;
 cd.show();    // Calls Derived::show()
@@ -158,7 +158,71 @@ cd.show();    // Calls Derived::show()
 
 ## Pure Virtual Functions
 
-Pure virtual functions are declared with `= 0` and have no implementation in the base class. They must be overridden by any derived class, *making the base class abstract*. When a class contains at least one pure virtual function, **it becomes an abstract class**, and you cannot instantiate objects of that class directly.  So suppose
+Pure virtual functions are declared with `= 0` and have no implementation in the base class. They must be overridden by any derived class, *making the base class abstract*. When a class contains at least one pure virtual function, **it becomes an abstract class**, and you cannot instantiate objects of that class directly.  So suppose we add
+
+```cpp
+class Base {
+public:
+    // Declaration of a non-virtual member function `greeting()`
+    // This function does not override or get overridden by any derived class.
+    void greeting();  
+
+    // Declaration of a virtual member function `show()`
+    // This function is constant and does not modify the state of the object.
+    // It is expected to be overridden by derived classes.
+    virtual void show() const; 
+
+    // Declaration of a virtual member function `display()`
+    // This function can modify the state of the object and is expected to be overridden by derived classes.
+    virtual void display();     
+
+    // Declaration of a pure virtual member function `new_greeting()`
+    // This function is constant and does not modify the state of the object.
+    // Being pure virtual (indicated by = 0), it makes `Base` an abstract class,
+    // meaning that `Base` cannot be instantiated directly.
+    // Derived classes must override this function.
+    virtual void new_greeting() const = 0; 
+
+    // Virtual destructor
+    // Ensures that the destructor of the derived class is called when a base class pointer
+    // to a derived class object is deleted. This is important for proper resource cleanup.
+    virtual ~Base() = default;  
+
+private:
+    // Private data member
+    // This member is not accessible directly outside the class and is only
+    // used internally within the Base class.
+    int base = 0;               
+};
+
+class Derived : public Base {
+public:
+    // Override of the virtual member function `show()` from the Base class
+    // The overriden function provides polymorphism for it
+    // This function is constant and does not modify the state of the object.
+    void show() const override;
+
+    // Override of the virtual member function `display()` from the Base class
+    // The overriden function provides polymorphism for it
+    // This function can modify the state of the object.
+    void display() override;
+
+	// Overwrite of the pure virtual function `new_greeting()` from the Base class
+    // This function provides specific behavior for `new_greeting()` in the Derived class.
+    // It is marked as `const` to indicate that it does not modify the object's state.
+    void new_greeting() const override; 
+
+private:
+    // Private data member
+    // This member is not accessible directly outside the class and is only
+    // used internally within the Derived class.
+    int state = 0;
+};
+```
+
+- `new_greeting()`: A pure virtual function (abstract function) marked with `= 0`, making Base an abstract class. It must be overridden by any non-abstract derived class. The function is also marked as const, indicating it does not modify the state of the object.
+
+When a class contains at least one pure virtual function, **it becomes an abstract class**, and you cannot instantiate objects of that class directly.
 
 ## Inheritance
 
