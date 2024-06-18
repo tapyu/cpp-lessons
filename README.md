@@ -92,7 +92,7 @@ int main() {
 
 ## Virtual
 
-Virtual functions allow overriding by derived classes. They enable polymorphism, where different classes can provide different implementations of the same function signature. In the previous example, even though the `virtual` functions like `show()` and `display()` are intended to be overridden by derived classes, you can still define their behavior in `Base` and call these functions on Base objects.
+Virtual functions allow overriding by derived classes. They enable **polymorphism**, where different classes can provide different implementations of the same function signature. In the previous example, even though the `virtual` functions like `show()` and `display()` are intended to be overridden by derived classes, you can still define their behavior in `Base` and call these functions on Base objects.
 
 Suppose you add the following to `example.h`:
 ```cpp
