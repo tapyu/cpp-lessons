@@ -63,7 +63,7 @@ The static keyword can be used in a function declaration in several different co
     0 8
     0 9
     ```
-1. *Satic functions/variables in the source file*: If a function/variable is defined in the source file (but outside any function/class body) and with the `static` keyword, then that function/variable has *internal linkage*, that is, it will only be accessible within the [translation unit][5] where it is defined.
+1. *Satic functions/variables in the source file*: **If a function/variable is defined in the source file (but outside any function/class body) and with the `static` keyword, then that function/variable has internal linkage**, that is, it will only be accessible within the [translation unit][5] where it is defined.
 ```c
 // helper.cpp
 #include <iostream>
