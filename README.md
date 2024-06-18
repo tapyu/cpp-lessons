@@ -262,7 +262,7 @@ private:
 - Derived Class (`PatternList`): Inherits from Regengine using public inheritance.
 - Override (`override`): In C++, the `override` keyword is used to explicitly indicate that a member function in a derived class is intended to override a `virtual` function from a base class. **So `vitual` and `override` are used together**: `virtual` is used in `Regengine` to denote denote it must be overridden in derived classes, whereas `override` is used in `PatternList`, a class derived from `Regengine`.
 
-> PS: when you see `{}` in a member function definition within a class declaration in a header file, it means that the function is being defined there and not just declared. The inline keyword is often omitted because functions defined inside a class are implicitly inline.
+> PS: when you see `{}` in a member function definition within a class declaration in a header file, it means that the function is being defined there and not just declared. The inline keyword is often omitted because functions defined inside a class are implicitly inline. If you want member function not to be interpreted as `inline` functions, define it outside the class (see example bellow).
 
 In the source code, `exec()` can be rewritten as follows:
 ```cpp
