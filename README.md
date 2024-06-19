@@ -88,7 +88,7 @@ void greeting() {
 - SPOT — Single Point of Truth: For any given variable, only one header file declares it (although you are allowed to declare it in other header files, it is not a good practice).
 - A source file never contains `extern` declarations of variables — source files always include the unique header that declares them.
 - For any given variable, exactly one source file defines the variable, preferably initializing it too.
-- The source file that defines the variable also includes the header to ensure that the definition and the declaration are consistent. For example, if `a.h` declares `extern int i;`, it is a good practice to define it in `a.c` (e.g., `int i = 100;`).
+- The source file that defines the variable also includes the header to ensure that the definition and the declaration are consistent. For example, if `a.h` declares `extern int i;`, it is a good practice to define it in `a.c` (e.g., `int i = 100;`) and to make sure that `a.c` contains the `#include "a.h"` directive.
 - Functions, classes, structures, and enum declaration don't necessarily need the `extern` keyword as it is implicitly treated as one. You can put the `extern` keyword in their declaration without any problem for the sake of clarity. Although it is also correct, it is less common. Therefore the `extern` keyword is commonly used for global variables only.
 - Avoid global variables whenever possible — use functions instead.
 
