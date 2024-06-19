@@ -11,8 +11,9 @@ extern int sharedVariable; // declaration of sharedVariable (you may declare mul
 void greeting(); // declaration of greeting(). Although it is not wrong, `extern` is not mandatory for function declarations and is usually not used for them. The function header (i.e., the prototype) is enough.
 
 #endif
-
 ```
+
+> PS: Note that **the `extern` keyword is not mandatory when declaring functions, classes, structures, and enum**. Writing the prototype (i.e., the header without the body) is enough to declare them. However, for variables, the `extern` keyword is mandatory.
 
 `extern int sharedVariable;` is just the declaration of `sharedVariable`, and the actual definition of `sharedVariable` is somewhere else, that is, the actual allocation and initialization of `sharedVariable` is not in `shared.h`. [Every][1] source file that includes `shared.h` is aware that there is an identifier named `sharedVariable`. Therefore, the compiler accepts references to that identifier, even though the specific location where this identifier was defined is unknown --- This happens at compile time. At linking time, the definition of `sharedVariable` must be resolved or an error is prompted.
 
@@ -69,8 +70,6 @@ void greeting() {
     printf("The sharedVariable is: %d\n", sharedVariable);
 }
 ```
-Note that **the `extern` keyword is not mandatory when declaring functions, classes, structures, and enum**. Writing the prototype (i.e., the header without the body) is enough to declare them. However, for variables, the `extern` keyword is mandatory.
-
 
 #### declaration
 - A variable is declared when the compiler is informed that a variable exists (and this is its type)
