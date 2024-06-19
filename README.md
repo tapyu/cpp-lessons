@@ -46,7 +46,7 @@ int main() {
 
 If `shared.h` is included in multiple source files (`shared.c` and `main.c` in this case) without `extern`, each source file will have its own definition of `sharedVariable`. This leads to a conflict during linking because the linker sees multiple definitions of the same variable. **You can only define a variable once, but you can declare it multiple times**.
 
-In the previous example, we defined `sharedVariable` in `shared.c`, which is a good practice as it is declared in `shared.h`, but you can move that definition to somewhere else:
+In the previous example, `sharedVariable` is defined in in `shared.c`, which is a good practice as it is declared in `shared.h`, but you can move that definition to somewhere else:
 ```c
 // main.c
 #include <stdio.h>
