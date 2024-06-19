@@ -85,7 +85,7 @@ void greeting() {
 #### [Guidelines][2]
 
 - A header file only contains `extern` declarations of variables — never `static` or unqualified variable definitions (e.g., `int myVariable = 42;`).
-- SPOT — Single Point of Truth: For any given variable, only one header file declares it (although you are allowed to declare it in other files, it is not a good practice).
+- SPOT — Single Point of Truth: For any given variable, only one header file declares it (although you are allowed to declare it in other header files, it is not a good practice).
 - A source file never contains `extern` declarations of variables — source files always include the unique header that declares them.
 - For any given variable, exactly one source file defines the variable, preferably initializing it too.
 - The source file that defines the variable also includes the header to ensure that the definition and the declaration are consistent. For example, if `a.h` declares `extern int i;`, it is a good practice to define it in `a.c` (e.g., `int i = 100;`).
