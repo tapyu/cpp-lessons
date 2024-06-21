@@ -72,8 +72,9 @@ In `C` and `C++`, pointers are variables that store memory addresses as their va
 
 Pointer arithmetic is a fundamental concept in programming languages like `C` and `C++`, which allows you to perform arithmetic operations on pointers. Specifically, it involves adding or subtracting integers to/from pointers to manipulate memory addresses (see `./pointer-arithmetic/` examples).
 
-- *Adding an Integer to a Pointer*: When you add an integer value to a pointer, you are effectively shifting forward the memory address stored by the pointer in a certain number of bytes. The size of the offset depends on the data type that the pointer points to. Let us initially consider `int i; int* pi = &i`, and `pi` is the address `0x2A`. Since `ptr` points to a `int` variable and this type occupies `4` bytes in the memory, then `ptr+1` shifts the memory address pointed by `ptr` in `4` bytes. Since each memory address stores 1 byte, `ptr+1` points to `0x2E`. Generally, `ptr = ptr + n;` (or `ptr+=n`) shifts the memory address pointed by `ptr` in `n*Y` bytes/adresses, where `Y` is the number of byte of the type that `ptr` points to (see [/pointer-arithmetic/int_array.c]).
-    For example (you could use `ptr++`):
+- *Adding an Integer to a Pointer*: When you add an integer value to a pointer, you are effectively shifting forward the memory address stored by the pointer in a certain number of bytes. The size of the offset depends on the data type that the pointer points to. Let us initially consider `int i; int* pi = &i`, and `pi` is the address `0x2A`. Since `ptr` points to a `int` variable and this type occupies `4` bytes in the memory, then `ptr+1` shifts the memory address pointed by `ptr` in `4` bytes. Since each memory address stores 1 byte, `ptr+1` points to `0x2E`. Generally, `ptr = ptr + n;` (or `ptr+=n`) shifts the memory address pointed by `ptr` in `n*Y` bytes/adresses, where `Y` is the number of byte of the type that `ptr` points to (see [/pointer-arithmetic/int_array.c](/pointer-arithmetic/int_array.c)).
+
+  For example (you could use `ptr++`):
     ```c
         int arr[] = {10, 20, 30, 40};
         int *ptr = arr; // ptr points to the internal pointer variable of `arr`, that is, the address of its first array element, 10.
