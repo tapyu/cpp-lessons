@@ -8,7 +8,7 @@ The `extern` keyword is used in the context of **declaring** variables that are 
 #define SHARED_H
 
 extern int sharedVariable; // declaration of sharedVariable
-void greeting(); // declaration of greeting(). For function declarations, the `extern` keyword is not mandatory and is usually not used. It is not wrong, though. The function header (i.e., the prototype) is enough.
+void greeting(); // declaration of greeting(). For function declarations, the `extern` keyword is not mandatory and is usually not used (it is not wrong, though). The function header (i.e., the prototype) is enough.
 
 #endif
 ```
