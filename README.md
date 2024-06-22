@@ -208,15 +208,15 @@ Some comments:
     ```
 - `pA` holds the memory address of the [internal pointer variable](https://stackoverflow.com/a/77174592/23333162) of `A`, that is, `A[0][0]`, the first element of `A`.
 - `pA[n]` dereferences (i.e, access) the value stored at the memory address of `A[0][0]`, but shifted in 8*`n` bytes (each `double` variable takes up 8 bytes in memory).
-- Although the compiler manages to compile the source code, we get an warning because **`double\* it not compatible if a multidimensional array as A[3][3]**. Using a double pointer (i.e., double\*\*) is even worse: although is also compiles, we get segmentation fault:
+- Although `gcc` manages to compile the source code, it prompts an warning because **`double*` it is not compatible with a multidimensional array as A[3][3]**. Using a double pointer (i.e., `double**`) is even worse: although is also compiles, we get segmentation fault:
     ```
     ❯ ./main
     zsh: segmentation fault (core dumped)  ./main
     ```
 
-From the warning, we see that the internal pointer variable of `A` is neither `double*` nor `double\*\*`, but `double(*)[3]`, that is **a pointer to an 3-`double` array**. This kinda makes sense since the internal pointer of a [concrete data type](https://www.teach.cs.toronto.edu/~csc110y/fall/notes/10-abstraction/04-abstract-data-types.html) variable is the memory address of a its first element. What is the fisrt element of `A`? Well, technically, it is `{1, 2, 3}`, that is, an 3-`double` array. Although `{1,2,3}` is still a concrete data type, the **memory address of `A` doesn't decay more than once**. Therefore, you get `double(*)[3]` instead of `double**`.
+From the warning, we see that the internal pointer variable of `A` is neither `double*` nor `double**`, but `double(*)[3]`, which is **a pointer to an 3-`double` array**. This kinda makes sense since the internal pointer of a [concrete data type](https://www.teach.cs.toronto.edu/~csc110y/fall/notes/10-abstraction/04-abstract-data-types.html) variable is the memory address of its first element. What is the fisrt element of `A`? Well, technically, it is `{1, 2, 3}`, that is, a 3-`double` array. Although `{1,2,3}` is still a concrete data type, the **memory address of `A` doesn't decay more than once**. Therefore, you get `double(*)[3]` instead of `double**`.
 
-For solve this problem, you can
+To solve this problem, you can
 - Pass a pointer to a 3-`double` array, that is, `double(*pA)[3] = A;`. Hence, you can access the variable values as
     ```c
     for (int i = 0; i < 3; i++)
@@ -226,12 +226,13 @@ For solve this problem, you can
     The first index performs pointer arithmetic on `pA`, that is, `pA[i]` shifts the memory address in `i`*12 bytes (each `double` takes up 4 bytes). The second index `j` access the `j`th element in this array. The net result is the `i`th row and the `j`th column of `A`.
 
     Note that `double(*pA)[3]` ≠ `double*pA[3]`
-        - `double(*pA)[3]` defines a pointer that pointer to a 3-`double` array.
-        - `double*pA[3]` defines a 3-pointer array where each one points to a `double` variable.
-- `double* pA = &A[0][0];`: here, you are passing the memory address `A[0][0]`. Then, since `A` is stored in a contiguous memory block, you can shift the memory address that that pointer holds via pointe arithmetic, that is, `pA[n]`.
-- **(The best practice)** Cast to `double*`, that is,  `double* pA = (double*)A;`: In this case, you are casting `double*[3]` to `double*`, which perfectly matches with the `double*` you'have created. When accessing elements through pA[i], the 2D array is treated as a flat 1D array.
 
-The best practice is so because you don't need to change the pointer declaration no matter the dimensionality of `A`. In other words no matter the dimensionality of `A`, the return of its internal pointer will be casted to `double*`. For instance:
+    - `double(*pA)[3]` defines a pointer that pointer to a 3-`double` array.
+    - `double*pA[3]` defines a 3-pointer array where each one points to a `double` variable.
+- `double* pA = &A[0][0];`: here, you are passing the memory address of `A[0][0]`. Then, since `A` is stored in a contiguous memory block, you can shift the memory address that the pointer holds via pointer arithmetic, that is, `pA[n]`.
+- **(The best practice)** Cast to `double*`, that is,  `double* pA = (double*)A;`: In this case, you are casting `double*[3]` to `double*`, which perfectly matches with the type of `pA`. When accessing elements through `pA[i]`, the 2D array is treated as a flat 1D array.
+
+The best practice is so because you don't need to change the pointer declaration regardless the dimensionality of `A`. In other words, no matter the dimensionality of `A`, the return of its internal pointer will be casted to `double*`. For instance:
 
 ```c
 #include <stdio.h>
@@ -250,7 +251,7 @@ int main() {
         }
     };
 
-    // Use casting to assign the 2D array to a 1D pointer
+    // Use casting to assign the 3D array to a 1D pointer
     double* pA = (double*)A;
 
     for (int k = 0; k < 2; k++)
