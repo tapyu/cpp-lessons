@@ -142,6 +142,151 @@ int (*fnc_ptr)(int, int) = selectOperation('+');
 ```
 The function pointer variable `fnc_ptr` is declared and assinged to the return of `selectOperation('+')`, which is also a function pointer variable. See `func_ptr/func/` for more details.
 
+#### Pointer with multidimensional variables
+
+When you have a 2D array like double A[3][3], A is a contiguous block of memory where elements are stored row-wise. For example, in
+
+```c
+#include <stdio.h>
+
+int main() {
+    double A[3][3] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+
+    double* pA = A;
+
+    for (int i = 0; i < 9; i++) {
+        printf(
+            "The %dth position in the memory of the multiarray A[3][3] is A[%d][%d] %f\n"
+            "Its memory address is %p\n", i, i/3, i%3, pA[i], (void*)pA+i
+        );
+    }
+
+    return 0;
+}
+```
+
+we have
+
+```
+❯ make
+gcc -Wall -Wextra -std=c11 -c main.c -o main.o
+main.c: In function ‘main’:
+main.c:10:18: warning: initialization of ‘double *’ from incompatible pointer type ‘double (*)[3]’ [-Wincompatible-pointer-types]
+   10 |     double* pA = A;
+      |                  ^
+gcc main.o -o main
+❯ ./main
+The 0th position in the memory of the multiarray A[3][3] is A[0][0] 1.000000
+Its memory address is 0x7ffed0228660
+The 1th position in the memory of the multiarray A[3][3] is A[0][1] 2.000000
+Its memory address is 0x7ffed0228668
+The 2th position in the memory of the multiarray A[3][3] is A[0][2] 3.000000
+Its memory address is 0x7ffed0228670
+The 3th position in the memory of the multiarray A[3][3] is A[1][0] 4.000000
+Its memory address is 0x7ffed0228678
+The 4th position in the memory of the multiarray A[3][3] is A[1][1] 5.000000
+Its memory address is 0x7ffed0228680
+The 5th position in the memory of the multiarray A[3][3] is A[1][2] 6.000000
+Its memory address is 0x7ffed0228688
+The 6th position in the memory of the multiarray A[3][3] is A[2][0] 7.000000
+Its memory address is 0x7ffed0228690
+The 7th position in the memory of the multiarray A[3][3] is A[2][1] 8.000000
+Its memory address is 0x7ffed0228698
+The 8th position in the memory of the multiarray A[3][3] is A[2][2] 9.000000
+Its memory address is 0x7ffed02286a0
+```
+
+Some comments:
+
+- In memory, A is laid out as a contiguous block of 9 double values, grouped by rows:
+    ```
+    A[0][0] A[0][1] A[0][2] A[1][0] A[1][1] A[1][2] A[2][0] A[2][1] A[2][2]
+    ```
+- `pA` holds the memory address of the [internal pointer variable](https://stackoverflow.com/a/77174592/23333162) of `A`, that is, `A[0][0]`, the first element of `A`.
+- `pA[n]` dereferences (i.e, access) the value stored at the memory address of `A[0][0]`, but shifted in 8*`n` bytes (each `double` variable takes up 8 bytes in memory).
+- Although the compiler manages to compile the source code, we get an warning because **`double\* it not compatible if a multidimensional array as A[3][3]**. Using a double pointer (i.e., double\*\*) is even worse: although is also compiles, we get segmentation fault:
+    ```
+    ❯ ./main
+    zsh: segmentation fault (core dumped)  ./main
+    ```
+
+From the warning, we see that the internal pointer variable of `A` is neither `double*` nor `double\*\*`, but `double(*)[3]`, that is **a pointer to an 3-`double` array**. This kinda makes sense since the internal pointer of a [concrete data type](https://www.teach.cs.toronto.edu/~csc110y/fall/notes/10-abstraction/04-abstract-data-types.html) variable is the memory address of a its first element. What is the fisrt element of `A`? Well, technically, it is `{1, 2, 3}`, that is, an 3-`double` array. Although `{1,2,3}` is still a concrete data type, the **memory address of `A` doesn't decay more than once**. Therefore, you get `double(*)[3]` instead of `double**`.
+
+For solve this problem, you can
+- Pass a pointer to a 3-`double` array, that is, `double(*pA)[3] = A;`. Hence, you can access the variable values as
+    ```c
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
+            printf("The element A[%d][%d] is %f\n", i, j, pA[i][j]);
+    ```
+    The first index performs pointer arithmetic on `pA`, that is, `pA[i]` shifts the memory address in `i`*12 bytes (each `double` takes up 4 bytes). The second index `j` access the `j`th element in this array. The net result is the `i`th row and the `j`th column of `A`.
+
+    Note that `double(*pA)[3]` ≠ `double*pA[3]`
+        - `double(*pA)[3]` defines a pointer that pointer to a 3-`double` array.
+        - `double*pA[3]` defines a 3-pointer array where each one points to a `double` variable.
+- `double* pA = &A[0][0];`: here, you are passing the memory address `A[0][0]`. Then, since `A` is stored in a contiguous memory block, you can shift the memory address that that pointer holds via pointe arithmetic, that is, `pA[n]`.
+- **(The best practice)** Cast to `double*`, that is,  `double* pA = (double*)A;`: In this case, you are casting `double*[3]` to `double*`, which perfectly matches with the `double*` you'have created. When accessing elements through pA[i], the 2D array is treated as a flat 1D array.
+
+The best practice is so because you don't need to change the pointer declaration no matter the dimensionality of `A`. In other words no matter the dimensionality of `A`, the return of its internal pointer will be casted to `double*`. For instance:
+
+```c
+#include <stdio.h>
+
+int main() {
+    double A[2][3][3] = {
+        {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        },
+        {
+            {10, 20, 30},
+            {40, 50, 60},
+            {70, 80, 90}
+        }
+    };
+
+    // Use casting to assign the 2D array to a 1D pointer
+    double* pA = (double*)A;
+
+    for (int k = 0; k < 2; k++)
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++)
+                printf("The element A[%d][%d][%d] is %f\n", k, i, j, pA[9*k+3*i+j]);
+
+    return 0;
+}
+```
+
+```
+❯ make
+gcc -Wall -Wextra -std=c11 -c main.c -o main.o
+gcc main.o -o main
+❯ ./main
+The element A[0][0][0] is 1.000000
+The element A[0][0][1] is 2.000000
+The element A[0][0][2] is 3.000000
+The element A[0][1][0] is 4.000000
+The element A[0][1][1] is 5.000000
+The element A[0][1][2] is 6.000000
+The element A[0][2][0] is 7.000000
+The element A[0][2][1] is 8.000000
+The element A[0][2][2] is 9.000000
+The element A[1][0][0] is 10.000000
+The element A[1][0][1] is 20.000000
+The element A[1][0][2] is 30.000000
+The element A[1][1][0] is 40.000000
+The element A[1][1][1] is 50.000000
+The element A[1][1][2] is 60.000000
+The element A[1][2][0] is 70.000000
+The element A[1][2][1] is 80.000000
+The element A[1][2][2] is 90.000000
+```
+
 ---
 
 # Memory
