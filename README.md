@@ -230,7 +230,7 @@ To solve this problem, you can
     - `double(*pA)[3]` defines a pointer that pointer to a 3-`double` array.
     - `double*pA[3]` defines a 3-pointer array where each one points to a `double` variable.
 - `double* pA = &A[0][0];`: here, you are passing the memory address of `A[0][0]`. Then, since `A` is stored in a contiguous memory block, you can shift the memory address that the pointer holds via pointer arithmetic, that is, `pA[n]`.
-- **(The best practice)** Cast to `double*`, that is,  `double* pA = (double*)A;`: In this case, you are casting `double*[3]` to `double*`, which perfectly matches with the type of `pA`. When accessing elements through `pA[i]`, the 2D array is treated as a flat 1D array.
+- **(The best practice)** Cast to `double*`, that is,  `double* pA = (double*)A;`: In this case, you are casting `double*[3]` to `double*`, which perfectly matches with the type of `pA`. How does it cast `double*[3]` into `double*`? By simply **concatenating** the arrays. It also occurs recursively in higher-order arrays (e.g., `double*[3][2]`), where the outermost indices (`[2]`) are concatenated first than the innermost indices (`[3]`).
 
 The best practice is so because you don't need to change the pointer declaration regardless the dimensionality of `A`. In other words, no matter the dimensionality of `A`, the return of its internal pointer will be casted to `double*`. For instance:
 
