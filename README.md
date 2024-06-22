@@ -212,6 +212,35 @@ The static keyword can be used in a function declaration in several different co
     - Functions without the `static` keyword have external linkage by default and should have their declarations placed in header files, allowing other source files to see and use them.
     - `static` functions should typically not be declared in header files. Declaring them in header files would be misleading, as they cannot be accessed from other translation units.
 
+---
+
+### `inline` keyword (`C`/`C++`)
+
+The `inline` keyword is used to suggest to the compiler that add can be inlined at its call site. However, in C, unlike C++, **inline does not automatically provide internal linkage**. For example, in
+
+```c
+#include <stdio.h>
+
+
+inline int f(int x) {
+    return x;
+}
+
+int main() {
+    printf("Hello inline function: %d\n", f(1));
+    return 0;
+}
+```
+
+we obtain
+
+```
+❯ gcc -o file1 file1.c
+/usr/bin/ld: /tmp/ccQPWsmH.o: in function `main':
+file1.c:(.text+0xe): undefined reference to `f'
+collect2: error: ld returned 1 exit status
+```
+
 [1]: https://stackoverflow.com/questions/1410563/what-is-the-difference-between-a-definition-and-a-declaration/1411005#1411005
 [2]: https://stackoverflow.com/questions/1433204/how-do-i-use-extern-to-share-variables-between-source-files/1433387#1433387
 [5]: https://github.com/tapyu/c-and-cpp-lessons/tree/1-build-process#preprocessing
