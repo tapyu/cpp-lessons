@@ -438,7 +438,7 @@ Ensuring that allocated memory is used correctly and avoiding issues like buffer
     <td><code>long double</code></td>
     <td>At least 10 bytes (80 bits) on some systems.</td>
     <td><code>%Lf</code>, <code>%LF</code>, <code>%Lg</code>, <code>%LG</code>, <code>%Le</code>, <code>%LE</code>, <code>%La</code>, <code>%LA</code></td>
-    <td><code>L</code>, <code>l</code>code></td>
+    <td><code>L</code>, <code>l</code></td>
     <td></td>
 </tr>
 <tr>
@@ -446,14 +446,14 @@ Ensuring that allocated memory is used correctly and avoiding issues like buffer
     <td>Typically 32 bits (4 bytes) on 32-bit systems or 64 bits (8 bytes) on 64-bit systems</td>
     <td><code>%zu</code></td>
     <td></td>
-    <td>An unsigned integer type that is used for representing the sizes of objects in memory. It is often used when dealing with memory allocation, arrays, and indexing. The <code>size_t</code> type is guaranteed to be able to represent the size of the largest object that can exist in the memory of the system.</td>
+    <td>An unsigned integer type that is used for <b>representing the sizes of objects in memory</b>. It is often used when dealing with memory allocation, arrays, and indexing. The <code>size_t</code> type is guaranteed to be able to represent the size of the largest object that can exist in the memory of the system.</td>
 </tr>
 <tr>
     <td><code>void*</code></td>
     <td>4 bytes (32 bits) of memory on 32-bit systems, or 8 bytes (64 bits) of memory on 64-bit systems.</td>
     <td><code>%p</code></td>
     <td></td>
-    <td>A void pointer (e,g,<code>void* p</code>) is a generic pointer that lacks type information about the data it points. It can point to objects of any data type. The <code>%p</code> is used to refer to this type of variable in <code>prinf</code>/<code>scanf</code>. In practice, however, we usually use a typed pointer (e,g,<code>int* p</code>). Therefore, to use <code>%p</code>, we fist cast from a typed pointer to a void pointer, e.g., <code>int i = 5; int* pi = &i; printf("Hi %p", (void*)pi)</code></td>
+    <td><b>Used to get memory address of variables</b>. It expects a void pointer (e,g,<code>void* p</code>), which is a generic pointer that lacks type information about the data type it points to. In other words, it can point to objects of any data type, but pointer arithmetic is not possible as the data size is unknown. In C, casting a typed pointer to a <code>void*</code> before using it with <code>%p</code> in functions (e.g. printf) is not strictly necessary because most compilers will handle other pointer types correctly without an explicit cast. However, <code>casting to <code>void*</code> can be considered good practice for clarity and portability</code>. For example, <code>int i = 5; int* pi = &i; printf("Hi %p", (void*)pi)</code></td>
 </tr>
 <tr>
     <th colspan="5"><h3><code>C++</code>-only data types</h3></th>
