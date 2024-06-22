@@ -144,7 +144,7 @@ The function pointer variable `fnc_ptr` is declared and assinged to the return o
 
 #### Pointer with multidimensional variables
 
-When you have a 2D array like double A[3][3], A is a contiguous block of memory where elements are stored row-wise. For example, in
+When you have a 2D array like double `A[3][3]`, `A` is a contiguous block of memory where elements are stored row-wise. For example, in
 
 ```c
 #include <stdio.h>
