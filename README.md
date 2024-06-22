@@ -1,6 +1,6 @@
 # FAQ
 
-### **`void foo(void)` vs. `void foo()`? (`C` and `C++`)**
+### **`void foo(void)` (`C`) vs. `void foo()`? (`C++`)**
 
 ```c
 void foo(void);
