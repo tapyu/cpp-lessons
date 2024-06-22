@@ -142,7 +142,7 @@ int (*fnc_ptr)(int, int) = selectOperation('+');
 ```
 The function pointer variable `fnc_ptr` is declared and assinged to the return of `selectOperation('+')`, which is also a function pointer variable. See `func_ptr/func/` for more details.
 
-#### Pointer with multidimensional variables
+#### Pointer with multidimensional arrays
 
 When you have a 2D array like double `A[3][3]`, `A` is a contiguous block of memory where elements are stored row-wise. For example, in
 
@@ -208,7 +208,7 @@ Some comments:
     ```
 - `pA` holds the memory address of the [internal pointer variable](https://stackoverflow.com/a/77174592/23333162) of `A`, that is, `A[0][0]`, the first element of `A`.
 - `pA[n]` dereferences (i.e, access) the value stored at the memory address of `A[0][0]`, but shifted in 8*`n` bytes (each `double` variable takes up 8 bytes in memory).
-- Although `gcc` manages to compile the source code, it prompts an warning because **`double*` it is not compatible with a multidimensional array as A[3][3]**. Using a double pointer (i.e., `double**`) is even worse: although is also compiles, we get segmentation fault:
+- Although `gcc` manages to compile the source code, it prompts an warning because **`double*` it is not compatible with the internal pointer variable of `A`**. Using a double pointer (i.e., `double**`) is even worse: although is also compiles, we get segmentation fault:
     ```
     ❯ ./main
     zsh: segmentation fault (core dumped)  ./main
