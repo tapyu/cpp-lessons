@@ -1,3 +1,5 @@
+# Errors
+
 ### How to handle errors in `C`/`C++`
 
 - Return Codes:
