@@ -1,6 +1,6 @@
 ## `extern` keyword (`C`/`C++`)
 
-The extern keyword is used in the context of **declaring** variables that are **defined** elsewhere, typically in another file. Since header file serves as an interface that declares variables and functions, **`extern` is usually used in header files**. For instance,
+The `extern` keyword is used in the context of **declaring** variables that are **defined** elsewhere, typically in another file. Since header file serves as an interface that declares variables and functions, **`extern` is usually used in header files**. For instance,
 
 ```c
 // shared.h
