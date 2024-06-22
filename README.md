@@ -1,6 +1,6 @@
 # FAQ
 
-### **"void foo(void)" vs. "void foo()"? (`C` and `C++`)**
+### **`void foo(void)` vs. `void foo()`? (`C` and `C++`)**
 
 ```c
 void foo(void);
@@ -488,46 +488,6 @@ The syntax is as follows:
     const char *: func2)(x, label)
 ```
 where `func0`, `func1`, and `func2` are selected depending if `x` is `int`, `double`, or `char*`, respectively, and `label` is a second argument that doesn't vary. The `_Generic` selection expression **must be a single expression**, that is, it can't handle tuples (like `(x, y)`). See `_generic/`.
-
-### `inline` (`C`/`C++`)
-
-The `inline` keyword in C/C++ is used to suggest to the compiler that it should attempt to expand the function inline rather than calling it through the usual function call mechanism. When a function is declared as inline, the compiler attempts to insert the complete body of the function in every place where the function is called, rather than generating a call to the function. This can reduce the overhead of function calls and is especially used for small, frequently called functions. Regardless, keep in mind that the `inline` keyword is a suggestion to the compiler, and the compiler is free to ignore it. Although it might be considered a good practice to use it when reasonable, modern compilers perform their own optimizations and may choose to inline functions regardless of the `inline` keyword.
-```cpp
-inline int add(int a, int b) {
-    return a + b;
-}
-```
-When you define a member function inside a class definition, it is implicitly considered inline by the compiler.
-```cpp
-class MyClass {
-public:
-    int add(int a, int b) { // This function is implicitly inline
-        return a + b;
-    }
-};
-```
-If you don't want that `add()` be interpreted as inline, you should avoid defining it within the class definition. Instead, declare the function in the class definition and define it outside the class in a separate source file.
-```cpp
-// MyClass.h
-#ifndef MYCLASS_H
-#define MYCLASS_H
-
-class MyClass {
-public:
-    int add(int a, int b); // Declaration only, no inline
-};
-
-#endif // MYCLASS_H
-```
-
-```cpp
-// MyClass.cpp
-#include "MyClass.h"
-
-int MyClass::add(int a, int b) { // Definition, not inline
-    return a + b;
-}
-```
 
 [1]: https://stackoverflow.com/questions/693788/is-it-better-to-use-c-void-arguments-void-foovoid-or-not-void-foo
 [2]: https://stackoverflow.com/questions/6393776/what-is-the-difference-between-a-macro-and-a-const-in-c
