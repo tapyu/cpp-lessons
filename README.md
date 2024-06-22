@@ -54,3 +54,47 @@ MyString(MyString&& other) noexcept {
 It is one of the standard output streams provided by the C++ Standard Library, more specifically by the `std::ostream` class. It is designed for writing error messages and other diagnostic information to the standard error stream. It is an instance of the  class.
 
 `std::cerr` itself does not throw exceptions. Exceptions are typically thrown by C++ code when exceptional conditions occur, and they can be caught and handled using try and catch blocks. `std::cerr` is often used for reporting errors or exceptions, but it doesn't itself throw exceptions.
+
+
+---
+
+# Common errors:
+
+## initializer element is not constant
+
+Example:
+
+```c
+#include <stdio.h>
+
+int add(int a, int b) {
+    return a + b;
+}
+
+int x = add(1,1);
+
+int main() {
+    printf("Hello inline function: %d\n", x);
+    return 0;
+}
+```
+
+"initializer element is not constant," occurs because in C, global variables must be initialized with constant expressions. However, add(1,1) is not considered a constant expression since it involves a function call. In C, constant expressions are typically simple literals or constant expressions involving literals, such as 1, 1 + 1, or 3 * 4.
+
+To solve this, you need to initialize the variable x within a function, such as main, where it is allowed to perform computations using function calls. Here’s how you can modify your code:
+
+```c
+#include <stdio.h>
+
+int add(int a, int b) {
+    return a + b;
+}
+
+int x; // Declare the global variable without initialization
+
+int main() {
+    x = add(1, 1); // Initialize x within the main function
+    printf("Hello inline function: %d\n", x);
+    return 0;
+}
+```
