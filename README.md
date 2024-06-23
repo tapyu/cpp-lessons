@@ -216,11 +216,17 @@ The static keyword can be used in a function declaration in several different co
 
 ### `inline` keyword (`C`/`C++`)
 
-The `inline` keyword is used to suggest to the compiler that add can be inlined at its call site. However, in C, unlike C++, **inline does not automatically provide internal linkage**. For example, in
+The `inline` keyword in C/C++ is used to suggest to the compiler that it should attempt to expand the function inline rather than calling it through the usual function call mechanism. When a function is declared as inline, the compiler attempts to insert the complete body of the function in every place where the function is called, rather than generating a call to the function. This can reduce the overhead of function calls and is especially used for small, frequently called functions. Regardless, keep in mind that the `inline` keyword is a suggestion to the compiler, and the compiler is free to ignore it. Although it might be considered a good practice to use it when reasonable, modern compilers perform their own optimizations and may choose to inline functions regardless of the `inline` keyword.
+
+However, **`inline` keyword should be used carefully as it may cause linking issues**. Moreover, it has different behaviour for `C` and `C++`
+
+#### `C`
+
+In `C`, unlike `C++`, **inline does not enforce internal linkage**. For example, in
 
 ```c
+//main.c
 #include <stdio.h>
-
 
 inline int f(int x) {
     return x;
@@ -232,13 +238,247 @@ int main() {
 }
 ```
 
-we obtain
+we get
 
 ```
-❯ gcc -o file1 file1.c
-/usr/bin/ld: /tmp/ccQPWsmH.o: in function `main':
-file1.c:(.text+0xe): undefined reference to `f'
+/usr/bin/ld: /tmp/ccpTpPeP.o: in function `main':
+file1.c:(.text+0x17): undefined reference to `f'
 collect2: error: ld returned 1 exit status
+```
+
+The assembly code (`gcc -S main.c -o main.s`) is
+
+```asm
+	.file	"main.c"
+	.text
+	.section	.rodata
+.LC0:
+	.string	"Hello inline function: %d\n"
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB1:
+	.cfi_startproc
+	endbr64
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movl	$1, %edi
+	call	f@PLT
+	movl	%eax, %esi
+	leaq	.LC0(%rip), %rax
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movl	$0, %eax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1:
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0"
+	.section	.note.GNU-stack,"",@progbits
+	.section	.note.gnu.property,"a"
+	.align 8
+	.long	1f - 0f
+	.long	4f - 1f
+	.long	5
+0:
+	.string	"GNU"
+1:
+	.align 8
+	.long	0xc0000002
+	.long	3f - 2f
+2:
+	.long	0x3
+3:
+	.align 8
+4:
+```
+
+The assembly code generated includes a call to `f@PLT`, which indicates that the linker expects to find the function `f` in the Procedure Linkage Table (PLT). This happens because the **`inline` keyword does not necessarily enforce the internal linkage** (i.e., visibility limited to the translation unit where it is defined).
+
+##### Solution 1: `static inline` function for nonshared functions
+
+The `inline` keyword alone does not provide a linkage specification that the linker can use to find the function definition. Adding `static` ensures that the function has internal linkage, making its definition available within the translation unit and avoiding undefined references. By adding `static` in the previous snippet, we get the following assembly code:
+```asm
+...
+	.file	"main.c"
+	.text
+	.type	f, @function
+f:
+.LFB0:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movl	%edi, -4(%rbp)
+	movl	-4(%rbp), %eax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+
+...
+
+    call	f
+
+...
+```
+
+##### Solution 2: share `inline` function across multiple files
+
+- Each .c file is compiled independently into .o output. If you define the inline function in a .c file, other source files cannot see such function, so that cannot be inlined. Therefore the inline function should be in the .h file to allow the code to be shared.
+- Inline functions are defined in the header because, in order to inline a function call, the compiler must be able to see the function body.
+- functions defined in the header must be marked inline because otherwise, every translation unit which includes the header will contain a definition of the function, and the linker will complain about multiple definitions (a violation of the One Definition Rule). The inline keyword suppresses this, allowing multiple translation units to contain (identical) definitions.
+- **While it's generally true that header files contain declarations, inline functions are a notable exception** where definitions are also placed in headers to allow for inlining.
+
+A example is
+
+`main.c`:
+```c
+#include <stdio.h>
+#include "main.h"
+#include "file1.h"
+
+extern inline int f(int x);
+
+int main() {
+    printf("Hello inline function: %d\n", f(1));
+
+    int y = some_function();
+
+    printf("Hi from file1: %d\n", y);
+    return 0;
+}
+```
+`main.h`:
+```c
+#ifndef MAIN_H
+#define MAIN_H
+
+// Declare the inline function in the header file
+inline int f(int x) {
+    return x;
+}
+
+#endif // MAIN_H
+```
+`file1.c`:
+```c
+#include "main.h"
+#include "file1.h"
+
+// Use the extern inline function in another file
+int some_function() {
+    return f(3);
+}
+```
+`file1.h`:
+```c
+#ifndef FILE1_H
+#define FILE1_H
+
+// Declare the some_function function
+int some_function();
+
+#endif // FILE1_H
+```
+
+
+##### Rules of thumb
+
+The issue arises because the `inline` keyword alone does not provide a linkage specification that the linker can use to find the function definition. Adding `static` ensures that the function has internal linkage, making its definition available within the translation unit and avoiding undefined references. Alternatively you can use `extern` to get the funciton
+
+You should use:
+
+- `static inline`: Use for functions that should be inlined and not visible outside the current translation unit.
+    ```c
+    #include <stdio.h>
+
+    // Define the static inline function
+    static inline int add(int a, int b) {
+        return a + b + 3;
+    }
+    
+    int main() {
+        int x = add(1, 1);
+        printf("Result of add(1, 1): %d\n", x);
+        return 0;
+    }
+    ```
+- `extern inline`: Used when the function definition is in a header file and is shared across multiple translation units.
+    ```c
+    // file1.h
+    #ifndef FILE1_H
+    #define FILE1_H
+    
+    // Declare the extern inline function
+    extern inline int add(int a, int b);
+    
+    #endif // FILE1_H
+    ```
+    ```c
+    #include <stdio.h>
+    #include "file1.h"
+    
+    // Define the extern inline function
+    extern inline int add(int a, int b) {
+        return a + b + 3;
+    }
+    
+    int main() {
+        int x = add(1, 1);
+        printf("Result of add(1, 1): %d\n", x);
+        return 0;
+    }
+    
+
+
+#### `C++`
+
+
+```cpp
+inline int add(int a, int b) {
+    return a + b;
+}
+```
+When you define a member function inside a class definition, it is implicitly considered inline by the compiler.
+```cpp
+class MyClass {
+public:
+    int add(int a, int b) { // This function is implicitly inline
+        return a + b;
+    }
+};
+```
+If you don't want that `add()` be interpreted as inline, you should avoid defining it within the class definition. Instead, declare the function in the class definition and define it outside the class in a separate source file.
+```cpp
+// MyClass.h
+#ifndef MYCLASS_H
+#define MYCLASS_H
+
+class MyClass {
+public:
+    int add(int a, int b); // Declaration only, no inline
+};
+
+#endif // MYCLASS_H
+```
+
+```cpp
+// MyClass.cpp
+#include "MyClass.h"
+
+int MyClass::add(int a, int b) { // Definition, not inline
+    return a + b;
+}
 ```
 
 [1]: https://stackoverflow.com/questions/1410563/what-is-the-difference-between-a-definition-and-a-declaration/1411005#1411005
