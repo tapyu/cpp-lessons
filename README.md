@@ -388,8 +388,7 @@ int some_function();
 #endif // FILE1_H
 ```
 
-- Sources
-
+Sources
 - https://stackoverflow.com/questions/78657695/how-to-use-inline-function-across-multiple-c-files-without-the-declared-but-n
 - https://stackoverflow.com/questions/6312597/is-inline-without-static-or-extern-ever-useful-in-c99
 - https://stackoverflow.com/questions/2752644/is-there-a-way-to-define-c-inline-function-in-c-file-rather-than-h-file
