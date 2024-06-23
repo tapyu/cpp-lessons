@@ -346,10 +346,7 @@ A example is
 `main.c`:
 ```c
 #include <stdio.h>
-#include "main.h"
 #include "file1.h"
-
-extern inline int f(int x);
 
 int main() {
     printf("Hello inline function: %d\n", f(1));
@@ -360,22 +357,13 @@ int main() {
     return 0;
 }
 ```
-`main.h`:
-```c
-#ifndef MAIN_H
-#define MAIN_H
-
-// Declare the inline function in the header file
-inline int f(int x) {
-    return x;
-}
-
-#endif // MAIN_H
-```
 `file1.c`:
 ```c
 #include "main.h"
 #include "file1.h"
+
+// declares that `inline int f(int x)` is defined somewhere else
+extern inline int f(int x);
 
 // Use the extern inline function in another file
 int some_function() {
@@ -386,6 +374,11 @@ int some_function() {
 ```c
 #ifndef FILE1_H
 #define FILE1_H
+
+// definition of `f` -> you MUST define it in the header file as each translation unit that imports `file1.h` needs to have the implementation of `f` in order to inline it
+inline int f(int x) {
+    return x;
+}
 
 // Declare the some_function function
 int some_function();
