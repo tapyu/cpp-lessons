@@ -332,12 +332,13 @@ f:
 ...
 ```
 
-##### Solution 2: share `inline` function across multiple files
+##### Solution 2: `extern inline` functions across multiple files
 
 - Each .c file is compiled independently into .o output. If you define the inline function in a .c file, other source files cannot see such function, so that cannot be inlined. Therefore the inline function should be in the .h file to allow the code to be shared.
 - Inline functions are defined in the header because, in order to inline a function call, the compiler must be able to see the function body.
-- functions defined in the header must be marked inline because otherwise, every translation unit which includes the header will contain a definition of the function, and the linker will complain about multiple definitions (a violation of the One Definition Rule). The inline keyword suppresses this, allowing multiple translation units to contain (identical) definitions.
+- functions defined in the header must be marked `inline` because otherwise, every translation unit which includes the header will contain a definition of the function, and the linker will complain about multiple definitions (a violation of the One Definition Rule). The `inline` keyword suppresses this, allowing multiple translation units to contain (identical) definitions.
 - **While it's generally true that header files contain declarations, inline functions are a notable exception** where definitions are also placed in headers to allow for inlining.
+- Inline function definitions need to be visible wherever the function is invoked. You can define the function in a .c file if you only want to use it within that .c file, otherwise you need to define it in a .h file so that the definition can be #included wherever it is needed.
 
 A example is
 
