@@ -339,6 +339,7 @@ f:
 - functions defined in the header must be marked `inline` because otherwise, every translation unit which includes the header will contain a definition of the function, and the linker will complain about multiple definitions (a violation of the One Definition Rule). The `inline` keyword suppresses this, allowing multiple translation units to contain (identical) definitions.
 - **While it's generally true that header files contain declarations, inline functions are a notable exception** where definitions are also placed in headers to allow for inlining.
 - Inline function definitions need to be visible wherever the function is invoked. You can define the function in a .c file if you only want to use it within that .c file, otherwise you need to define it in a .h file so that the definition can be #included wherever it is needed.
+- Don't declare an `inline extern` function in a header file. This creates an "external definition" for the function, and you can only have one of those in your entire program.
 
 A example is
 
@@ -391,56 +392,6 @@ int some_function();
 
 #endif // FILE1_H
 ```
-
-
-##### Rules of thumb
-
-The issue arises because the `inline` keyword alone does not provide a linkage specification that the linker can use to find the function definition. Adding `static` ensures that the function has internal linkage, making its definition available within the translation unit and avoiding undefined references. Alternatively you can use `extern` to get the funciton
-
-You should use:
-
-- `static inline`: Use for functions that should be inlined and not visible outside the current translation unit.
-    ```c
-    #include <stdio.h>
-
-    // Define the static inline function
-    static inline int add(int a, int b) {
-        return a + b + 3;
-    }
-    
-    int main() {
-        int x = add(1, 1);
-        printf("Result of add(1, 1): %d\n", x);
-        return 0;
-    }
-    ```
-- `extern inline`: Used when the function definition is in a header file and is shared across multiple translation units.
-    ```c
-    // file1.h
-    #ifndef FILE1_H
-    #define FILE1_H
-    
-    // Declare the extern inline function
-    extern inline int add(int a, int b);
-    
-    #endif // FILE1_H
-    ```
-    ```c
-    #include <stdio.h>
-    #include "file1.h"
-    
-    // Define the extern inline function
-    extern inline int add(int a, int b) {
-        return a + b + 3;
-    }
-    
-    int main() {
-        int x = add(1, 1);
-        printf("Result of add(1, 1): %d\n", x);
-        return 0;
-    }
-    
-
 
 #### `C++`
 
