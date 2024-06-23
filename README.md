@@ -222,6 +222,8 @@ However, **`inline` keyword should be used carefully as it may cause linking iss
 
 #### `C`
 
+> PS: In `C`, using `inline` is not a so recommended approach the be [annoying StackOverflow community](https://stackoverflow.com/questions/78657695/how-to-use-inline-function-across-multiple-c-files-without-the-declared-but-n?noredirect=1#comment138681776_78657695). It is a suggestion and seems unecessary and optimizations are usually performed be the compiler without you need to check what functions should be inlined: "'So it is not used in C anymore?' Yes. (I use it to remove one gcc warning). 'inline seemed very effective' why would a compiler inline only functions marked inline? Sounds ineffective. **All functions (that compiler can) can be inlined**.". So don't give a damn about it...
+
 In `C`, unlike `C++`, **inline does not enforce internal linkage**. For example, in
 
 ```c
@@ -385,6 +387,14 @@ int some_function();
 
 #endif // FILE1_H
 ```
+
+- Sources
+
+- https://stackoverflow.com/questions/78657695/how-to-use-inline-function-across-multiple-c-files-without-the-declared-but-n
+- https://stackoverflow.com/questions/6312597/is-inline-without-static-or-extern-ever-useful-in-c99
+- https://stackoverflow.com/questions/2752644/is-there-a-way-to-define-c-inline-function-in-c-file-rather-than-h-file
+- https://stackoverflow.com/questions/62163802/c-small-function-not-inlining
+- https://stackoverflow.com/questions/48172290/static-and-extern-inline-functions-in-c
 
 #### `C++`
 
