@@ -216,13 +216,13 @@ The static keyword can be used in a function declaration in several different co
 
 ### `inline` keyword (`C`/`C++`)
 
+> WARNING: In `C`, using `inline` is not a so recommended approach the be [annoying StackOverflow community](https://stackoverflow.com/questions/78657695/how-to-use-inline-function-across-multiple-c-files-without-the-declared-but-n?noredirect=1#comment138681776_78657695). It is a suggestion and seems unecessary and optimizations are usually performed be the compiler without you need to check what functions should be inlined: "'So it is not used in C anymore?' Yes. (I use it to remove one gcc warning). 'inline seemed very effective' why would a compiler inline only functions marked inline? Sounds ineffective. **All functions (that compiler can) can be inlined**.". So don't give a damn about it...
+
 The `inline` keyword in C/C++ is used to suggest to the compiler that it should attempt to expand the function inline rather than calling it through the usual function call mechanism. When a function is declared as inline, the compiler attempts to insert the complete body of the function in every place where the function is called, rather than generating a call to the function. This can reduce the overhead of function calls and is especially used for small, frequently called functions. Regardless, keep in mind that the `inline` keyword is a suggestion to the compiler, and the compiler is free to ignore it. Although it might be considered a good practice to use it when reasonable, modern compilers perform their own optimizations and may choose to inline functions regardless of the `inline` keyword.
 
 However, **`inline` keyword should be used carefully as it may cause linking issues**. Moreover, it has different behaviour for `C` and `C++`
 
 #### `C`
-
-> PS: In `C`, using `inline` is not a so recommended approach the be [annoying StackOverflow community](https://stackoverflow.com/questions/78657695/how-to-use-inline-function-across-multiple-c-files-without-the-declared-but-n?noredirect=1#comment138681776_78657695). It is a suggestion and seems unecessary and optimizations are usually performed be the compiler without you need to check what functions should be inlined: "'So it is not used in C anymore?' Yes. (I use it to remove one gcc warning). 'inline seemed very effective' why would a compiler inline only functions marked inline? Sounds ineffective. **All functions (that compiler can) can be inlined**.". So don't give a damn about it...
 
 In `C`, unlike `C++`, **inline does not enforce internal linkage**. For example, in
 
@@ -394,6 +394,8 @@ Sources
 - https://stackoverflow.com/questions/2752644/is-there-a-way-to-define-c-inline-function-in-c-file-rather-than-h-file
 - https://stackoverflow.com/questions/62163802/c-small-function-not-inlining
 - https://stackoverflow.com/questions/48172290/static-and-extern-inline-functions-in-c
+- https://stackoverflow.com/questions/78657888/extern-inline-vs-static-inline-shared-functions-what-is-the-correct-form
+- https://stackoverflow.com/questions/25000497/whats-the-difference-between-static-inline-extern-inline-and-a-normal-inline-f
 
 #### `C++`
 
