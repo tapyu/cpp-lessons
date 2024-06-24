@@ -220,6 +220,14 @@ The static keyword can be used in a function declaration in several different co
 
 The `inline` keyword in C/C++ is used to suggest to the compiler that it should attempt to expand the function inline rather than calling it through the usual function call mechanism. When a function is declared as inline, the compiler attempts to insert the complete body of the function in every place where the function is called, rather than generating a call to the function. This can reduce the overhead of function calls and is especially used for small, frequently called functions. Regardless, keep in mind that the `inline` keyword is a suggestion to the compiler, and the compiler is free to ignore it. Although it might be considered a good practice to use it when reasonable, modern compilers perform their own optimizations and may choose to inline functions regardless of the `inline` keyword.
 
+- Each .c file is compiled independently into .o output. If you define the inline function in a .c file, other source files cannot see such function, so that cannot be inlined. Therefore the inline function should be in the .h file to allow the code to be shared.
+- Inline functions are defined in the header because, in order to inline a function call, the compiler must be able to see the function body.
+- functions defined in the header must be marked `inline` because otherwise, every translation unit which includes the header will contain a definition of the function, and the linker will complain about multiple definitions (a violation of the One Definition Rule). The `inline` keyword suppresses this, allowing multiple translation units to contain (identical) definitions.
+- A function call may be inlined even if not declared inline in special cases where the compiler can determine this is correct and desirable. For instance, when a static function is called only once, it will very likely be inlined.
+- **While it's generally true that header files contain declarations, inline functions are a notable exception** where definitions are also placed in headers to allow for inlining.
+- Inline function definitions need to be visible wherever the function is invoked. You can define the function in a .c file if you only want to use it within that .c file, otherwise you need to define it in a .h file so that the definition can be #included wherever it is needed.
+- Don't declare an `inline extern` function in a header file. This creates an "external definition" for the function, and you can only have one of those in your entire program.
+
 However, **`inline` keyword should be used carefully as it may cause linking issues**. Moreover, it has different behaviour for `C` and `C++`
 
 #### `C`
@@ -335,13 +343,6 @@ f:
 ```
 
 ##### Solution 2: `extern inline` functions across multiple files
-
-- Each .c file is compiled independently into .o output. If you define the inline function in a .c file, other source files cannot see such function, so that cannot be inlined. Therefore the inline function should be in the .h file to allow the code to be shared.
-- Inline functions are defined in the header because, in order to inline a function call, the compiler must be able to see the function body.
-- functions defined in the header must be marked `inline` because otherwise, every translation unit which includes the header will contain a definition of the function, and the linker will complain about multiple definitions (a violation of the One Definition Rule). The `inline` keyword suppresses this, allowing multiple translation units to contain (identical) definitions.
-- **While it's generally true that header files contain declarations, inline functions are a notable exception** where definitions are also placed in headers to allow for inlining.
-- Inline function definitions need to be visible wherever the function is invoked. You can define the function in a .c file if you only want to use it within that .c file, otherwise you need to define it in a .h file so that the definition can be #included wherever it is needed.
-- Don't declare an `inline extern` function in a header file. This creates an "external definition" for the function, and you can only have one of those in your entire program.
 
 A example is
 
