@@ -128,6 +128,10 @@ Although there are many `C`/`C++` compilers out there, their options/flags are s
   <td><code>-Wshadow</code></td>
   <td>Warn when a local variable shadows another variable. It helps avoid unintended variable shadowing.</td>
 </tr>
+<tr>
+  <td><code>-pg</code></td>
+  <td>Generate extra code to write profile information suitable for the analysis program <code>prof</code> (for <code>-p</code>) or <code>gprof</code> (for <code>-pg</code>)</td>
+</tr>
 </table>
 
 ---
